@@ -1,0 +1,16 @@
+{
+  "name": "shipfast",
+  "owner": {
+    "name": "Noah Rasheta"
+  },
+  "metadata": {
+    "description": "A collection of plugins, agents, and skills to ship fast"
+  },
+  "plugins": [
+    {
+      "name": "dc-due-diligence",
+      "source": "./dc-due-diligence",
+      "description": "Data center due diligence workflow automation - analyzes data room documents and produces executive summaries with scored categories"
+    }
+  ]
+}
