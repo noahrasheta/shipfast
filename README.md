@@ -1,12 +1,12 @@
 # Shipfast
 
-A Claude Code plugin marketplace at [shipfast.cc](https://shipfast.cc)
+Plugins, skills, and coding resources by [Noah Rasheta](https://noahrasheta.com) -- hosted at [shipfast.cc](https://shipfast.cc)
 
 ---
 
-I'm Noah Rasheta, and this is my collection of open-source Claude Code plugins, skills, and agents. I built these for my own work in data center procurement, real estate analysis, and other domains where agentic AI and autonomous workflows save real time. Everything here is shared for the community to use, fork, and build on.
+I'm a podcast host with a bunch of side businesses and projects. I build Claude Code plugins, skills, and agents to automate the things I do repeatedly. This repo is where all of that lives -- open source, for anyone to use, fork, or build on.
 
-This marketplace represents hands-on work in agentic AI: multi-agent orchestration, document processing pipelines, parallel research workflows, and structured output generation -- all running inside Claude Code.
+The stuff here spans many domains because my work does too. Data infrastructure, real estate, content workflows, and whatever I'm tinkering with next. The common thread is Claude Code and agentic AI.
 
 ## Quick Start
 
@@ -36,6 +36,10 @@ Data center due diligence workflow automation. Point it at a folder of data room
 ```
 
 **Status:** v0.1.0 -- pipeline validation phase. Test agent functional, full 9-agent parallel orchestration in progress.
+
+---
+
+*More plugins coming as I build them.*
 
 ## Links
 
