@@ -14,28 +14,10 @@ Add the marketplace and install a plugin:
 
 ```
 /plugin marketplace add noahrasheta/shipfast
-/plugin install dc-due-diligence@shipfast
+/plugin install create-image@shipfast
 ```
 
 ## Plugins
-
-### dc-due-diligence
-
-Data center due diligence workflow automation. Point it at a folder of data room documents and get a structured executive summary with scored categories.
-
-**What it does:**
-- Processes PDFs, spreadsheets, Word docs, and images into analyzable markdown
-- Spawns 9 domain research agents in parallel (power, connectivity, water, gas, environmental, ownership, zoning, commercials, market comparables)
-- Each agent produces a standardized report with traffic-light scoring and confidence percentages
-- Validates all outputs against a structured template
-
-**Usage:**
-
-```
-/dc-due-diligence:due-diligence ./path/to/opportunity-folder
-```
-
-**Status:** v0.1.0 -- pipeline validation phase. Test agent functional, full 9-agent parallel orchestration in progress.
 
 ### create-image
 

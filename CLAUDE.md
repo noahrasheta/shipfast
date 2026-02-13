@@ -26,16 +26,13 @@ When Noah adds new plugins or skills, help him structure them correctly, validat
 shipfast/
 ├── .claude-plugin/
 │   └── marketplace.json          # Marketplace catalog (lists all plugins)
-├── dc-due-diligence/             # Plugin: Data center due diligence
+├── create-image/                 # Plugin: AI image generation
 │   ├── .claude-plugin/
 │   │   └── plugin.json           # Plugin manifest
-│   ├── agents/                   # Domain research agents
-│   ├── skills/
-│   │   └── due-diligence/
-│   │       └── SKILL.md          # Orchestrator skill
-│   ├── converters/               # Python document processing pipeline
-│   ├── templates/                # Agent output templates
-│   └── tests/                    # Test fixtures
+│   ├── agents/                   # PaperBanana agent team
+│   └── skills/
+│       └── create-image/
+│           └── SKILL.md          # Orchestrator skill
 ├── CLAUDE.md                     # This file
 ├── README.md
 └── LICENSE
@@ -56,14 +53,14 @@ shipfast/
 - **Paths in agents** use `${CLAUDE_PLUGIN_ROOT}` to reference files within the plugin (never hardcode absolute paths)
 - **Marketplace catalog** at `.claude-plugin/marketplace.json` lists all available plugins
 
-## Plugin Reference: dc-due-diligence
+## Plugin Reference: create-image
 
-The `dc-due-diligence` plugin automates data center procurement analysis:
+The `create-image` plugin generates AI images using the PaperBanana agentic framework:
 
-- **Skill** (`/due-diligence <folder>`): Orchestrates the full workflow
-- **Converters**: Python pipeline that processes PDFs, spreadsheets, Word docs into markdown
-- **Agents**: 9 domain research agents + 1 test agent, all spawned in parallel via the Task tool
-- **Templates**: Standardized output format all agents must follow
+- **Skill** (`/create-image [description]`): Orchestrates the full image generation pipeline
+- **Agents**: 4 specialized agents (Research, Prompt Architect, Generator, Critic) running sequentially
+- **Framework**: Based on Google Cloud AI Research's PaperBanana paper (+17% improvement over single-shot generation)
+- **Output**: 5 image variants with multi-dimensional critique and ranked recommendations
 
 ## Local Development
 
