@@ -1,0 +1,12 @@
+{
+  "name": "create-image",
+  "description": "AI image generation using the PaperBanana agentic framework with Nano Banana Pro (Gemini 3 Pro) API - orchestrates a team of specialized agents to research, prompt-engineer, generate, and critique professional-quality images",
+  "version": "0.1.0",
+  "author": {
+    "name": "Noah Rasheta"
+  },
+  "homepage": "https://shipfast.cc",
+  "repository": "https://github.com/noahrasheta/shipfast",
+  "license": "MIT",
+  "keywords": ["image-generation", "nano-banana", "gemini", "paperbanana", "agent-team", "design"]
+}
