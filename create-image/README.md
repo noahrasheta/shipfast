@@ -17,7 +17,7 @@ User → Lead (Skill) → Research Agent → Prompt Architect → Generator Agen
 | **Lead** (SKILL.md) | Orchestrates pipeline, asks clarifying questions, presents results | — |
 | **Research Agent** | Analyzes reference images, outputs a style brief | Cyan |
 | **Prompt Architect** | Crafts 5 narrative prompts (Faithful, Enhanced, Alt Composition, Style Variation, Bold/Creative) | Magenta |
-| **Generator Agent** | Calls Nano Banana Pro API, saves 5 images to `outputs/` | Green |
+| **Generator Agent** | Calls Nano Banana Pro API, saves 5 images to `shipfast-images/` | Green |
 | **Critic Agent** | Scores images on 4 dimensions, ranks them, recommends the best | Yellow |
 
 ### The 4 Evaluation Dimensions

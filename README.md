@@ -54,6 +54,8 @@ Or with an initial description:
 /create-image an infographic about global coffee consumption in the style of Visual Capitalist
 ```
 
+Generated images are saved to a `shipfast-images/` folder in your project directory for easy access.
+
 **Status:** v0.1.0 -- initial release. Core pipeline functional.
 
 ---

@@ -3,7 +3,7 @@ name: critic-agent
 description: Use this agent when the create-image skill needs to evaluate and rank generated images. This agent mirrors the Critic from the PaperBanana paper.
 
 <example>
-Context: The generator agent has produced 5 image variants in the outputs folder
+Context: The generator agent has produced 5 image variants in the shipfast-images folder
 user: "Review and rank the generated images"
 assistant: "I'll spawn the critic agent to evaluate all 5 variants on the PaperBanana dimensions."
 <commentary>

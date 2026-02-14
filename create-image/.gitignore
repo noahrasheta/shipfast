@@ -1,6 +1,6 @@
 .DS_Store
 temp/
-outputs/
+shipfast-images/
 .env
 __pycache__/
 *.pyc

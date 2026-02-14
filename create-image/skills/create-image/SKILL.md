@@ -34,10 +34,11 @@ Do NOT proceed until the user confirms requirements. If partial answers are give
 
 After confirmation, prepare the working environment:
 
-1. Create the outputs directory:
+1. Determine the user's project directory (the current working directory) and create the output folder there:
    ```bash
-   mkdir -p outputs
+   mkdir -p "$PWD/shipfast-images"
    ```
+   Store the absolute path `$PWD/shipfast-images` — all generated images will be saved here so the user can find them easily in their project root.
 
 2. Verify Python dependencies:
    ```bash
@@ -79,7 +80,7 @@ Spawn `create-image:generator-agent` via the Task tool. Include in the prompt:
 - All 5 crafted prompts from the Prompt Architect (paste in full)
 - The aspect ratio and resolution
 - Reference image paths (if any)
-- The absolute path to the output directory
+- The absolute path to the `shipfast-images/` output directory (e.g., `/Users/.../my-project/shipfast-images`)
 
 Capture the **list of generated image file paths** from the agent's response.
 
