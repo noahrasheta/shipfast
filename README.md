@@ -10,14 +10,21 @@ The stuff here spans many domains because my work does too. Data infrastructure,
 
 ## Quick Start
 
-Add the marketplace and install a plugin:
+Add the marketplace and install any plugin:
 
 ```
 /plugin marketplace add noahrasheta/shipfast
-/plugin install create-image@shipfast
+/plugin install <plugin-name>@shipfast
 ```
 
 ## Plugins
+
+| Plugin | What it does | Command |
+|--------|-------------|---------|
+| [create-image](#create-image) | AI image generation with multi-agent pipeline | `/create-image` |
+| [dc-due-diligence](#dc-due-diligence) | Data center site analysis across 9 domains | `/due-diligence <folder>` |
+
+---
 
 ### create-image
 
@@ -57,6 +64,62 @@ Or with an initial description:
 Generated images are saved to a `shipfast-images/` folder in your project directory for easy access.
 
 **Status:** v0.1.0 -- initial release. Core pipeline functional.
+
+---
+
+### dc-due-diligence
+
+Automated due diligence for data center site opportunities. Point it at a folder of broker documents (PDFs, spreadsheets, Word docs, PowerPoint decks, images) and it runs a full analysis across 9 domains, synthesizes cross-domain risks, and produces a scored executive summary with a **Pursue / Proceed with Caution / Pass** verdict.
+
+**What it does:**
+- Converts all documents in the folder to markdown (PDF, Excel, Word, PowerPoint, images via vision API)
+- Spawns 9 domain research agents in parallel, each analyzing the converted documents and conducting independent web research to verify broker claims:
+  - **Power** -- utility interconnection, grid capacity, substation, redundancy design
+  - **Connectivity** -- fiber carriers, route diversity, carrier neutrality
+  - **Water & Cooling** -- water supply, cooling system design, scarcity risk
+  - **Land, Zoning & Entitlements** -- zoning compliance, permits, building readiness
+  - **Ownership & Control** -- property ownership verification, middleman detection, litigation
+  - **Environmental** -- natural hazards, contamination, Phase I ESA status
+  - **Commercials** -- deal terms, land cost, power rates, lease structure
+  - **Natural Gas** -- pipeline access, on-site generation feasibility, permitting
+  - **Market Comparables** -- comparable transactions, market rates, competition
+- Runs a **Risk Assessment** agent that reads all 9 domain reports and identifies cross-cutting risks, deal-breakers, and compound risks
+- Generates an **Executive Summary** that scores each category (High / Medium / Low), applies a tiered verdict system, and delivers a stakeholder-ready report
+
+**Output:**
+- `<folder>/EXECUTIVE_SUMMARY.md` -- scored summary with verdict, strengths, concerns, deal-breakers, and next steps
+- `<folder>/research/*.md` -- 10 detailed research reports (one per domain + risk assessment)
+
+**Prerequisites:**
+
+Python 3.11+ is required. The setup script handles the rest:
+
+```bash
+cd dc-due-diligence
+./setup.sh
+```
+
+This creates a `.venv` and installs all dependencies (pdfplumber, openpyxl, python-docx, python-pptx, anthropic, Pillow, tavily-python, exa-py, firecrawl-py, apify-client).
+
+For full web research capabilities, set API keys in your environment:
+```
+ANTHROPIC_API_KEY=...    # Required for vision-based image conversion
+TAVILY_API_KEY=...       # Optional, enhanced web search
+EXA_API_KEY=...          # Optional, semantic document search
+FIRECRAWL_API_KEY=...    # Optional, JS-rendered page scraping
+APIFY_TOKEN=...          # Optional, web scraping
+```
+
+Agents also use the built-in WebSearch and WebFetch tools, which work without additional keys.
+
+**Usage:**
+```
+/due-diligence ./path/to/opportunity-folder
+```
+
+The folder should contain the broker-provided documents for the opportunity. The plugin handles conversion, analysis, and reporting end to end.
+
+**Status:** v0.1.0 -- initial release. Full pipeline functional with 12 agents, document conversion, and web research verification.
 
 ---
 
