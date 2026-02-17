@@ -53,8 +53,11 @@ shipfast/
 
 1. Create a new directory at the repo root: `my-plugin/`
 2. Add `.claude-plugin/plugin.json` inside it with name, description, version, author
-3. Add the plugin entry to `.claude-plugin/marketplace.json` in the `plugins` array
-4. Structure agents as `agents/<name>.md`, skills as `skills/<name>/SKILL.md`
+3. Structure agents as `agents/<name>.md`, skills as `skills/<name>/SKILL.md`
+4. Add the plugin entry to `.claude-plugin/marketplace.json` in the `plugins` array
+5. Add a plugin reference section to this file (`CLAUDE.md`)
+6. Add a row to the plugin summary table in `README.md` and a detailed `### my-plugin` section
+7. Validate with `/plugin-dev:plugin-validator` and review skills with `/plugin-dev:skill-reviewer`
 
 ## Key Conventions
 
@@ -63,6 +66,7 @@ shipfast/
 - **Agent files** must have YAML frontmatter with `name` and `description` fields
 - **Paths in agents** use `${CLAUDE_PLUGIN_ROOT}` to reference files within the plugin (never hardcode absolute paths)
 - **Marketplace catalog** at `.claude-plugin/marketplace.json` lists all available plugins
+- **Three files to update** when adding a plugin: `marketplace.json`, `CLAUDE.md` (plugin reference), `README.md` (summary table + detailed section)
 
 ## Plugin Reference: create-image
 
@@ -89,11 +93,11 @@ The `dc-due-diligence` plugin automates data center due diligence analysis:
 Test a plugin locally without installing from the marketplace:
 
 ```bash
-claude --plugin-dir ./dc-due-diligence
+claude --plugin-dir ./<plugin-name>
 ```
 
 Validate plugin structure:
 
 ```bash
-claude plugin validate ./dc-due-diligence
+claude plugin validate ./<plugin-name>
 ```
