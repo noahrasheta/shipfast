@@ -30,3 +30,6 @@ Thumbs.db
 
 # Converted document staging folders
 _converted/
+
+# Internal design docs
+Data Center Due Diligence Workflow Automation.md
