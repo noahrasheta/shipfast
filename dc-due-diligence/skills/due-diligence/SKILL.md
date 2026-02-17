@@ -37,10 +37,21 @@ Execute the following phases in order. Each phase must complete successfully bef
    fi
    echo "PLUGIN_DIR=$PLUGIN_DIR"
    ```
-   - If `PLUGIN_DIR` is empty, tell the user: "Could not locate the dc-due-diligence plugin. Make sure it's installed and that `setup.sh` has been run."
+   - If `PLUGIN_DIR` is empty, tell the user: "Could not locate the dc-due-diligence plugin. Make sure it's installed via `/plugin install dc-due-diligence@shipfast`."
    - Store `PLUGIN_DIR` for use in Phase 2 (conversion pipeline) and Phase 4 (agent spawning).
 
-3. **Report to user:**
+3. **Ensure the Python virtual environment is set up:**
+
+   Check if the `.venv` exists in the plugin directory. If not, run the setup script automatically:
+   ```bash
+   if [ ! -f "$PLUGIN_DIR/.venv/bin/python3" ]; then
+     echo "Setting up Python environment..."
+     bash "$PLUGIN_DIR/setup.sh"
+   fi
+   ```
+   - If setup fails, stop the workflow and tell the user: "Python environment setup failed. Make sure Python 3.11+ is installed, then try running: `bash $PLUGIN_DIR/setup.sh`"
+
+4. **Report to user:**
    ```
    Processing documents in <folder-name>...
    ```

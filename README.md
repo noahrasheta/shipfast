@@ -99,20 +99,9 @@ Automated due diligence for data center site opportunities. Point it at a folder
 /plugin install dc-due-diligence@shipfast
 ```
 
-**Step 2: Run the setup script**
+Python 3.11+ is required on your machine. The plugin automatically sets up its Python virtual environment the first time you run `/due-diligence` -- no manual setup step needed.
 
-This is required before first use. The plugin needs a Python virtual environment for document conversion (PDFs, Excel, Word, PowerPoint). Python 3.11+ is required.
-
-Copy and paste this into your terminal:
-```bash
-bash ~/.claude/plugins/marketplaces/shipfast/dc-due-diligence/setup.sh
-```
-
-Or if you're already in Claude Code, just ask it to run the setup script and it will execute the command for you.
-
-This creates a `.venv` inside the plugin directory and installs all dependencies. You only need to do this once.
-
-**Step 3 (only if your folder has images or scanned PDFs): Set ANTHROPIC_API_KEY**
+**Step 2 (only if your folder has images or scanned PDFs): Set ANTHROPIC_API_KEY**
 
 The document converter uses the Anthropic API directly to extract text from images and scanned PDFs via Claude's vision capability. This runs as a Python subprocess, separate from Claude Code itself, so it needs its own API key.
 
@@ -120,6 +109,8 @@ Add to your shell profile (`~/.zshrc` or `~/.bashrc`):
 ```bash
 export ANTHROPIC_API_KEY=your-key-here
 ```
+
+Then **restart Claude Code** so it picks up the new variable. Environment variables are inherited at launch time -- adding the key while Claude Code is running won't take effect until you restart it.
 
 If your folder only contains native PDFs, Word docs, Excel files, and PowerPoint decks, you do not need this -- those formats are converted using local Python libraries with no API calls.
 

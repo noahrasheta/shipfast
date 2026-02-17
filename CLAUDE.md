@@ -86,7 +86,7 @@ The `dc-due-diligence` plugin automates data center due diligence analysis:
 - **Output**: Scored executive summary with Pursue / Proceed with Caution / Pass verdict, plus 10 detailed research reports
 - **Infrastructure**: Python document converters (PDF, Excel, Word, PowerPoint, images via Anthropic vision API)
 - **Web research**: Agents use Claude Code's built-in WebSearch/WebFetch (no config needed). Tavily, Exa, or Firecrawl MCP servers are used automatically if configured in Claude Code.
-- **Setup**: Run `setup.sh` to create Python venv and install converter dependencies. Set `ANTHROPIC_API_KEY` in shell environment only if the opportunity folder contains images or scanned PDFs.
+- **Setup**: Python venv is created automatically on first run. Set `ANTHROPIC_API_KEY` in shell environment and restart Claude Code only if the opportunity folder contains images or scanned PDFs.
 
 ## Local Development
 
