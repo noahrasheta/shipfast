@@ -90,29 +90,52 @@ Automated due diligence for data center site opportunities. Point it at a folder
 - `<folder>/EXECUTIVE_SUMMARY.md` -- scored summary with verdict, strengths, concerns, deal-breakers, and next steps
 - `<folder>/research/*.md` -- 10 detailed research reports (one per domain + risk assessment)
 
-**Prerequisites:**
+#### Installation
 
-Python 3.11+ is required. The setup script handles the rest:
+**Step 1: Add the marketplace and install the plugin**
+
+```
+/plugin marketplace add noahrasheta/shipfast
+/plugin install dc-due-diligence@shipfast
+```
+
+**Step 2: Run the setup script**
+
+This is required before first use. The plugin needs a Python virtual environment for document conversion (PDFs, Excel, Word, PowerPoint). Python 3.11+ is required.
 
 ```bash
-cd dc-due-diligence
-./setup.sh
+# Find your installed plugin location
+ls ~/.claude/plugins/dc-due-diligence/
+
+# Run setup from the plugin directory
+~/.claude/plugins/dc-due-diligence/setup.sh
 ```
 
-This creates a `.venv` and installs all dependencies (pdfplumber, openpyxl, python-docx, python-pptx, anthropic, Pillow, tavily-python, exa-py, firecrawl-py, apify-client).
+This creates a `.venv` inside the plugin directory and installs all dependencies. You only need to do this once.
 
-For full web research capabilities, set API keys in your environment:
+**Step 3 (only if your folder has images or scanned PDFs): Set ANTHROPIC_API_KEY**
+
+The document converter uses the Anthropic API directly to extract text from images and scanned PDFs via Claude's vision capability. This runs as a Python subprocess, separate from Claude Code itself, so it needs its own API key.
+
+Add to your shell profile (`~/.zshrc` or `~/.bashrc`):
+```bash
+export ANTHROPIC_API_KEY=your-key-here
 ```
-ANTHROPIC_API_KEY=...    # Required for vision-based image conversion
-TAVILY_API_KEY=...       # Optional, enhanced web search
-EXA_API_KEY=...          # Optional, semantic document search
-FIRECRAWL_API_KEY=...    # Optional, JS-rendered page scraping
-APIFY_TOKEN=...          # Optional, web scraping
-```
 
-Agents also use the built-in WebSearch and WebFetch tools, which work without additional keys.
+If your folder only contains native PDFs, Word docs, Excel files, and PowerPoint decks, you do not need this -- those formats are converted using local Python libraries with no API calls.
 
-**Usage:**
+#### How web research works
+
+The 12 research agents verify broker claims using web research. There are two layers, and the baseline works with zero configuration:
+
+**Baseline (always available):** Agents use Claude Code's built-in `WebSearch` and `WebFetch` tools. These work automatically -- no API keys or setup needed.
+
+**Enhanced (optional):** If you have Tavily, Exa, or Firecrawl configured as MCP servers in Claude Code, agents will automatically detect and use them via `ToolSearch` for deeper search capabilities. This is a nice-to-have, not a requirement.
+
+> **Note:** The plugin's `research/` directory contains Python clients for Tavily, Exa, Firecrawl, and Apify with their own API key handling. These are standalone infrastructure not currently wired into the agent workflow -- agents use Claude Code tools and MCPs instead. Setting `TAVILY_API_KEY`, `EXA_API_KEY`, `FIRECRAWL_API_KEY`, or `APIFY_TOKEN` environment variables has no effect on the agents.
+
+#### Usage
+
 ```
 /due-diligence ./path/to/opportunity-folder
 ```

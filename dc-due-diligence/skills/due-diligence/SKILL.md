@@ -111,7 +111,7 @@ This phase runs in two waves:
    - Note the absolute folder path to pass to each agent
    - Prepare to substitute `${OPPORTUNITY_FOLDER}` in each agent definition with the absolute path
    - **Plugin directory:** Use the `PLUGIN_DIR` resolved in Phase 1. Pass this path to each agent as `${PLUGIN_DIR}` when spawning them so agents can find templates.
-   - **Web research:** Agents have access to WebSearch, WebFetch, and MCP servers (firecrawl, exa, tavily) for independent verification. No additional configuration needed.
+   - **Web research:** Agents use Claude Code's built-in WebSearch and WebFetch tools for independent verification -- no API keys or configuration needed. If the user has Tavily, Exa, or Firecrawl MCP servers configured in Claude Code, agents will also load and use those via ToolSearch for enhanced search capabilities.
 
 2. **Spawn all 9 domain agents in parallel:**
 
