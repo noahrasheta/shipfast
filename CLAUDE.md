@@ -33,6 +33,17 @@ shipfast/
 │   └── skills/
 │       └── create-image/
 │           └── SKILL.md          # Orchestrator skill
+├── dc-due-diligence/             # Plugin: Data center due diligence
+│   ├── .claude-plugin/
+│   │   └── plugin.json           # Plugin manifest
+│   ├── agents/                   # 12 specialized research agents
+│   ├── skills/
+│   │   └── due-diligence/
+│   │       └── SKILL.md          # Orchestrator skill
+│   ├── converters/               # Document conversion pipeline (Python)
+│   ├── research/                 # Web research clients (Python)
+│   ├── templates/                # Agent output template + scoring rubric
+│   └── tests/                    # Test suite
 ├── CLAUDE.md                     # This file
 ├── README.md
 └── LICENSE
@@ -61,6 +72,17 @@ The `create-image` plugin generates AI images using the PaperBanana agentic fram
 - **Agents**: 4 specialized agents (Research, Prompt Architect, Generator, Critic) running sequentially
 - **Framework**: Based on Google Cloud AI Research's PaperBanana paper (+17% improvement over single-shot generation)
 - **Output**: 5 image variants with multi-dimensional critique and ranked recommendations
+
+## Plugin Reference: dc-due-diligence
+
+The `dc-due-diligence` plugin automates data center due diligence analysis:
+
+- **Skill** (`/due-diligence <folder-path>`): Orchestrates the full analysis pipeline
+- **Agents**: 12 specialized agents -- 9 domain research (Power, Connectivity, Water/Cooling, Land/Zoning, Ownership, Environmental, Commercials, Natural Gas, Market Comparables), 1 Risk Assessment, 1 Executive Summary Generator, 1 Test Agent
+- **Pipeline**: Three-wave execution -- Wave 1: 9 domain agents in parallel analyzing broker documents, Wave 2: Risk Assessment synthesizing cross-domain findings, Wave 3: Executive Summary scoring all categories
+- **Output**: Scored executive summary with Pursue / Proceed with Caution / Pass verdict, plus 10 detailed research reports
+- **Infrastructure**: Python document converters (PDF, Excel, Word, PowerPoint, images), web research clients (Tavily, Exa, Firecrawl, Apify), caching, and rate limiting
+- **Setup**: Run `setup.sh` to create Python venv and install dependencies
 
 ## Local Development
 
