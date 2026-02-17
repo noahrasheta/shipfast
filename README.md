@@ -103,10 +103,12 @@ Automated due diligence for data center site opportunities. Point it at a folder
 
 This is required before first use. The plugin needs a Python virtual environment for document conversion (PDFs, Excel, Word, PowerPoint). Python 3.11+ is required.
 
+Copy and paste this into your terminal:
 ```bash
-# Marketplace-installed plugins live here:
-~/.claude/plugins/marketplaces/shipfast/dc-due-diligence/setup.sh
+bash ~/.claude/plugins/marketplaces/shipfast/dc-due-diligence/setup.sh
 ```
+
+Or if you're already in Claude Code, just ask it to run the setup script and it will execute the command for you.
 
 This creates a `.venv` inside the plugin directory and installs all dependencies. You only need to do this once.
 
