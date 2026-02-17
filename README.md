@@ -132,8 +132,6 @@ The 12 research agents verify broker claims using web research. There are two la
 
 **Enhanced (optional):** If you have Tavily, Exa, or Firecrawl configured as MCP servers in Claude Code, agents will automatically detect and use them via `ToolSearch` for deeper search capabilities. This is a nice-to-have, not a requirement.
 
-> **Note:** The plugin's `research/` directory contains Python clients for Tavily, Exa, Firecrawl, and Apify with their own API key handling. These are standalone infrastructure not currently wired into the agent workflow -- agents use Claude Code tools and MCPs instead. Setting `TAVILY_API_KEY`, `EXA_API_KEY`, `FIRECRAWL_API_KEY`, or `APIFY_TOKEN` environment variables has no effect on the agents.
-
 #### Usage
 
 ```
