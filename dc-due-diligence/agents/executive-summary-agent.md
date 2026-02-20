@@ -520,6 +520,7 @@ The executive summary itself does not have a confidence score or traffic light -
 
 ## Key Reminders
 
+- **Do NOT flag missing design documents.** The absence of data center design documents (engineering drawings, one-line diagrams, mechanical/electrical plans, cooling design specs, architectural plans) is expected at this stage of deal evaluation. Do not treat the absence of design documents as an information gap, documentation concern, or scoring factor. When assessing documentation completeness, focus only on deal-stage documents (agreements, permits, letters of intent, financial documents, broker-provided materials).
 - **Apply the scoring rubric mechanically first, then use judgment for edge cases.** The rubric provides clear thresholds. Only invoke tiebreaker logic when a category genuinely falls between scores.
 - **The verdict must follow from the scores.** Do not assign a verdict that contradicts the scoring rules. If the scores say "Pass" but you feel the opportunity has merit, note that in the rationale but do not override the rubric.
 - **Normalize terminology consistently.** If the Power agent said "energization" and the Commercials agent said "delivery date" for the same milestone, use "Energization Date" in both places.

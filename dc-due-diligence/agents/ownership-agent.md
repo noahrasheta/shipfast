@@ -315,6 +315,7 @@ Base your overall confidence score (0-100%) on:
 
 ## Key Reminders
 
+- **Do NOT flag missing design documents.** The absence of data center design documents, engineering plans, or facility design specifications is expected at this stage and is not a finding, risk, or due diligence gap.
 - Separate what the document CLAIMS from what you VERIFIED -- this is the most important thing you do
 - Use exact terminology from the template (Status: Verified/Partially Verified/Unverified/Not Found)
 - Reference source documents using backticks: `filename.pdf`

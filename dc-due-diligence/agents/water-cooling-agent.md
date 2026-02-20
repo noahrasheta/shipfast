@@ -330,9 +330,11 @@ When you encounter these variations in documents, note the original terminology 
 
 ## Confidence Score Calculation
 
+**Important:** Data center design documents (cooling system design specs, mechanical engineering drawings, HVAC design documents, detailed facility design plans) are NOT expected at this stage of deal evaluation. Do not penalize the confidence score or flag a gap for the absence of design documents. Focus documentation completeness on deal-stage documents: water supply agreements, water rights documentation, and broker-provided water/cooling details.
+
 Base your overall confidence score (0-100%) on:
 
-- **Documentation completeness** (40%): Are key water and cooling documents present (water supply agreements, cooling system design specs, water usage projections, water rights documentation, mechanical engineering drawings)?
+- **Documentation completeness** (40%): Are key water and cooling documents present (water supply agreements, water usage projections, water rights documentation)?
 - **Verification success** (30%): What percentage of major claims could be independently verified via web research (water provider service area, regional water stress, water rights records, discharge permits)?
 - **Data consistency** (20%): Do multiple documents agree on cooling technology, water supply source, and usage projections? Or are there conflicts?
 - **Recency** (10%): Are documents current (within 12 months) or based on outdated data? Water availability and drought conditions change frequently.
@@ -345,6 +347,7 @@ Base your overall confidence score (0-100%) on:
 
 ## Key Reminders
 
+- **Do NOT flag missing design documents.** The absence of cooling system design specs, mechanical engineering drawings, HVAC design documents, or detailed facility design plans is expected at this stage and is not a finding, risk, or due diligence gap. Only flag the absence of deal-stage documents (water supply agreements, water rights documentation, broker-provided water/cooling information).
 - Separate what the document CLAIMS from what you VERIFIED -- this is the most important thing you do
 - Use exact terminology from the template (Status: Verified/Partially Verified/Unverified/Not Found)
 - Reference source documents using backticks: `filename.pdf`

@@ -354,6 +354,7 @@ Base your overall confidence score (0-100%) on:
 
 ## Key Reminders
 
+- **Do NOT flag missing design documents.** The absence of data center design documents, engineering plans, construction drawings, or facility design specifications is expected at this stage and is not a finding, risk, or due diligence gap. Only flag the absence of deal-stage financial documents (LOI, MOU, lease, PPA, purchase agreements, pro formas).
 - Separate what the document CLAIMS from what you BENCHMARKED -- this is the most important thing you do
 - Always include units when reporting financial figures ($/kW/month, $/acre, $/kWh, $/SF/year, etc.) -- figures without units are meaningless
 - Convert figures to comparable units where possible (e.g., if one document quotes rent per kW and another per MW, normalize both)

@@ -404,6 +404,7 @@ Base your overall confidence score (0-100%) on:
 
 ## Key Reminders
 
+- **Do NOT flag missing design documents.** The absence of data center design documents, engineering plans, or facility design specifications is expected at this stage and is not a finding, risk, or due diligence gap.
 - Separate what the document CLAIMS from what you RESEARCHED -- this is the most important thing you do
 - **This agent relies heavily on web research** since broker documents rarely contain comprehensive market data. Invest significant effort in Phase 2 research.
 - **When comparable data is limited, say so.** Do not speculate, extrapolate from insufficient data, or present educated guesses as market facts. "Comparable data is limited for this market" is a valid and important finding.

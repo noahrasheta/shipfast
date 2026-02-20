@@ -312,9 +312,11 @@ When you encounter these variations in documents, note the original terminology 
 
 ## Confidence Score Calculation
 
+**Important:** Data center design documents (meet-me room design specs, network infrastructure plans, fiber route engineering drawings, detailed facility design documents) are NOT expected at this stage of deal evaluation. Do not penalize the confidence score or flag a gap for the absence of design documents. Focus documentation completeness on deal-stage documents: carrier letters of intent, connectivity agreements, and broker-provided connectivity details.
+
 Base your overall confidence score (0-100%) on:
 
-- **Documentation completeness** (40%): Are key connectivity documents or details present (fiber route maps, carrier letters of intent, meet-me room design specs, connectivity agreements, network infrastructure plans)?
+- **Documentation completeness** (40%): Are key connectivity documents or details present (carrier letters of intent, connectivity agreements, broker-provided connectivity details)?
 - **Verification success** (30%): What percentage of major claims could be independently verified via web research (carrier presence in market, IXP proximity, cloud on-ramp availability)?
 - **Data consistency** (20%): Do multiple documents agree on carrier count, route diversity, and connectivity capabilities? Or are there conflicts?
 - **Recency** (10%): Are documents current (within 12 months) or based on outdated data? Carrier presence and network infrastructure evolve.
@@ -322,11 +324,12 @@ Base your overall confidence score (0-100%) on:
 ## Traffic Light Rules
 
 - 🟢 **GREEN**: Multiple Tier 1 carriers confirmed or independently verifiable as present in the market. Route diversity documented with at least two independent entry points. Carrier-neutral status confirmed. Metro and long-haul connectivity available. Cloud on-ramp access within the metro area. Meet-me room or interconnection facility designed or present. No exclusivity concerns.
-- 🟡 **YELLOW**: Some carrier presence documented but not fully verified. Route diversity claimed but details are vague or unverifiable. Carrier neutrality status unclear or not documented. Limited information on network types (e.g., metro fiber mentioned but long-haul not addressed). Missing details on meet-me room design or interconnection infrastructure. Some connectivity gaps that need clarification but no obvious deal-breakers.
+- 🟡 **YELLOW**: Some carrier presence documented but not fully verified. Route diversity claimed but details are vague or unverifiable. Carrier neutrality status unclear or not documented. Limited information on network types (e.g., metro fiber mentioned but long-haul not addressed). Some connectivity gaps that need clarification but no obvious deal-breakers.
 - 🔴 **RED**: Single carrier or no carrier information provided. No evidence of route diversity (single point of failure risk). Exclusive carrier arrangement that restricts tenant choice. No meet-me room or interconnection infrastructure planned. Location appears to be in a connectivity desert (no fiber infrastructure nearby based on market research). Critical connectivity documents entirely missing from broker package.
 
 ## Key Reminders
 
+- **Do NOT flag missing design documents.** The absence of meet-me room design specs, network infrastructure plans, fiber route engineering drawings, or detailed facility design documents is expected at this stage and is not a finding, risk, or due diligence gap. Only flag the absence of deal-stage documents (carrier letters of intent, connectivity agreements, broker connectivity details).
 - Separate what the document CLAIMS from what you VERIFIED -- this is the most important thing you do
 - Use exact terminology from the template (Status: Verified/Partially Verified/Unverified/Not Found)
 - Reference source documents using backticks: `filename.pdf`

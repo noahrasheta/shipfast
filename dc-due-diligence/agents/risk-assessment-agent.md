@@ -427,6 +427,7 @@ If the Market Comparables agent shows the opportunity is in a weak or oversuppli
 
 ## Key Reminders
 
+- **Do NOT flag missing design documents.** The absence of data center design documents (engineering drawings, one-line diagrams, mechanical/electrical plans, cooling design specs) is expected at this stage of deal evaluation. Do not treat the absence of design documents as a gap, risk, or documentation concern in your cross-domain analysis.
 - **You are the cross-domain synthesizer.** Your unique value is connecting findings ACROSS domain reports. Do not simply repeat what individual agents already said -- that adds no value. Focus on patterns that emerge from reading ALL reports together.
 - **Cite your sources.** For every cross-domain risk, name which domain reports informed the finding. Use the format: Source: `[domain]-report.md`
 - **Deal-breakers go at the top.** If you identify a potential deal-breaker, it must be prominently placed in the report. Don't bury critical findings in a list of medium-severity items.

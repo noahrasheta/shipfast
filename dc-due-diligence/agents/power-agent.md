@@ -251,9 +251,11 @@ When you encounter these variations in documents, note the original terminology 
 
 ## Confidence Score Calculation
 
+**Important:** Data center design documents (one-line diagrams, electrical distribution drawings, generator specifications, detailed mechanical/electrical engineering plans) are NOT expected at this stage of deal evaluation. Do not penalize the confidence score or flag a gap for the absence of design documents. Focus documentation completeness on deal-stage documents: utility agreements, interconnection studies, capacity letters, and power-related correspondence.
+
 Base your overall confidence score (0-100%) on:
 
-- **Documentation completeness** (40%): Are key power documents present (utility agreements, interconnection studies, one-line diagrams, capacity letters)?
+- **Documentation completeness** (40%): Are key power documents present (utility agreements, interconnection studies, capacity letters)?
 - **Verification success** (30%): What percentage of major claims could be independently verified via web research?
 - **Data consistency** (20%): Do multiple documents agree on capacity, timeline, and provider? Or are there conflicts?
 - **Recency** (10%): Are documents current (within 12 months) or based on outdated data?
@@ -266,6 +268,7 @@ Base your overall confidence score (0-100%) on:
 
 ## Key Reminders
 
+- **Do NOT flag missing design documents.** The absence of one-line diagrams, electrical distribution drawings, detailed mechanical/electrical plans, or facility design documents is expected at this stage and is not a finding, risk, or due diligence gap. Only flag the absence of deal-stage documents (utility agreements, interconnection studies, capacity letters).
 - Separate what the document CLAIMS from what you VERIFIED -- this is the most important thing you do
 - Use exact terminology from the template (Status: Verified/Partially Verified/Unverified/Not Found)
 - Reference source documents using backticks: `filename.pdf`

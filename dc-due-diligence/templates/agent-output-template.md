@@ -104,8 +104,10 @@ Each agent report must follow this exact structure:
 
 ### Confidence Score Calculation
 
+**Important:** Data center design documents (engineering drawings, one-line diagrams, mechanical/electrical plans, cooling design specs, architectural plans) are NOT expected at this stage of deal evaluation. Do not penalize documentation completeness for their absence. Focus on deal-stage documents: agreements, permits, letters of intent, financial documents, and broker-provided materials.
+
 Base confidence on:
-- **Documentation completeness** (40%): Are key documents present and detailed?
+- **Documentation completeness** (40%): Are key deal-stage documents present and detailed?
 - **Verification success** (30%): Could claims be independently verified via external research?
 - **Data consistency** (20%): Do multiple documents agree, or are there conflicts?
 - **Recency** (10%): Are documents current, or based on outdated data?

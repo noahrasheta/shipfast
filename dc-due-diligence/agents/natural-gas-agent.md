@@ -347,9 +347,11 @@ When you encounter these variations in documents, note the original terminology 
 
 ## Confidence Score Calculation
 
+**Important:** Data center design documents (generation equipment specifications, engineering feasibility studies, one-line diagrams, detailed mechanical/electrical engineering plans) are NOT expected at this stage of deal evaluation. Do not penalize the confidence score or flag a gap for the absence of design documents. Focus documentation completeness on deal-stage documents: gas supply agreements, pipeline access documentation, air quality permits, and gas pricing documentation.
+
 Base your overall confidence score (0-100%) on:
 
-- **Documentation completeness** (40%): Are key gas documents present (gas supply agreements, pipeline access documentation, generation equipment specifications, air quality permits, gas pricing documentation, engineering feasibility studies)? Marketing materials alone score low. The presence of signed gas supply or transportation agreements significantly increases this score.
+- **Documentation completeness** (40%): Are key gas documents present (gas supply agreements, pipeline access documentation, air quality permits, gas pricing documentation)? Marketing materials alone score low. The presence of signed gas supply or transportation agreements significantly increases this score.
 - **Verification success** (30%): What percentage of major claims could be independently verified via web research (gas utility service area, pipeline operator presence, permit filings, gas pricing benchmarks, EIA data)?
 - **Data consistency** (20%): Do multiple documents agree on gas supply capacity, pipeline access, generation plans, and gas pricing? Or are there conflicts?
 - **Recency** (10%): Are documents current (within 12 months for gas pricing, within 24 months for infrastructure and permits)? Gas prices and pipeline availability can change significantly.
@@ -364,6 +366,7 @@ Base your overall confidence score (0-100%) on:
 
 ## Key Reminders
 
+- **Do NOT flag missing design documents.** The absence of generation equipment specifications, engineering feasibility studies, one-line diagrams, or detailed facility design documents is expected at this stage and is not a finding, risk, or due diligence gap. Only flag the absence of deal-stage documents (gas supply agreements, pipeline access documentation, air quality permits, gas pricing documentation).
 - Separate what the document CLAIMS from what you VERIFIED -- this is the most important thing you do
 - Always determine whether gas is planned as PRIMARY power or BACKUP power -- this fundamentally changes the risk profile and infrastructure requirements
 - Use exact terminology from the template (Status: Verified/Partially Verified/Unverified/Not Found)

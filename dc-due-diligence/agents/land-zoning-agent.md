@@ -307,9 +307,11 @@ When you encounter these variations in documents, note the original terminology 
 
 ## Confidence Score Calculation
 
+**Important:** Data center design documents (detailed site plans, architectural drawings, engineering plans, construction documents) are NOT expected at this stage of deal evaluation. Do not penalize the confidence score or flag a gap for the absence of design documents. Focus documentation completeness on deal-stage documents: zoning confirmation letters, permit applications, entitlement timelines, and development agreements.
+
 Base your overall confidence score (0-100%) on:
 
-- **Documentation completeness** (40%): Are key zoning documents present (zoning confirmation letter, site plan, permit applications, entitlement timeline, development agreement)?
+- **Documentation completeness** (40%): Are key zoning documents present (zoning confirmation letter, permit applications, entitlement timeline, development agreement)?
 - **Verification success** (30%): What percentage of major claims could be independently verified via web research (zoning maps, permit portals, municipal codes)?
 - **Data consistency** (20%): Do multiple documents agree on zoning designation, permitted uses, and project status? Or are there conflicts?
 - **Recency** (10%): Are documents current (within 12 months) or based on outdated zoning information? Zoning codes and maps can change.
@@ -322,6 +324,7 @@ Base your overall confidence score (0-100%) on:
 
 ## Key Reminders
 
+- **Do NOT flag missing design documents.** The absence of detailed site plans, architectural drawings, engineering plans, or construction documents is expected at this stage and is not a finding, risk, or due diligence gap. Only flag the absence of deal-stage documents (zoning confirmation letters, permit applications, entitlement timelines, development agreements).
 - Separate what the document CLAIMS from what you VERIFIED -- this is the most important thing you do
 - Entitlement progress claims should be marked as "extracted from documents, not independently verified" unless you find confirming public records
 - Use exact terminology from the template (Status: Verified/Partially Verified/Unverified/Not Found)

@@ -342,9 +342,11 @@ When you encounter these variations in documents, note the original terminology 
 
 ## Confidence Score Calculation
 
+**Important:** Data center design documents (site plans showing topography/drainage, engineering drawings, grading plans, detailed facility design documents) are NOT expected at this stage of deal evaluation. Do not penalize the confidence score or flag a gap for the absence of design documents. Focus documentation completeness on deal-stage documents: Phase I ESA, FEMA flood certificates, environmental permits, and broker-provided environmental information.
+
 Base your overall confidence score (0-100%) on:
 
-- **Documentation completeness** (40%): Are key environmental documents present (Phase I ESA, FEMA flood certificate, environmental permits, site plans showing topography/drainage)?
+- **Documentation completeness** (40%): Are key environmental documents present (Phase I ESA, FEMA flood certificate, environmental permits)?
 - **Verification success** (30%): What percentage of the standard checklist items AND broker claims could be independently verified via government databases (FEMA, USGS, EPA, USFWS, state DEP)?
 - **Data consistency** (20%): Do multiple sources agree on environmental conditions? Do broker claims match government data?
 - **Recency** (10%): Are documents current (Phase I ESA within 12 months, FEMA maps using current effective panels)? Environmental conditions and maps change.
@@ -357,6 +359,7 @@ Base your overall confidence score (0-100%) on:
 
 ## Key Reminders
 
+- **Do NOT flag missing design documents.** The absence of site plans, engineering drawings, grading plans, or detailed facility design documents is expected at this stage and is not a finding, risk, or due diligence gap. Only flag the absence of deal-stage documents (Phase I ESA, FEMA flood certificate, environmental permits).
 - Separate what the document CLAIMS from what you VERIFIED -- this is the most important thing you do
 - ALWAYS run the standard environmental checklist regardless of what the broker documents say -- environmental risks are frequently omitted from broker packages
 - Use exact terminology from the template (Status: Verified/Partially Verified/Unverified/Not Found)
