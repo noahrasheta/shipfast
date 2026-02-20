@@ -274,8 +274,9 @@ class VisionConverter(BaseConverter):
 
     def _extract_image(self, path: Path) -> ExtractionResult:
         """Extract text from a standalone image file."""
-        img = Image.open(path)
-        b64_jpeg = _image_to_base64_jpeg(img)
+        with Image.open(path) as img:
+            b64_jpeg = _image_to_base64_jpeg(img)
+            image_size = list(img.size)
 
         client = self._get_client()
         extracted = self._call_vision_api(client, b64_jpeg)
@@ -308,7 +309,7 @@ class VisionConverter(BaseConverter):
 
         metadata: dict[str, Any] = {
             "total_chars": total_chars,
-            "image_size": list(img.size),
+            "image_size": image_size,
             "vision_model": _VISION_MODEL,
         }
 

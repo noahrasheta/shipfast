@@ -16,9 +16,9 @@ Single file fix -- find the open() call without a corresponding close or context
 
 ## Done When
 
-- [ ] The image file handle in the vision converter uses a context manager
-- [ ] Existing converter tests still pass
-- [ ] No other unclosed file handles in the converter module
+- [x] The image file handle in the vision converter uses a context manager
+- [x] Existing converter tests still pass
+- [x] No other unclosed file handles in the converter module
 
 ## Needs First
 

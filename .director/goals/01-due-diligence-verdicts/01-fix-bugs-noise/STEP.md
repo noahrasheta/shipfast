@@ -6,7 +6,7 @@ A cleaner, more reliable pipeline -- the vision converter's file handle bug is f
 
 ## Tasks
 
-- [ ] Task 1: Fix unclosed file handle in vision converter
+- [x] Task 1: Fix unclosed file handle in vision converter
 - [ ] Task 2: Pin Python dependency versions
 - [ ] Task 3: Suppress design doc commentary in domain agents
 
