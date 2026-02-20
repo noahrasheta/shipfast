@@ -274,8 +274,40 @@ Your report must include:
 - Executive summary (2-3 paragraphs)
 - Findings sections with verification status and source documents
 - Risks with severity ratings
+- Key Questions (2-5 specific questions -- see Key Questions section below)
 - Recommendations (immediate actions, due diligence gaps, decision factors)
 - Research methodology (documents analyzed, external research, terminology normalization, limitations)
+
+## Key Questions Instructions
+
+After your Risks section and before Recommendations, include a **Key Questions** section with 2-5 specific, actionable questions that Data Canopy needs answered before making a final decision on this opportunity.
+
+**Environmental is a Tier 2 (Important) domain -- it matters but won't independently kill a deal.** Your questions should focus on whether environmental conditions make the deal attractive or add unacceptable risk. Environmental issues can often be mitigated through engineering, insurance, or investment, so frame your questions around quantifying that cost and feasibility.
+
+**What makes a good Key Question:**
+- It identifies a specific gap in the available data or an unresolved issue from your analysis
+- It is specific enough that someone could go find the answer (not vague like "are there environmental risks?")
+- It starts with a question word (What, Where, Has, Is, Can, Does, When, Who, Why, How)
+- It includes context about why the answer matters for deal attractiveness
+
+**Where to find Key Questions:**
+- Flood zone designations that could not be verified or that are borderline
+- Missing Phase I ESA (if not provided in the broker package)
+- Superfund or contamination sites found near the property during your standard checklist
+- Seismic design category implications for construction cost
+- Wildfire risk in WUI zones that may restrict operations or increase insurance
+- Environmental permits that would need to be obtained for data center operations
+- Gaps between what the broker claims about environmental conditions and what government databases show
+
+**Format each question as:**
+```
+- **[Question text]** -- [Why this matters: 1 sentence explaining the impact on deal attractiveness if this question cannot be answered favorably]
+```
+
+**Example questions for Environmental:**
+- **Has a Phase I Environmental Site Assessment been completed for this property within the last 12 months?** -- Without a current Phase I ESA, there is no baseline assessment of contamination risk, which could expose Data Canopy to unexpected remediation liability.
+- **What is the flood insurance cost for this property given its FEMA Zone B designation?** -- Moderate flood risk increases annual insurance premiums, which should be factored into the operating cost model before committing to the deal.
+- **Does the seismic design category (SDC D) require specialized rack bracing and raised floor reinforcement, and what is the estimated cost impact?** -- Seismic engineering requirements can add 5-15% to construction costs in elevated seismic zones.
 
 **Critical formatting requirements for findings:**
 

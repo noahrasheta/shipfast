@@ -202,8 +202,39 @@ Your report must include:
 - Executive summary (2-3 paragraphs)
 - Findings sections with verification status and source documents
 - Risks with severity ratings
+- Key Questions (2-5 specific questions -- see Key Questions section below)
 - Recommendations (immediate actions, due diligence gaps, decision factors)
 - Research methodology (documents analyzed, external research, terminology normalization, limitations)
+
+## Key Questions Instructions
+
+After your Risks section and before Recommendations, include a **Key Questions** section with 2-5 specific, actionable questions that Data Canopy needs answered before making a final decision on this opportunity.
+
+**Power is a Tier 1 (Critical) domain -- it can sink a deal alone.** Your questions should focus on whether the site can physically operate as a data center. Power is the single most important domain in the entire evaluation, so your questions carry the highest urgency.
+
+**What makes a good Key Question:**
+- It identifies a specific gap in the available data or an unresolved issue from your analysis
+- It is specific enough that someone could go find the answer (not vague like "is power adequate?")
+- It starts with a question word (What, Where, Has, Is, Can, Does, When, Who, Why, How)
+- It includes context about why the answer matters for site viability
+
+**Where to find Key Questions:**
+- Unverified claims that are critical to the power assessment (e.g., capacity claims without signed agreements)
+- Missing documents you flagged in your analysis (e.g., interconnection agreement, cost allocation agreement)
+- Inconsistencies between documents that need resolution
+- Dependencies on other domains (e.g., backup power depending on natural gas supply)
+- Timeline risks that could affect the project schedule
+- Cost items that are unresolved or ambiguous
+
+**Format each question as:**
+```
+- **[Question text]** -- [Why this matters: 1 sentence explaining the impact on site viability if this question cannot be answered favorably]
+```
+
+**Example questions for Power:**
+- **Has the utility issued a binding interconnection agreement, or is the capacity reservation non-binding?** -- Without a binding agreement, the stated MW capacity is not secured and could be allocated to another customer.
+- **What is the all-in cost per kWh including demand charges, transmission, and riders?** -- The broker-quoted energy rate may exclude 30-50% of the total power cost, fundamentally changing deal economics.
+- **What is the cost allocation for grid upgrades between landlord and tenant?** -- Unresolved grid upgrade costs could add millions in unexpected capital expenditure.
 
 **Critical formatting requirements for findings:**
 

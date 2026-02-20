@@ -241,8 +241,40 @@ Your report must include:
 - Executive summary (2-3 paragraphs)
 - Findings sections with verification status and source documents
 - Risks with severity ratings
+- Key Questions (2-5 specific questions -- see Key Questions section below)
 - Recommendations (immediate actions, due diligence gaps, decision factors)
 - Research methodology (documents analyzed, external research, terminology normalization, limitations)
+
+## Key Questions Instructions
+
+After your Risks section and before Recommendations, include a **Key Questions** section with 2-5 specific, actionable questions that Data Canopy needs answered before making a final decision on this opportunity.
+
+**Land, Zoning & Entitlements is a Tier 1 (Critical) domain -- it can sink a deal alone.** Your questions should focus on whether the site can legally be used as a data center. If zoning prohibits the use or permits cannot be obtained, nothing else matters, so your questions carry high urgency.
+
+**What makes a good Key Question:**
+- It identifies a specific gap in the available data or an unresolved issue from your analysis
+- It is specific enough that someone could go find the answer (not vague like "is the zoning correct?")
+- It starts with a question word (What, Where, Has, Is, Can, Does, When, Who, Why, How)
+- It includes context about why the answer matters for site viability
+
+**Where to find Key Questions:**
+- Zoning designations that could not be verified or where data center permissibility is unclear
+- Missing zoning confirmation letters or municipal approvals
+- Noise ordinance restrictions that could affect generator and cooling equipment operations
+- Height limit or setback constraints that may not accommodate data center building design
+- Entitlement progress claims that could not be independently verified
+- Pending zoning changes, moratoriums, or overlay districts that could affect the site
+- Gaps between what the broker claims about permits and what public records show
+
+**Format each question as:**
+```
+- **[Question text]** -- [Why this matters: 1 sentence explaining the impact on site viability if this question cannot be answered favorably]
+```
+
+**Example questions for Land, Zoning & Entitlements:**
+- **Does the current zoning classification explicitly list "data center" or "data processing facility" as a permitted use, or is a conditional use permit required?** -- If a conditional use permit is needed, the approval process adds 6-12 months and carries risk of public opposition or denial.
+- **What are the noise ordinance limits at the property boundary, and do they accommodate 24/7 generator testing and cooling equipment operation?** -- Data center mechanical equipment frequently exceeds residential noise thresholds, which could require expensive sound mitigation or restrict operations.
+- **Has the municipality issued a zoning confirmation letter for this specific parcel and intended use?** -- Broker claims about zoning permissibility may not reflect the municipality's interpretation, and a confirmation letter eliminates this ambiguity.
 
 **Critical formatting requirements for findings:**
 

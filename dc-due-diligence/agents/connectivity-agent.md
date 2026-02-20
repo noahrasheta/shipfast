@@ -246,8 +246,40 @@ Your report must include:
 - Executive summary (2-3 paragraphs)
 - Findings sections with verification status and source documents
 - Risks with severity ratings
+- Key Questions (2-5 specific questions -- see Key Questions section below)
 - Recommendations (immediate actions, due diligence gaps, decision factors)
 - Research methodology (documents analyzed, external research, terminology normalization, limitations)
+
+## Key Questions Instructions
+
+After your Risks section and before Recommendations, include a **Key Questions** section with 2-5 specific, actionable questions that Data Canopy needs answered before making a final decision on this opportunity.
+
+**Connectivity is a Tier 1 (Critical) domain -- it can sink a deal alone.** Your questions should focus on whether the site can serve data center customers. A data center without fiber connectivity cannot operate, so your questions carry high urgency.
+
+**What makes a good Key Question:**
+- It identifies a specific gap in the available data or an unresolved issue from your analysis
+- It is specific enough that someone could go find the answer (not vague like "is connectivity available?")
+- It starts with a question word (What, Where, Has, Is, Can, Does, When, Who, Why, How)
+- It includes context about why the answer matters for site viability
+
+**Where to find Key Questions:**
+- Carrier presence claims that could not be verified (e.g., named carriers not confirmed in the market)
+- Missing documentation about route diversity or fiber entry points
+- Unresolved carrier neutrality status (exclusive vs. open access)
+- Gaps in network types (e.g., metro fiber mentioned but no long-haul access documented)
+- Missing carrier letters of intent or connectivity agreements
+- Cloud on-ramp availability that is claimed but not verified
+- Greenfield sites where fiber build-out cost and timeline are unknown
+
+**Format each question as:**
+```
+- **[Question text]** -- [Why this matters: 1 sentence explaining the impact on site viability if this question cannot be answered favorably]
+```
+
+**Example questions for Connectivity:**
+- **How many physically diverse fiber entry points does the building have, and are they served by different conduit paths?** -- A single fiber entry point creates a single point of failure that could take the entire facility offline.
+- **Is the facility carrier-neutral, or does any carrier have exclusive access rights?** -- Exclusive carrier arrangements limit tenant choice and can increase connectivity costs by 2-5x.
+- **What is the estimated cost and timeline for fiber lateral construction to this site?** -- For greenfield sites, fiber build-out can cost $50K-$500K+ and take 6-12 months, affecting the project schedule and budget.
 
 **Critical formatting requirements for findings:**
 

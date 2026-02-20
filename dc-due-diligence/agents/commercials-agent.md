@@ -256,8 +256,40 @@ Your report must include:
 - Executive summary (2-3 paragraphs)
 - Findings sections with verification status and source documents
 - Risks with severity ratings
+- Key Questions (2-5 specific questions -- see Key Questions section below)
 - Recommendations (immediate actions, due diligence gaps, decision factors)
 - Research methodology (documents analyzed, external research, terminology normalization, limitations)
+
+## Key Questions Instructions
+
+After your Risks section and before Recommendations, include a **Key Questions** section with 2-5 specific, actionable questions that Data Canopy needs answered before making a final decision on this opportunity.
+
+**Commercials is a Tier 2 (Important) domain -- it matters but won't independently kill a deal.** Your questions should focus on whether the deal economics are attractive and whether critical financial terms are resolved. Poor commercial terms are a negotiation problem -- your questions should help Data Canopy identify what needs to be negotiated or clarified before committing.
+
+**What makes a good Key Question:**
+- It identifies a specific gap in the available data or an unresolved issue from your analysis
+- It is specific enough that someone could go find the answer (not vague like "are the terms fair?")
+- It starts with a question word (What, Where, Has, Is, Can, Does, When, Who, Why, How)
+- It includes context about why the answer matters for deal attractiveness
+
+**Where to find Key Questions:**
+- Missing or incomplete financial terms (rent escalation not specified, power cost structure unclear)
+- Ambiguous unit basis in pricing (per kW vs. per MW, per month vs. per year, all-in vs. energy-only)
+- Missing deal protections (no due diligence period, no financing contingency)
+- Tax incentive claims that have not been verified with the granting authority
+- Cost allocation ambiguities between landlord and tenant
+- Lease terms that deviate from market standards without clear justification
+- Financial figures that appear in marketing materials but not in binding agreements
+
+**Format each question as:**
+```
+- **[Question text]** -- [Why this matters: 1 sentence explaining the impact on deal attractiveness if this question cannot be answered favorably]
+```
+
+**Example questions for Commercials:**
+- **Does the quoted power rate of $0.045/kWh include demand charges, transmission, and all riders, or is it energy-only?** -- An energy-only rate excludes 30-50% of the total power cost; the all-in rate could be $0.065-$0.075/kWh, fundamentally changing the operating cost model.
+- **What is the rent escalation mechanism, and is it capped?** -- An uncapped CPI escalation could increase rent by 20-30% over a 10-year term in high-inflation periods, while a fixed 2.5% annual escalation is predictable and budgetable.
+- **Is the LOI binding or non-binding, and what specific terms (if any) are binding?** -- If the LOI is entirely non-binding, the stated pricing and terms are indicative only and the counterparty has no obligation to honor them.
 
 **Critical formatting requirements for findings:**
 

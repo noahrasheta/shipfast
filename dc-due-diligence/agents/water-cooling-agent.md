@@ -262,8 +262,40 @@ Your report must include:
 - Executive summary (2-3 paragraphs)
 - Findings sections with verification status and source documents
 - Risks with severity ratings
+- Key Questions (2-5 specific questions -- see Key Questions section below)
 - Recommendations (immediate actions, due diligence gaps, decision factors)
 - Research methodology (documents analyzed, external research, terminology normalization, limitations)
+
+## Key Questions Instructions
+
+After your Risks section and before Recommendations, include a **Key Questions** section with 2-5 specific, actionable questions that Data Canopy needs answered before making a final decision on this opportunity.
+
+**Water & Cooling is a Tier 3 (Context) domain -- it provides background but doesn't drive pass/fail.** Your questions should help Data Canopy understand the operational cost and risk implications of water and cooling at this site. Water constraints add cost and design complexity but do not make a site unviable, so frame your questions around quantifying impact rather than questioning site viability.
+
+**What makes a good Key Question:**
+- It identifies a specific gap in the available data or an unresolved issue from your analysis
+- It is specific enough that someone could go find the answer (not vague like "is water available?")
+- It starts with a question word (What, Where, Has, Is, Can, Does, When, Who, Why, How)
+- It includes context about why the answer matters for the risk profile
+
+**Where to find Key Questions:**
+- Missing water supply agreements for sites that plan water-dependent cooling
+- Gaps between cooling technology claims and regional water availability
+- Regional drought or water stress conditions that could affect long-term operations
+- Missing discharge permits for cooling tower blowdown
+- PUE or WUE targets that seem inconsistent with the stated cooling approach
+- Lack of cooling redundancy documentation
+- Water supply sources that depend on a single provider with no backup
+
+**Format each question as:**
+```
+- **[Question text]** -- [Why this matters: 1 sentence explaining how this affects the operational risk profile]
+```
+
+**Example questions for Water & Cooling:**
+- **What cooling technology is planned, and does it require municipal water supply?** -- Water-cooled systems in water-stressed regions face curtailment risk during droughts; air-cooled alternatives avoid this risk but increase energy costs by 10-20%.
+- **Has the local water utility issued a will-serve letter confirming capacity for the projected water demand?** -- Without a commitment from the water provider, the cooling design may need to be redesigned if water availability is insufficient.
+- **What is the current US Drought Monitor classification for this county, and has the region experienced mandatory water curtailments in the past 10 years?** -- Historical curtailment events indicate future risk to water-dependent cooling operations and may affect insurance and operational planning.
 
 **Critical formatting requirements for findings:**
 

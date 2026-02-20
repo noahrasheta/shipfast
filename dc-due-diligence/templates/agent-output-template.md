@@ -58,6 +58,23 @@ Each agent report must follow this exact structure:
 
 [Repeat structure for each identified risk]
 
+## Key Questions
+
+[2-5 specific, actionable questions that Data Canopy needs answered before making a final decision on this opportunity. These questions should identify gaps in the available data and highlight what is missing or unclear in this domain.
+
+Each question must:
+- Be specific enough that someone could go find the answer (not vague like "is power adequate?")
+- Start with a question word (What, Where, Has, Is, Can, Does, When, Who, Why, How)
+- Include context about why the answer matters for the deal
+- Reflect the tier importance of this domain (Tier 1 questions should emphasize site viability; Tier 2 questions should emphasize deal attractiveness; Tier 3 questions should emphasize context and risk profile)
+
+Format each question as:
+- **[Question text]** -- [Why this matters: 1 sentence explaining the impact on the deal if this question cannot be answered favorably]
+
+Example:
+- **Has the utility issued a formal interconnection agreement, or is the capacity reservation non-binding?** -- Without a binding agreement, the stated 20 MW capacity is not secured and could be allocated to another customer.
+- **What is the cost allocation for the $4.2M grid upgrade between landlord and tenant?** -- If the tenant bears any portion, it materially changes the deal economics and should be factored into the financial model.]
+
 ## Recommendations
 
 ### Immediate Actions
@@ -278,6 +295,7 @@ Every report must contain:
 - Executive Summary section
 - At least one Finding with Status and Source Documents
 - At least one Risk with Severity rating
+- Key Questions section with 2-5 specific, actionable questions
 - Recommendations section with at least one item
 - Research Methodology section
 
@@ -294,6 +312,9 @@ Every report must contain:
 - Executive summary must be at least 100 words
 - Each finding must reference at least one source document
 - Each risk must include a severity rating and description
+- Key Questions section must contain 2-5 questions
+- Each Key Question must start with a question word and include a "why this matters" explanation
+- Key Questions must be specific and actionable, not vague (e.g., "What is the cost allocation for grid upgrades?" not "Are costs reasonable?")
 - Recommendations must be actionable (start with verbs: verify, obtain, review, etc.)
 - Research methodology must list documents analyzed
 
@@ -390,6 +411,13 @@ The $4.2M grid upgrade cost is confirmed but cost allocation is unresolved. If t
 The site's redundancy plan includes on-site natural gas generators for N+1 backup power. However, natural gas delivery is not yet secured (see Natural Gas agent findings). If gas supply cannot be secured, backup power strategy will need to rely entirely on diesel generators or battery systems, which may not meet customer requirements for sustainability or runtime.
 
 **Mitigation:** Confirm natural gas availability in parallel with power planning, or design backup power around proven diesel/battery systems from the start.
+
+## Key Questions
+
+- **What is the cost allocation for the $4.2M grid upgrade between landlord and tenant?** -- If the tenant bears any portion, it materially changes the deal economics and should be factored into the financial model.
+- **Has the utility issued a formal interconnection agreement, or is the capacity reservation non-binding?** -- Without a binding agreement, the stated 20 MW capacity is not secured and could be allocated to another customer.
+- **Is the Q3 2026 energization timeline contingent on any conditions beyond the substation upgrade (e.g., environmental review, right-of-way acquisition)?** -- Hidden contingencies could delay power delivery beyond the stated date, affecting the entire project schedule.
+- **What backup power strategy will be used if natural gas delivery cannot be secured?** -- The current redundancy plan depends on gas generators; if gas is unavailable, the backup approach must be redesigned around diesel or battery, which affects cost, sustainability, and customer requirements.
 
 ## Recommendations
 

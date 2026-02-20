@@ -272,8 +272,42 @@ Your report must include:
 - Executive summary (2-3 paragraphs)
 - Findings sections with verification status and source documents
 - Risks with severity ratings
+- Key Questions (2-5 specific questions -- see Key Questions section below)
 - Recommendations (immediate actions, due diligence gaps, decision factors)
 - Research methodology (documents analyzed, external research, terminology normalization, limitations)
+
+## Key Questions Instructions
+
+After your Risks section and before Recommendations, include a **Key Questions** section with 2-5 specific, actionable questions that Data Canopy needs answered before making a final decision on this opportunity.
+
+**Natural Gas is a Tier 3 (Context) domain -- it provides background but doesn't drive pass/fail.** Your questions should help Data Canopy understand how gas supply affects the power strategy and backup reliability. Gas constraints do not make a site unviable (diesel and battery alternatives exist), so frame your questions around quantifying the impact on the overall power and backup strategy.
+
+**Important nuance:** If the site relies on gas for primary power generation (behind-the-meter), your questions carry more weight because gas supply directly affects the Tier 1 Power assessment. If gas is only for backup generators, the urgency is lower. Tailor your questions accordingly.
+
+**What makes a good Key Question:**
+- It identifies a specific gap in the available data or an unresolved issue from your analysis
+- It is specific enough that someone could go find the answer (not vague like "is gas available?")
+- It starts with a question word (What, Where, Has, Is, Can, Does, When, Who, Why, How)
+- It includes context about why the answer matters for the risk profile
+
+**Where to find Key Questions:**
+- Missing gas supply agreements when on-site generation is planned
+- Pipeline proximity and lateral construction cost unknowns
+- Gas pricing assumptions in pro formas that may not reflect delivered costs
+- Air quality permit requirements that have not been addressed
+- Firm vs. interruptible service distinction (interruptible service creates curtailment risk)
+- Dual-fuel capability presence or absence
+- Gas supply reliability during extreme weather events (relevant for backup power)
+
+**Format each question as:**
+```
+- **[Question text]** -- [Why this matters: 1 sentence explaining how this affects the power strategy and risk profile]
+```
+
+**Example questions for Natural Gas:**
+- **Is the gas supply agreement for firm or interruptible transportation service?** -- Interruptible gas service can be curtailed during peak demand periods (winter cold snaps, summer heat waves), exactly when backup power is most likely needed.
+- **What is the estimated cost and timeline for constructing a gas lateral from the nearest transmission pipeline to the site?** -- Lateral construction can cost $250K-$1M+ per mile and take 6-18 months, which must be factored into the project timeline and budget.
+- **Does the on-site generation plan include dual-fuel capability (gas + diesel)?** -- Without dual-fuel capability, a gas supply disruption would leave the site entirely dependent on the utility grid, eliminating the backup power benefit that gas generation was designed to provide.
 
 **Critical formatting requirements for findings:**
 

@@ -310,8 +310,40 @@ Your report must include:
 - Executive summary (2-3 paragraphs)
 - Findings sections with verification status and source documents
 - Risks with severity ratings
+- Key Questions (2-5 specific questions -- see Key Questions section below)
 - Recommendations (immediate actions, due diligence gaps, decision factors)
 - Research methodology (documents analyzed, external research, terminology normalization, limitations)
+
+## Key Questions Instructions
+
+After your Risks section and before Recommendations, include a **Key Questions** section with 2-5 specific, actionable questions that Data Canopy needs answered before making a final decision on this opportunity.
+
+**Market Comparables is a Tier 3 (Context) domain -- it provides background but doesn't drive pass/fail.** Your questions should help Data Canopy understand the market context for pricing, competition, and demand. Market data informs negotiation strategy and underwriting assumptions, so frame your questions around what additional information would strengthen or weaken the investment thesis.
+
+**What makes a good Key Question:**
+- It identifies a specific gap in the available data or an unresolved issue from your analysis
+- It is specific enough that someone could go find the answer (not vague like "is the market good?")
+- It starts with a question word (What, Where, Has, Is, Can, Does, When, Who, Why, How)
+- It includes context about why the answer matters for the risk profile
+
+**Where to find Key Questions:**
+- Broker market positioning claims that could not be verified
+- Missing comparable transaction data for the submarket
+- Competitive landscape dynamics (new supply coming online that could affect lease-up)
+- Demand signals that are claimed but unverified (e.g., "strong hyperscaler interest" without evidence)
+- Pricing assumptions that deviate from market benchmarks without explanation
+- Market classification disagreements (broker says "primary market" but research suggests "secondary")
+- Supply pipeline that could create oversupply risk within the project timeline
+
+**Format each question as:**
+```
+- **[Question text]** -- [Why this matters: 1 sentence explaining how this affects the market context and investment thesis]
+```
+
+**Example questions for Market Comparables:**
+- **What is the current vacancy rate for wholesale data center space in this metro area, and how much new supply is in the development pipeline?** -- If the market has 20%+ vacancy or significant new supply coming online, lease-up risk increases and market power shifts to tenants, potentially undermining the deal's revenue assumptions.
+- **Are there any publicly announced hyperscaler or enterprise deployments in this market that validate demand?** -- The broker claims strong demand, but without verifiable demand signals, the market thesis relies on projections rather than evidence.
+- **How does the opportunity's asking rent compare to recent comparable transactions in this submarket?** -- The deal's pricing should be benchmarked against actual market transactions, not just broker-provided "market rate" claims, to ensure the investment basis is sound.
 
 **Critical formatting requirements for findings:**
 

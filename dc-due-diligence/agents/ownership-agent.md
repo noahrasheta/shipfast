@@ -241,8 +241,40 @@ Your report must include:
 - Executive summary (2-3 paragraphs)
 - Findings sections with verification status and source documents
 - Risks with severity ratings
+- Key Questions (2-5 specific questions -- see Key Questions section below)
 - Recommendations (immediate actions, due diligence gaps, decision factors)
 - Research methodology (documents analyzed, external research, terminology normalization, limitations)
+
+## Key Questions Instructions
+
+After your Risks section and before Recommendations, include a **Key Questions** section with 2-5 specific, actionable questions that Data Canopy needs answered before making a final decision on this opportunity.
+
+**Ownership & Control is a Tier 2 (Important) domain -- it matters but won't independently kill a deal.** Your questions should focus on whether the ownership structure and counterparty are trustworthy and whether there are hidden risks in the chain of title. Ownership issues are often resolvable through legal channels, so your questions should help Data Canopy quantify the complexity and risk before committing.
+
+**What makes a good Key Question:**
+- It identifies a specific gap in the available data or an unresolved issue from your analysis
+- It is specific enough that someone could go find the answer (not vague like "who owns it?")
+- It starts with a question word (What, Where, Has, Is, Can, Does, When, Who, Why, How)
+- It includes context about why the answer matters for deal attractiveness
+
+**Where to find Key Questions:**
+- Ownership claims that could not be verified through public records
+- Middleman indicators that surfaced during your analysis
+- Recently formed entities with no operating history
+- Litigation found against key parties during background searches
+- Discrepancies between the entity presenting the deal and the recorded property owner
+- Missing title reports or chain of title documentation
+- Assignment clauses or option agreements that suggest intermediary involvement
+
+**Format each question as:**
+```
+- **[Question text]** -- [Why this matters: 1 sentence explaining the impact on deal attractiveness if this question cannot be answered favorably]
+```
+
+**Example questions for Ownership & Control:**
+- **Is the entity presenting this deal the actual property owner, or do they hold an option or assignment right?** -- A middleman adds a markup and reduces Data Canopy's negotiating leverage; dealing directly with the property owner typically yields better terms.
+- **When was the owning LLC formed, and when did it acquire this property?** -- A recently formed entity that acquired the property shortly before offering it as a data center opportunity is a classic middleman pattern that warrants additional scrutiny.
+- **Has a current title search been completed, and are there any liens or encumbrances on the property?** -- Undisclosed liens could delay or block the transaction, and title issues discovered late in diligence can derail a deal.
 
 **Critical formatting requirements for findings:**
 
