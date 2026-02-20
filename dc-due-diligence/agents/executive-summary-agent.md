@@ -149,42 +149,63 @@ For each category, evaluate against the rubric criteria:
 
 ### Phase 5: Overall Verdict Determination
 
-Apply the verdict logic from the scoring rubric.
+Apply the verdict logic from the scoring rubric. The rubric uses tiered qualitative reasoning -- not numerical formulas -- to determine the verdict. The fundamental question at each tier level is different:
 
 **Category Tier Classification:**
-- **Tier 1 (Prerequisites):** Power, Land/Zoning & Entitlements, Ownership & Control
-- **Tier 2 (Core Infrastructure):** Connectivity, Water & Cooling, Environmental
-- **Tier 3 (Deal Quality):** Commercials, Natural Gas, Market Comparables, Risk Assessment
+- **Tier 1 -- Critical (Can sink a deal alone):** Power, Land/Zoning & Entitlements, Connectivity
+- **Tier 2 -- Important (Matters, but won't independently kill a deal):** Environmental, Commercials, Ownership & Control
+- **Tier 3 -- Context (Provides background, doesn't drive pass/fail):** Water & Cooling, Natural Gas, Market Comparables
+- **Synthesis Layer (Not a tier):** Risk Assessment
+
+**Power is the single most important domain.** A Low Power score from verified negative findings (not just missing data) is the strongest possible signal toward Pass, regardless of all other scores. When Power scores Low, explicitly evaluate whether there is any credible resolution path before considering any verdict other than Pass.
+
+**Tier-Based Verdict Reasoning:**
+
+Ask these questions in order:
+
+1. **Tier 1: "Can this site physically and legally operate as a data center?"** Evaluate Power, Land/Zoning, and Connectivity. If any of these has fundamental, verified problems with no resolution path, the site is not viable. No amount of favorable Tier 2 or Tier 3 scores changes that.
+
+2. **Tier 2: "Is this deal worth doing?"** Evaluate Environmental, Commercials, and Ownership. Problems here add conditions and complexity but do not make the site unviable. Multiple Tier 2 Low scores suggest the deal is unattractive even if the site works.
+
+3. **Tier 3: "What does the broader context tell us?"** Evaluate Water/Cooling, Natural Gas, and Market Comparables. These scores inform the narrative and negotiation strategy but do not drive the go/no-go decision. Tier 3 scores alone never trigger a Pass verdict.
+
+4. **Risk Assessment: "Are there compound risks that individual scores miss?"** If the Risk Assessment agent identified deal-breakers through cross-domain analysis, those deal-breakers carry decisive weight regardless of individual domain scores.
 
 **Verdict Rules:**
 
 **Pursue** -- ALL of these must be true:
 - No Tier 1 category scores Low
-- No more than one Tier 2 category scores Low
-- No more than two total categories score Low
-- Risk Assessment does not score Low
+- No more than one Tier 2 category scores Low, and that Low score has a clear resolution path
+- Tier 3 scores do not factor into this threshold (any combination is acceptable, though noted in the narrative)
 - No deal-breakers identified by the Risk Assessment agent
+- The Risk Assessment category does not score Low due to identified deal-breakers
 
 **Proceed with Caution** -- Does not meet Pursue criteria, AND all of these are true:
-- No more than one Tier 1 category scores Low
-- No more than three total categories score Low
-- If Risk Assessment scores Low, it is due to compounding Medium-severity risks, not deal-breakers
-- Each Low-scoring category has a plausible resolution path
+- No more than one Tier 1 category scores Low, and that Low score stems from an information gap (not verified negative findings)
+- If Power is the Tier 1 category scoring Low, there must be a credible path to securing adequate power -- otherwise the verdict is Pass
+- No more than two Tier 2 categories score Low
+- Tier 3 scores do not independently push the verdict to Pass
+- If Risk Assessment scores Low, it is due to compounding medium-severity risks, not deal-breakers
+- Each Low-scoring Tier 1 or Tier 2 category has a plausible resolution path
 
 **Pass** -- ANY of these triggers Pass:
 - Two or more Tier 1 categories score Low
-- Four or more total categories score Low
-- Risk Assessment agent identified a deal-breaker
-- A Tier 1 category scores Low due to verified negative findings (not just missing data)
-- Multiple Low categories have no plausible resolution path
+- Power scores Low due to verified negative findings with no credible resolution path
+- A Tier 1 category scores Low due to verified negative findings with no resolution path
+- The Risk Assessment agent identified a deal-breaker
+- All three Tier 2 categories score Low (deal is unattractive even if site is viable)
+- A Tier 1 Low is compounded by multiple Tier 2 Low scores
+
+**Tier 3 scores never independently trigger Pass.** A site with Low Water/Cooling, Low Natural Gas, and Low Market Comparables but strong Tier 1 and Tier 2 scores should receive Pursue or Proceed with Caution, with Tier 3 concerns noted in the narrative.
 
 **Edge Case Tiebreakers:**
-1. Missing data vs. verified negatives: Favor "Proceed with Caution" for information gaps, "Pass" for confirmed problems
-2. Cluster effect: Related Low scores (e.g., Power + Gas + Connectivity all Low) are worse than unrelated Low scores
-3. Risk Assessment as tiebreaker: When ambiguous, defer to Risk Assessment agent's recommendation
-4. Recency: Low scores from "pending" agreements with near-term resolution dates are less concerning
+1. Missing data vs. verified negatives: Favor "Proceed with Caution" for information gaps, "Pass" for confirmed problems. This distinction is especially important for Tier 1 domains.
+2. Cluster effect within tiers: Multiple Low scores in the same tier compound. Two Tier 2 Low scores are more concerning than one Tier 2 and one Tier 3 Low score.
+3. Cross-tier compounding: A Tier 1 Low reinforced by related Tier 2 or Tier 3 findings strengthens the case for Pass (e.g., Power Low + Natural Gas Low when backup power depends on gas).
+4. Risk Assessment as pattern detector: When ambiguous, look to the Risk Assessment agent for cross-domain patterns that individual scores miss.
+5. Recency: Low scores from "pending" agreements with near-term resolution dates are less concerning. For Tier 1, a pending agreement with a 3-month timeline is very different from one with no timeline.
 
-**Write the verdict rationale:** 2-3 sentences explaining the verdict. Reference the specific category scores and conditions that led to this verdict. The rationale must be clear enough for a stakeholder who reads ONLY the verdict and rationale to understand the recommendation.
+**Write the verdict rationale:** 2-3 sentences explaining the verdict. Reference the specific category scores, their tiers, and the conditions that led to this verdict. Explicitly state whether any Low scores are from information gaps or verified negative findings. The rationale must be clear enough for a stakeholder who reads ONLY the verdict and rationale to understand the recommendation.
 
 **Phased Opportunities:** When an opportunity has distinct development phases with materially different risk profiles (e.g., Phase I has secured power but Phase II is speculative), assess each phase's viability separately. The overall verdict should reflect the most executable phase, with expansion phases characterized as contingent upside. For example: "Phase I (12 MW) is executable with a clear path to buildability. Expansion to 40-50 MW should be treated as contingent upside pending gas supply and utility agreement execution." This prevents a conservative Phase II assessment from obscuring an actionable Phase I.
 
@@ -222,18 +243,19 @@ The executive summary must follow this exact structure. Do not add, remove, or r
 
 | Category | Tier | Score |
 |----------|------|-------|
-| Power | Prerequisite | [High / Medium / Low] |
-| Land, Zoning & Entitlements | Prerequisite | [High / Medium / Low] |
-| Ownership & Control | Prerequisite | [High / Medium / Low] |
-| Connectivity | Core Infrastructure | [High / Medium / Low] |
-| Water & Cooling | Core Infrastructure | [High / Medium / Low] |
-| Environmental | Core Infrastructure | [High / Medium / Low] |
-| Commercials | Deal Quality | [High / Medium / Low] |
-| Natural Gas | Deal Quality | [High / Medium / Low] |
-| Market Comparables | Deal Quality | [High / Medium / Low] |
-| Risk Assessment | Deal Quality | [High / Medium / Low] |
+| Power | Critical | [High / Medium / Low] |
+| Land, Zoning & Entitlements | Critical | [High / Medium / Low] |
+| Connectivity | Critical | [High / Medium / Low] |
+| Environmental | Important | [High / Medium / Low] |
+| Commercials | Important | [High / Medium / Low] |
+| Ownership & Control | Important | [High / Medium / Low] |
+| Water & Cooling | Context | [High / Medium / Low] |
+| Natural Gas | Context | [High / Medium / Low] |
+| Market Comparables | Context | [High / Medium / Low] |
+| Risk Assessment | Synthesis | [High / Medium / Low] |
 
 **Scoring key:** High = strong fundamentals, verified data, low risk. Medium = adequate but unresolved items remain. Low = significant gaps, unverified claims, or confirmed problems.
+**Tier key:** Critical = can sink a deal alone. Important = matters, but won't independently kill a deal. Context = informs the risk profile, doesn't drive pass/fail. Synthesis = cross-domain pattern analysis.
 
 ---
 

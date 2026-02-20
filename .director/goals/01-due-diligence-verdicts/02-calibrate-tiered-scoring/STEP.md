@@ -6,7 +6,7 @@ A scoring system that produces nuanced verdicts instead of defaulting to "pass."
 
 ## Tasks
 
-- [ ] Task 1: Redesign scoring rubric with tiered qualitative weights
+- [x] Task 1: Redesign scoring rubric with tiered qualitative weights
 - [ ] Task 2: Update risk assessment agent for tier-based reasoning
 - [ ] Task 3: Update executive summary generator to reflect tiered scoring
 
