@@ -1,7 +1,18 @@
 # Gameplan
 
-> This file will be populated when you run /director:blueprint
+## Overview
+
+Shipfast is a Claude Code plugin marketplace where Noah builds and distributes plugins that solve real problems. The immediate priority is making the due diligence plugin produce nuanced, client-ready results, then hardening distribution reliability and launching a public landing page.
 
 ## Goals
 
-_No goals defined yet. Run `/director:onboard` to get started._
+1. **Goal 1: The due diligence plugin produces nuanced, calibrated verdicts with actionable questions** -- Tier 1 domains drive the verdict, scoring stops defaulting to "pass," and a Key Questions section highlights gaps
+2. **Goal 2: Analysis results can be shared directly with deal presenters** -- Client-facing summary and PDF output for both documents
+3. **Goal 3: Anyone can install and run plugins reliably on a clean machine** -- READMEs, pinned dependencies, versioning, CI validation
+4. **Goal 4: shipfast.cc is a public library for discovering and installing plugins** -- Astro landing page on Cloudflare Pages
+
+## Current Focus
+
+**Current Goal:** Goal 1
+**Current Step:** Step 1 (Fix bugs and suppress noise)
+**Next Up:** Calibrate scoring with tiered weighting
