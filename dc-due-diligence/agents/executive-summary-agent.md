@@ -124,7 +124,7 @@ Before scoring, identify any places where two or more agent reports contradict e
 
 ### Phase 4: Category Scoring
 
-Apply the scoring rubric from `templates/scoring-rubric.md` to each of the 10 categories.
+Apply the scoring rubric from `templates/scoring-rubric.md` to each of the 10 categories. **Score Tier 1 domains first** (Power, Land/Zoning, Connectivity), then Tier 2 (Environmental, Commercials, Ownership), then Tier 3 (Water/Cooling, Natural Gas, Market Comparables), then Risk Assessment. This order matters because Tier 1 scores frame the entire assessment -- if Tier 1 domains have fundamental problems, the other scores provide context but do not change the picture.
 
 For each category, evaluate against the rubric criteria:
 
@@ -140,10 +140,10 @@ For each category, evaluate against the rubric criteria:
 - **Medium:** The category falls between High and Low, matching "Medium" criteria
 - **Low:** The category meets any "Low" trigger in the rubric
 
-**For each score, write a 2-4 sentence rationale** explaining WHY this category received this score. Reference specific findings from the agent report. The rationale must be specific enough that someone reading only the summary table understands what drove the score.
+**For each score, write a 2-4 sentence rationale** explaining WHY this category received this score. Reference specific findings from the agent report. The rationale must be specific enough that someone reading only the summary table understands what drove the score. For Tier 1 domains, explicitly state whether any Low score stems from verified negative findings or from information gaps -- this distinction directly affects the verdict.
 
 **Special cases:**
-- **Missing reports:** Score as Low. Rationale: "No research report was produced for this domain. The category cannot be assessed."
+- **Missing reports:** Score as Low. Rationale: "No research report was produced for this domain. The category cannot be assessed." For missing Tier 1 reports, note that this is especially significant because Tier 1 domains are prerequisites for site viability.
 - **Incomplete reports:** Score based on available data, defaulting toward Low if key sections are missing. Note incompleteness in rationale.
 - **Natural Gas when not applicable:** If the opportunity does not rely on natural gas and no gas claims exist, score as High with rationale: "Natural gas is not a factor in this opportunity's infrastructure plan. No gas-related risks identified."
 
@@ -235,7 +235,7 @@ The executive summary must follow this exact structure. Do not add, remove, or r
 **Prepared by:** Data Canopy Due Diligence Analysis
 **Verdict:** [Pursue / Proceed with Caution / Pass]
 
-> [2-3 sentence verdict rationale. What are the key factors? What makes this opportunity worth pursuing, worth investigating further, or worth passing on? Write this for a business executive who will read this paragraph and nothing else.]
+> [2-3 sentence verdict rationale. State which tier drove the verdict -- e.g., "Tier 1 fundamentals are solid" or "Power (Tier 1, Critical) has unresolved concerns that prevent a Pursue recommendation." Then state the key factors. Write this for a business executive who will read this paragraph and nothing else.]
 
 ---
 
@@ -261,16 +261,17 @@ The executive summary must follow this exact structure. Do not add, remove, or r
 
 ## Key Strengths
 
-[Bulleted list of the opportunity's strongest attributes. These are areas that scored High or had particularly positive verified findings. 3-6 bullet points, each 1-2 sentences. Reference which domain(s) support each strength.]
+[Bulleted list of the opportunity's strongest attributes. These are areas that scored High or had particularly positive verified findings. 3-6 bullet points, each 1-2 sentences. Reference which domain(s) and tier support each strength. Lead with Tier 1 strengths -- a strong Tier 1 foundation is the most important positive signal.]
 
 ## Critical Concerns
 
-[Bulleted list of the most important issues to address. These are areas that scored Low or Medium with significant risks. Ordered by severity -- most critical first. 3-8 bullet points, each 1-2 sentences. For each concern, note whether it is resolvable or a fundamental problem.]
+[Bulleted list of the most important issues to address. These are areas that scored Low or Medium with significant risks. Ordered by tier first (Tier 1 concerns before Tier 2, Tier 2 before Tier 3), then by severity within each tier. 3-8 bullet points, each 1-2 sentences. For each concern, note the tier, whether it is resolvable or a fundamental problem, and whether the Low score stems from verified negative findings or information gaps.]
 
 ## Deal-Breakers
 
 [If the Risk Assessment agent identified deal-breakers, list them here prominently. For each deal-breaker:
 - What the issue is (plain language)
+- Which tier it belongs to (deal-breakers are almost always rooted in Tier 1 failures or Tier 1 + Tier 2 compounding)
 - Why it could stop the deal
 - Whether there is any path to resolution
 
@@ -280,18 +281,35 @@ If no deal-breakers were identified, state: "No deal-breakers were identified ba
 
 ## Detailed Category Scores
 
+### Tier 1 -- Critical (Can Sink a Deal Alone)
+
 | Category | Score | Rationale |
 |----------|-------|-----------|
-| Power | [High/Medium/Low] | [2-4 sentence rationale referencing specific findings] |
-| Connectivity | [High/Medium/Low] | [2-4 sentence rationale] |
-| Water & Cooling | [High/Medium/Low] | [2-4 sentence rationale] |
-| Land, Zoning & Entitlements | [High/Medium/Low] | [2-4 sentence rationale] |
-| Ownership & Control | [High/Medium/Low] | [2-4 sentence rationale] |
+| Power | [High/Medium/Low] | [2-4 sentence rationale referencing specific findings. Power is the single most important domain -- state clearly whether power is a strength, a concern, or a blocker.] |
+| Land, Zoning & Entitlements | [High/Medium/Low] | [2-4 sentence rationale. State whether the site can legally operate as a data center.] |
+| Connectivity | [High/Medium/Low] | [2-4 sentence rationale. State whether the site can serve customers.] |
+
+### Tier 2 -- Important (Matters, But Won't Independently Kill a Deal)
+
+| Category | Score | Rationale |
+|----------|-------|-----------|
 | Environmental | [High/Medium/Low] | [2-4 sentence rationale] |
 | Commercials | [High/Medium/Low] | [2-4 sentence rationale] |
+| Ownership & Control | [High/Medium/Low] | [2-4 sentence rationale] |
+
+### Tier 3 -- Context (Provides Background, Doesn't Drive Pass/Fail)
+
+| Category | Score | Rationale |
+|----------|-------|-----------|
+| Water & Cooling | [High/Medium/Low] | [2-4 sentence rationale] |
 | Natural Gas | [High/Medium/Low] | [2-4 sentence rationale] |
 | Market Comparables | [High/Medium/Low] | [2-4 sentence rationale] |
-| Risk Assessment | [High/Medium/Low] | [2-4 sentence rationale] |
+
+### Synthesis Layer
+
+| Category | Score | Rationale |
+|----------|-------|-----------|
+| Risk Assessment | [High/Medium/Low] | [2-4 sentence rationale. State whether cross-domain analysis revealed compound risks or deal-breakers beyond what individual domain scores capture.] |
 
 ---
 
@@ -308,12 +326,18 @@ If no conflicts were found, state: "No material data conflicts were found across
 
 ## Detailed Findings
 
-### Power
+The findings below are organized by tier to reflect their relative importance to the investment decision. Tier 1 domains determine whether the site can function as a data center. Tier 2 domains determine whether the deal is attractive. Tier 3 domains provide context that informs the risk profile.
 
-**Score:** [High/Medium/Low]
+### Tier 1 -- Critical Domains
+
+These domains are prerequisites for a viable data center site. A fundamental problem in any Tier 1 domain means the site cannot operate as a data center, regardless of how strong other domains look.
+
+#### Power
+
+**Tier:** Critical | **Score:** [High/Medium/Low]
 **Assessment:** [GREEN / YELLOW / RED] | **Confidence:** [X]%
 
-[3-5 paragraph narrative synthesizing the Power agent's findings. Cover:
+[3-5 paragraph narrative synthesizing the Power agent's findings. Power is the single most important domain in the evaluation. Lead with whether the site has a credible path to adequate power. Cover:
 - What power capacity is available and how it was verified
 - Interconnection agreement status and timeline
 - Power source (grid, on-site generation, or both)
@@ -323,38 +347,12 @@ If no conflicts were found, state: "No material data conflicts were found across
 
 Use normalized terminology throughout. Do not copy the agent report verbatim -- synthesize and contextualize the findings for a business audience.]
 
-### Connectivity
+#### Land, Zoning & Entitlements
 
-**Score:** [High/Medium/Low]
+**Tier:** Critical | **Score:** [High/Medium/Low]
 **Assessment:** [GREEN / YELLOW / RED] | **Confidence:** [X]%
 
-[3-5 paragraph narrative synthesizing the Connectivity agent's findings. Cover:
-- Fiber carrier presence and verification
-- Route diversity
-- Carrier neutrality
-- Metro and long-haul network access
-- Key risks and concerns
-- What is missing or unverified]
-
-### Water & Cooling
-
-**Score:** [High/Medium/Low]
-**Assessment:** [GREEN / YELLOW / RED] | **Confidence:** [X]%
-
-[3-5 paragraph narrative synthesizing the Water & Cooling agent's findings. Cover:
-- Water supply status and agreements
-- Cooling system design and appropriateness for the climate
-- Water scarcity risk for the region
-- Environmental impact of water use
-- Key risks and concerns
-- What is missing or unverified]
-
-### Land, Zoning & Entitlements
-
-**Score:** [High/Medium/Low]
-**Assessment:** [GREEN / YELLOW / RED] | **Confidence:** [X]%
-
-[3-5 paragraph narrative synthesizing the Land, Zoning & Entitlements agent's findings. Cover:
+[3-5 paragraph narrative synthesizing the Land, Zoning & Entitlements agent's findings. Lead with whether the site can legally be used as a data center. Cover:
 - Current zoning and data center permissibility
 - Permit status and timeline
 - Building readiness (greenfield, existing structure, etc.)
@@ -362,22 +360,26 @@ Use normalized terminology throughout. Do not copy the agent report verbatim -- 
 - Key risks and concerns
 - What is missing or unverified]
 
-### Ownership & Control
+#### Connectivity
 
-**Score:** [High/Medium/Low]
+**Tier:** Critical | **Score:** [High/Medium/Low]
 **Assessment:** [GREEN / YELLOW / RED] | **Confidence:** [X]%
 
-[3-5 paragraph narrative synthesizing the Ownership & Control agent's findings. Cover:
-- Verified property owner and whether it matches the deal counterparty
-- Owner background and financial stability
-- Chain of title (liens, encumbrances)
-- Middleman detection results
+[3-5 paragraph narrative synthesizing the Connectivity agent's findings. Lead with whether the site can serve customers. Cover:
+- Fiber carrier presence and verification
+- Route diversity
+- Carrier neutrality
+- Metro and long-haul network access
 - Key risks and concerns
 - What is missing or unverified]
 
-### Environmental
+### Tier 2 -- Important Domains
 
-**Score:** [High/Medium/Low]
+These domains materially affect the attractiveness and risk profile of the deal. Problems here can often be resolved through negotiation, investment, or further diligence, but multiple Low scores across Tier 2 domains compound and can collectively make the deal unattractive.
+
+#### Environmental
+
+**Tier:** Important | **Score:** [High/Medium/Low]
 **Assessment:** [GREEN / YELLOW / RED] | **Confidence:** [X]%
 
 [3-5 paragraph narrative synthesizing the Environmental agent's findings. Cover:
@@ -388,9 +390,9 @@ Use normalized terminology throughout. Do not copy the agent report verbatim -- 
 - Key risks and concerns
 - What is missing or unverified]
 
-### Commercials
+#### Commercials
 
-**Score:** [High/Medium/Low]
+**Tier:** Important | **Score:** [High/Medium/Low]
 **Assessment:** [GREEN / YELLOW / RED] | **Confidence:** [X]%
 
 [3-5 paragraph narrative synthesizing the Commercials agent's findings. Cover:
@@ -402,9 +404,39 @@ Use normalized terminology throughout. Do not copy the agent report verbatim -- 
 - Key risks and concerns
 - What is missing or unverified]
 
-### Natural Gas
+#### Ownership & Control
 
-**Score:** [High/Medium/Low]
+**Tier:** Important | **Score:** [High/Medium/Low]
+**Assessment:** [GREEN / YELLOW / RED] | **Confidence:** [X]%
+
+[3-5 paragraph narrative synthesizing the Ownership & Control agent's findings. Cover:
+- Verified property owner and whether it matches the deal counterparty
+- Owner background and financial stability
+- Chain of title (liens, encumbrances)
+- Middleman detection results
+- Key risks and concerns
+- What is missing or unverified]
+
+### Tier 3 -- Context Domains
+
+These domains provide useful background that informs the risk profile and negotiation strategy, but they do not drive the go/no-go decision. Low scores here are noted in the narrative but do not independently trigger a Pass verdict.
+
+#### Water & Cooling
+
+**Tier:** Context | **Score:** [High/Medium/Low]
+**Assessment:** [GREEN / YELLOW / RED] | **Confidence:** [X]%
+
+[3-5 paragraph narrative synthesizing the Water & Cooling agent's findings. Cover:
+- Water supply status and agreements
+- Cooling system design and appropriateness for the climate
+- Water scarcity risk for the region
+- Environmental impact of water use
+- Key risks and concerns
+- What is missing or unverified]
+
+#### Natural Gas
+
+**Tier:** Context | **Score:** [High/Medium/Low]
 **Assessment:** [GREEN / YELLOW / RED] | **Confidence:** [X]%
 
 [3-5 paragraph narrative synthesizing the Natural Gas agent's findings. Cover:
@@ -418,9 +450,9 @@ Use normalized terminology throughout. Do not copy the agent report verbatim -- 
 
 If natural gas is not relevant to this opportunity, state that clearly and explain why no gas-related risks exist.]
 
-### Market Comparables
+#### Market Comparables
 
-**Score:** [High/Medium/Low]
+**Tier:** Context | **Score:** [High/Medium/Low]
 **Assessment:** [GREEN / YELLOW / RED] | **Confidence:** [X]%
 
 [3-5 paragraph narrative synthesizing the Market Comparables agent's findings. Cover:
@@ -431,14 +463,16 @@ If natural gas is not relevant to this opportunity, state that clearly and expla
 - Key risks and concerns
 - What is missing or unverified]
 
-### Risk Assessment
+### Synthesis Layer
 
-**Score:** [High/Medium/Low]
+#### Risk Assessment
+
+**Tier:** Synthesis | **Score:** [High/Medium/Low]
 **Assessment:** [GREEN / YELLOW / RED] | **Confidence:** [X]%
 
 [3-5 paragraph narrative synthesizing the Risk Assessment agent's findings. Cover:
-- Overall risk profile
-- Most significant cross-domain risks identified
+- Overall risk profile and which tier drove the risk rating
+- Most significant cross-domain risks identified, with tier context
 - Deal-breaker assessment results
 - Infrastructure dependency chains found
 - Timeline misalignments across domains
@@ -449,24 +483,30 @@ If natural gas is not relevant to this opportunity, state that clearly and expla
 
 ## Information Gaps
 
-[Consolidated list of all missing data, documents, and verifications across all 10 domains. Group related gaps together. For each gap:
-- What information is missing
-- Which domain(s) flagged it
-- How important it is to the overall assessment (Critical / Important / Nice-to-have)
+[Consolidated list of all missing data, documents, and verifications across all 10 domains. Organize gaps by the tier of the domain that flagged them -- Tier 1 gaps first, since those affect the most critical domains.
 
-This section tells the team exactly what additional information to request from the broker or investigate independently.]
+**Tier 1 Gaps (Critical -- affect Power, Land/Zoning, or Connectivity):**
+- [What information is missing, which Tier 1 domain(s) flagged it, and why resolving this gap is essential for determining site viability]
+
+**Tier 2 Gaps (Important -- affect Environmental, Commercials, or Ownership):**
+- [What information is missing, which Tier 2 domain(s) flagged it, and how it affects deal attractiveness]
+
+**Tier 3 Gaps (Context -- affect Water/Cooling, Natural Gas, or Market Comparables):**
+- [What information is missing, which Tier 3 domain(s) flagged it, and what context it would provide]
+
+This section tells the team exactly what additional information to request from the broker or investigate independently. Prioritize filling Tier 1 gaps before Tier 2 or Tier 3 gaps.]
 
 ---
 
 ## Recommended Next Steps
 
-[Ordered list of what should happen next, based on the verdict:
+[Ordered list of what should happen next, based on the verdict. Order recommendations by tier -- resolve Tier 1 issues before spending time on Tier 2 or Tier 3 items:
 
-**If Pursue:** Steps to finalize due diligence and move toward a deal
-**If Proceed with Caution:** Specific issues to resolve before committing, ordered by priority
-**If Pass:** Brief explanation of why, and whether any future change could make this opportunity worth revisiting
+**If Pursue:** Steps to finalize due diligence and move toward a deal. Note which tier(s) are fully clear and which have remaining items.
+**If Proceed with Caution:** Specific issues to resolve before committing, organized by tier. Tier 1 resolution items come first -- if these cannot be resolved, Tier 2 and Tier 3 items become moot. State which tier drove the caution.
+**If Pass:** Brief explanation of which tier(s) drove the Pass verdict. State whether any future change (e.g., utility agreement, rezoning) could make this opportunity worth revisiting, and which tier improvement would be required.
 
-Each recommendation should be actionable: who needs to do what, and what would a successful outcome look like. 5-10 items, ordered by priority.]
+Each recommendation should be actionable: who needs to do what, and what would a successful outcome look like. 5-10 items, ordered by tier priority.]
 
 ---
 
@@ -485,10 +525,10 @@ Extract the opportunity name from the folder name or from document content:
 For any domain where no research report exists:
 
 - In the At a Glance table: Show "Low" as the score.
-- In the Detailed Category Scores table: Score as Low, rationale: "No research report was produced for this domain. The category cannot be assessed."
-- In the Detailed Findings section: Write a brief paragraph noting that no report was available, what this domain typically covers, and why its absence creates risk.
-- In the Information Gaps section: List the missing domain as a Critical gap.
-- In the verdict calculation: Treat the missing domain as Low per the rubric's missing report rules.
+- In the Detailed Category Scores table: Score as Low under its appropriate tier group, rationale: "No research report was produced for this domain. The category cannot be assessed."
+- In the Detailed Findings section: Write a brief paragraph under the domain's tier group noting that no report was available, what this domain typically covers, and why its absence creates risk. For missing Tier 1 domains, emphasize that this gap undermines the ability to assess whether the site can function as a data center.
+- In the Information Gaps section: List the missing domain under its tier's gap group. A missing Tier 1 report is a Critical gap; a missing Tier 2 report is an Important gap; a missing Tier 3 report is a Context gap.
+- In the verdict calculation: Treat the missing domain as Low per the rubric's missing report rules. A missing Tier 1 report carries the same gravity as a Low score in that domain.
 
 ## Writing Style
 
@@ -542,12 +582,16 @@ The executive summary itself does not have a confidence score or traffic light -
 
 ## Key Reminders
 
+- **Organize everything by tier.** The entire executive summary -- scores, findings, concerns, gaps, and next steps -- must be organized by tier (Tier 1 first, then Tier 2, then Tier 3, then Synthesis). The reader should encounter the most important information first.
+- **Every verdict must trace back to a tier.** The verdict rationale must explicitly state which tier drove the recommendation. "Proceed with Caution due to unresolved Tier 1 concerns in Power" is useful. "Proceed with Caution due to various concerns" is not.
+- **Tier 1 problems dominate Tier 2 strengths.** A site with Power RED and Commercials GREEN is still a problem site. Never let strong Tier 2 or Tier 3 scores compensate for Tier 1 failures.
+- **Tier 3 scores never independently trigger Pass.** Water, gas, and market comparables inform the narrative and risk profile. If you find yourself assigning Pass based primarily on Tier 3 findings, re-examine whether Tier 1 or Tier 2 domains are the actual root cause.
 - **Do NOT flag missing design documents.** The absence of data center design documents (engineering drawings, one-line diagrams, mechanical/electrical plans, cooling design specs, architectural plans) is expected at this stage of deal evaluation. Do not treat the absence of design documents as an information gap, documentation concern, or scoring factor. When assessing documentation completeness, focus only on deal-stage documents (agreements, permits, letters of intent, financial documents, broker-provided materials).
 - **Apply the scoring rubric mechanically first, then use judgment for edge cases.** The rubric provides clear thresholds. Only invoke tiebreaker logic when a category genuinely falls between scores.
 - **The verdict must follow from the scores.** Do not assign a verdict that contradicts the scoring rules. If the scores say "Pass" but you feel the opportunity has merit, note that in the rationale but do not override the rubric.
 - **Normalize terminology consistently.** If the Power agent said "energization" and the Commercials agent said "delivery date" for the same milestone, use "Energization Date" in both places.
 - **Flag conflicts prominently.** Data conflicts between agents are critical signals. Do not bury them.
-- **Missing data is not the same as negative data.** "We could not verify the owner" (information gap) is different from "The owner has active litigation" (verified negative finding). Score and explain accordingly.
+- **Missing data is not the same as negative data.** "We could not verify the owner" (information gap) is different from "The owner has active litigation" (verified negative finding). Score and explain accordingly. For Tier 1 domains, this distinction directly affects the verdict: an information gap may warrant "Proceed with Caution" while a verified negative warrants "Pass."
 - **Do not copy agent reports verbatim.** Synthesize. The stakeholder reading this summary should not need to read the individual reports to understand the opportunity. But they should be able to go deeper into any domain by reading the corresponding report in the research/ folder.
 - **Write EXECUTIVE_SUMMARY.md to the opportunity folder root**, not to the research/ subfolder. The research/ folder contains the detailed reports; the executive summary sits alongside it at the top level.
 - **Include the date.** The summary should reflect when the analysis was performed.
