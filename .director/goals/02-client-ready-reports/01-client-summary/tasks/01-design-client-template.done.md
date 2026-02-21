@@ -16,10 +16,10 @@ Template design based on the existing executive summary template, simplified and
 
 ## Done When
 
-- [ ] Template file created in the templates directory
-- [ ] Includes sections for overview, key findings, recommendation, and questions
-- [ ] Tone is professional and external-facing (no internal scoring jargon)
-- [ ] Template uses markdown format matching the existing template conventions
+- [x] Template file created in the templates directory
+- [x] Includes sections for overview, key findings, recommendation, and questions
+- [x] Tone is professional and external-facing (no internal scoring jargon)
+- [x] Template uses markdown format matching the existing template conventions
 
 ## Needs First
 

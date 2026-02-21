@@ -7,9 +7,9 @@
 ## Current Position
 
 **Current goal:** Analysis results can be shared directly with deal presenters
-**Current step:** Pending -- scanning Goal 2
-**Current task:** Pending
-**Position:** Goal 1 complete, starting Goal 2
+**Current step:** Client-facing summary document
+**Current task:** Task 2: Build client summary agent
+**Position:** Goal 2, Step 1, Task 1 complete
 
 ## Progress
 
@@ -26,8 +26,15 @@
   - [x] Task 1: Add gap and question extraction to domain agent prompts
   - [x] Task 2: Build Key Questions aggregation into executive summary generator
 
+### Goal 2: Client-ready reports
+- Step 1: Client-facing summary document (1/3 tasks done)
+  - [x] Task 1: Design client summary template
+  - [ ] Task 2: Build client summary agent
+  - [ ] Task 3: Wire client summary into orchestrator as new wave
+
 ## Recent Activity
 
+- 2026-02-20: Designed client-facing summary template (`dc-due-diligence/templates/client-summary-template.md`) -- defines structure and tone for external deliverable with sections for overview, recommendation, key findings (organized as infrastructure fundamentals / deal factors / supporting context), items requiring attention, numbered questions, and collaborative next steps. Explicitly excludes internal scoring labels, tier classifications, confidence percentages, and traffic light indicators.
 - 2026-02-20: Added Key Questions aggregation to executive summary generator -- collects questions from all 9 domain reports, deduplicates overlapping ones, organizes by tier priority (Critical/Important/Context), and presents as a dedicated section after the verdict. Orchestrator validates Key Questions presence.
 - 2026-02-20: Added Key Questions section to all 9 domain agent prompts and the agent output template -- each agent now generates 2-5 specific, actionable questions tailored to its tier (Tier 1: site viability, Tier 2: deal attractiveness, Tier 3: risk context). Updated template validation rules and example report.
 - 2026-02-20: Updated executive summary generator to organize all output by tier importance -- Detailed Category Scores split into tier-grouped tables, Detailed Findings reorganized with tier group headers (Tier 1 Critical first, Tier 2 Important, Tier 3 Context, Synthesis), Information Gaps organized by tier, verdict rationale now explicitly references which tier drove the recommendation, Key Reminders updated with tier-organization rules
@@ -43,4 +50,4 @@ No decisions recorded yet.
 
 ## Cost Summary
 
-**Total:** ~86100 tokens
+**Total:** ~95000 tokens

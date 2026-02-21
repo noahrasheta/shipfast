@@ -63,6 +63,7 @@ shipfast/
 │   │   └── vision.py                 # Image & scanned PDF converter (Anthropic vision API)
 │   ├── templates/                    # Output templates for agents
 │   │   ├── agent-output-template.md  # Standardized structure all agents follow
+│   │   ├── client-summary-template.md # Client-facing summary structure for deal presenters
 │   │   └── scoring-rubric.md         # Category scoring guide for executive summary
 │   ├── tests/                        # pytest test suite
 │   │   ├── __init__.py
@@ -113,7 +114,7 @@ shipfast/
 **`dc-due-diligence/templates/`:**
 - Purpose: Standardized output format definitions that agents read and follow
 - Contains: Markdown templates defining section structure, risk scoring, category definitions
-- Key files: `agent-output-template.md` (all domain agents use this), `scoring-rubric.md` (executive summary scoring rules)
+- Key files: `agent-output-template.md` (all domain agents use this), `scoring-rubric.md` (executive summary scoring rules), `client-summary-template.md` (client-facing summary structure)
 
 **`dc-due-diligence/tests/`:**
 - Purpose: pytest test suite validating converter functionality and integration
@@ -224,7 +225,7 @@ Use the following locations when adding new code to this project.
 - Create markdown file in `<plugin>/templates/<name>.md`
 - Define section structure agents should follow (use headers, subsections, placeholders)
 - Reference by absolute path in agent instructions (e.g., `${CLAUDE_PLUGIN_ROOT}/templates/agent-output-template.md`)
-- Example: See `dc-due-diligence/templates/agent-output-template.md` (all domain agents use this), `scoring-rubric.md` (executive summary uses this)
+- Example: See `dc-due-diligence/templates/agent-output-template.md` (all domain agents use this), `scoring-rubric.md` (executive summary uses this), `client-summary-template.md` (client summary agent uses this)
 
 **New Reference/Guide:**
 - Create markdown file in `<plugin>/references/<name>.md`
