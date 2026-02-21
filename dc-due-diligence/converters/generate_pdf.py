@@ -35,6 +35,7 @@ __all__ = [
     "generate_pdf",
     "generate_executive_pdf",
     "generate_client_pdf",
+    "generate_all_pdfs",
 ]
 
 
@@ -230,3 +231,69 @@ def generate_client_pdf(
         Conversion outcome.
     """
     return generate_pdf(markdown_path, output_path=output_path, doc_type="client")
+
+
+def generate_all_pdfs(folder_path: str | Path) -> list[PDFResult]:
+    """Convert all due diligence summary markdown files in a folder to PDF.
+
+    Looks for ``EXECUTIVE_SUMMARY.md`` and ``CLIENT_SUMMARY.md`` in the
+    given folder and converts each one that exists.  Files that do not
+    exist are silently skipped.
+
+    Parameters
+    ----------
+    folder_path:
+        Path to the opportunity folder containing the summary markdown
+        files.
+
+    Returns
+    -------
+    list[PDFResult]
+        A result for each file that was attempted (skipped files are not
+        included).
+    """
+    folder = Path(folder_path).resolve()
+    results: list[PDFResult] = []
+
+    summaries = [
+        ("EXECUTIVE_SUMMARY.md", "executive"),
+        ("CLIENT_SUMMARY.md", "client"),
+    ]
+
+    for filename, doc_type in summaries:
+        md_path = folder / filename
+        if md_path.exists():
+            result = generate_pdf(md_path, doc_type=doc_type)
+            results.append(result)
+            status = "OK" if result.success else "FAILED"
+            print(
+                f"{status}: {filename} -> {result.pdf_path.name if result.pdf_path else 'N/A'}"
+                + (f" ({result.size_bytes} bytes)" if result.success else f" ({result.error})")
+            )
+        else:
+            print(f"SKIPPED: {filename} not found in {folder}")
+
+    return results
+
+
+if __name__ == "__main__":
+    import sys
+
+    logging.basicConfig(level=logging.INFO, format="%(levelname)s: %(message)s")
+
+    if len(sys.argv) != 2:
+        print("Usage: python -m converters.generate_pdf <opportunity-folder>")
+        sys.exit(1)
+
+    folder = sys.argv[1]
+    results = generate_all_pdfs(folder)
+
+    success_count = sum(1 for r in results if r.success)
+    fail_count = sum(1 for r in results if not r.success)
+
+    if not results:
+        print("No summary files found to convert.")
+        sys.exit(1)
+
+    print(f"\nPDF generation complete: {success_count} succeeded, {fail_count} failed")
+    sys.exit(0 if fail_count == 0 else 1)

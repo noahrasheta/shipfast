@@ -20,6 +20,7 @@ from converters.generate_pdf import (
     generate_pdf,
     generate_executive_pdf,
     generate_client_pdf,
+    generate_all_pdfs,
 )
 from converters.pdf import PDFConverter
 from converters.pipeline import (
@@ -45,6 +46,7 @@ __all__ = [
     "ExtractionResult",
     "FileEntry",
     "FileType",
+    "generate_all_pdfs",
     "generate_client_pdf",
     "generate_executive_pdf",
     "generate_pdf",

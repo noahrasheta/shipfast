@@ -1,12 +1,12 @@
 ---
 name: due-diligence
-description: "Run due diligence on a data center opportunity. Triggered by '/due-diligence <folder-path>', 'analyze this data center deal', 'run due diligence', or 'evaluate this site'. Analyzes broker documents across 9 domains (power, connectivity, water/cooling, zoning, ownership, environmental, commercials, natural gas, market comparables), synthesizes cross-domain risks, produces a scored executive summary with a Pursue / Proceed with Caution / Pass verdict, and generates a client-facing summary document for the deal presenter."
+description: "Run due diligence on a data center opportunity. Triggered by '/due-diligence <folder-path>', 'analyze this data center deal', 'run due diligence', or 'evaluate this site'. Analyzes broker documents across 9 domains (power, connectivity, water/cooling, zoning, ownership, environmental, commercials, natural gas, market comparables), synthesizes cross-domain risks, produces a scored executive summary with a Pursue / Proceed with Caution / Pass verdict, generates a client-facing summary document for the deal presenter, and converts both summaries to PDF."
 version: "0.1.0"
 ---
 
 # Due Diligence Orchestrator
 
-You are the orchestrator for the data center due diligence workflow. Your job is to take a folder of opportunity documents and coordinate the full analysis pipeline: 9 domain research agents running in parallel, followed by a Risk Assessment agent that synthesizes findings across all domains, an Executive Summary Generator that scores each category and delivers a verdict, and a Client Summary agent that produces a professional external deliverable for the deal presenter.
+You are the orchestrator for the data center due diligence workflow. Your job is to take a folder of opportunity documents and coordinate the full analysis pipeline: 9 domain research agents running in parallel, followed by a Risk Assessment agent that synthesizes findings across all domains, an Executive Summary Generator that scores each category and delivers a verdict, a Client Summary agent that produces a professional external deliverable for the deal presenter, and a final PDF conversion step that produces polished PDFs of both summaries.
 
 ## What You're Given
 
@@ -400,6 +400,55 @@ After the executive summary is validated, generate the client-facing summary doc
    - If the file exists but is incomplete, note which sections are missing.
    - If internal scoring language was detected, flag for manual review.
 
+### Phase 6c: PDF Generation
+
+After the client summary is validated (or skipped), generate PDF versions of both summary documents. The markdown files are preserved alongside the PDFs for AI workflows and internal use.
+
+1. **Check if at least one summary exists:**
+
+   At least one of `EXECUTIVE_SUMMARY.md` or `CLIENT_SUMMARY.md` must exist in the opportunity folder. If neither exists, skip this phase and note:
+   ```
+   No summary documents available for PDF generation. Skipping PDF conversion.
+   ```
+
+2. **Run the PDF generation pipeline:**
+
+   Use the `PLUGIN_DIR` resolved in Phase 1 to run the converter:
+   ```bash
+   cd "$PLUGIN_DIR" && "$PLUGIN_DIR/.venv/bin/python3" -m converters.generate_pdf "<absolute-folder-path>"
+   ```
+   - The script automatically detects which summary files exist and converts them
+   - It prints a status line for each file: OK, FAILED, or SKIPPED
+   - Wait for the script to complete
+
+3. **Verify PDF outputs:**
+
+   ```bash
+   test -f "<folder>/EXECUTIVE_SUMMARY.pdf" && echo "OK executive-summary.pdf ($(wc -c < '<folder>/EXECUTIVE_SUMMARY.pdf') bytes)" || echo "MISSING executive-summary.pdf"
+   test -f "<folder>/CLIENT_SUMMARY.pdf" && echo "OK client-summary.pdf ($(wc -c < '<folder>/CLIENT_SUMMARY.pdf') bytes)" || echo "MISSING client-summary.pdf"
+   ```
+
+4. **Verify markdown originals are preserved:**
+
+   ```bash
+   test -f "<folder>/EXECUTIVE_SUMMARY.md" && echo "OK EXECUTIVE_SUMMARY.md preserved" || echo "MISSING EXECUTIVE_SUMMARY.md"
+   test -f "<folder>/CLIENT_SUMMARY.md" && echo "OK CLIENT_SUMMARY.md preserved" || echo "MISSING CLIENT_SUMMARY.md"
+   ```
+
+5. **Report progress:**
+   ```
+   Generating PDF versions of summary documents...
+
+   [Show status for each file from the script output]
+
+   Markdown originals preserved alongside PDFs.
+   ```
+
+6. **Handle PDF generation failure:**
+   - If PDF generation fails for one document, note the failure but continue. The markdown version is still available.
+   - If PDF generation fails for both documents, note the failure. The markdown versions are the fallback.
+   - PDF generation failure should never stop the workflow -- the markdown summaries are the primary deliverables.
+
 ### Phase 7: Results Reporting
 
 1. **Report completion summary:**
@@ -431,10 +480,11 @@ After the executive summary is validated, generate the client-facing summary doc
    If the executive summary was generated successfully:
    ```
    Executive Summary: <folder>/EXECUTIVE_SUMMARY.md
+   Executive Summary PDF: <folder>/EXECUTIVE_SUMMARY.pdf
    Verdict: [Pursue / Proceed with Caution / Pass]
    ```
 
-   Read the verdict line from the executive summary and display it prominently. This is the single most important output of the entire workflow.
+   If the PDF was not generated, show only the markdown path. Read the verdict line from the executive summary and display it prominently. This is the single most important output of the entire workflow.
 
    If the executive summary was not generated:
    ```
@@ -446,8 +496,11 @@ After the executive summary is validated, generate the client-facing summary doc
    If the client summary was generated successfully:
    ```
    Client Summary: <folder>/CLIENT_SUMMARY.md
-   This is the external deliverable for the deal presenter.
+   Client Summary PDF: <folder>/CLIENT_SUMMARY.pdf
+   This is the external deliverable for the deal presenter. The PDF is ready to email or print.
    ```
+
+   If the PDF was not generated, show only the markdown path.
 
    If the client summary was generated but has issues:
    ```
@@ -496,11 +549,14 @@ After the executive summary is validated, generate the client-facing summary doc
    ```
    Due diligence complete. Results:
 
-   Client Summary: <absolute-folder-path>/CLIENT_SUMMARY.md (external deliverable for deal presenter)
-   Executive Summary: <absolute-folder-path>/EXECUTIVE_SUMMARY.md (internal evaluation document)
+   Client Summary (PDF): <absolute-folder-path>/CLIENT_SUMMARY.pdf (ready to email or print)
+   Client Summary (Markdown): <absolute-folder-path>/CLIENT_SUMMARY.md
+   Executive Summary (PDF): <absolute-folder-path>/EXECUTIVE_SUMMARY.pdf
+   Executive Summary (Markdown): <absolute-folder-path>/EXECUTIVE_SUMMARY.md
    Research Reports: <absolute-folder-path>/research/
 
-   The client summary is the document to share with the deal presenter. It contains:
+   The client summary is the document to share with the deal presenter. The PDF version is ready
+   to email or print. It contains:
    - Professional recommendation in business language
    - Key findings organized by infrastructure fundamentals, deal factors, and supporting context
    - Items requiring attention with constructive framing
@@ -515,6 +571,8 @@ After the executive summary is validated, generate the client-facing summary doc
    - Key Questions -- prioritized list of gaps and questions Data Canopy needs answered, organized by tier
    - Detailed findings per category
    - Information gaps and recommended next steps
+
+   Markdown versions of both summaries are preserved alongside the PDFs for AI workflows and internal use.
 
    Individual research reports contain full findings, verification details, and methodology notes for each domain.
    ```
@@ -561,6 +619,12 @@ Handle failures at each phase appropriately:
 - The executive summary and individual research reports are still valid and usable
 - Suggest manual preparation of a client-facing document using the executive summary as a reference
 - The deal presenter deliverable will need to be prepared manually
+
+**PDF generation fails:**
+- Report which PDFs could not be generated
+- The markdown versions are always preserved and remain the primary deliverables
+- PDF generation failure should never stop the workflow or affect reporting
+- Suggest checking that the Python environment has the markdown-pdf package installed
 
 **Output validation finds issues:**
 - Note which reports seem incomplete
@@ -610,6 +674,9 @@ Please manually verify findings from this domain before making decisions.
 | Client Summary fails | Continue with results reporting | "Client summary could not be generated. Prepare deal presenter deliverable manually." |
 | Client Summary incomplete | Note missing sections | "Client summary generated but missing sections: X, Y -- manual review recommended" |
 | Client Summary leaks internal language | Flag for manual review | "Client summary contains internal scoring language -- manual review recommended" |
+| PDF generation fails (one file) | Continue, note failure | "PDF generation failed for [file]. Markdown version is available." |
+| PDF generation fails (all files) | Continue, note failure | "PDF generation failed. Markdown versions are available as fallback." |
+| No summaries for PDF generation | Skip PDF phase | "No summary documents available for PDF generation." |
 | Report validation fails | Note in summary | "[Domain] report incomplete or malformed - manual review recommended" |
 
 ## Implementation Notes
@@ -620,11 +687,12 @@ Please manually verify findings from this domain before making decisions.
 - **Report progress clearly** - users need to understand what's happening during long-running operations
 - **Preserve agent autonomy** - don't try to correct or rewrite agent outputs, just validate structure
 - **Graceful degradation** - partial results are better than no results
-- **Four-wave execution** is critical:
+- **Five-step execution** is critical:
   - Wave 1: 9 domain agents run in parallel (they read broker documents)
   - Wave 2: Risk Assessment agent runs after Wave 1 (it reads domain reports)
   - Wave 3: Executive Summary Generator runs after validation (it reads all 10 reports and produces the internal evaluation)
   - Wave 4: Client Summary agent runs after Wave 3 (it reads the executive summary and domain reports to produce the external deliverable for the deal presenter)
+  - Step 5: PDF generation runs after Wave 4 (converts both EXECUTIVE_SUMMARY.md and CLIENT_SUMMARY.md to PDF)
 
 ## Example Execution Flow
 
@@ -642,14 +710,15 @@ User runs: `/due-diligence ./opportunity-example`
 10. Wave 3 complete: EXECUTIVE_SUMMARY.md generated with verdict and scored categories
 11. Wave 4: Client Summary agent launched
 12. Wave 4 complete: CLIENT_SUMMARY.md generated for deal presenter
-13. Report:
+13. PDF generation: EXECUTIVE_SUMMARY.pdf and CLIENT_SUMMARY.pdf generated
+14. Report:
     - 10 research domains analyzed
     - Executive summary with verdict (Pursue / Proceed with Caution / Pass)
-    - Client summary ready for deal presenter
+    - Client summary ready for deal presenter (PDF ready to email or print)
     - Scored summary table with High/Medium/Low ratings for all 10 categories
     - Quick overview table with traffic lights and confidence scores
     - All reports saved to opportunity-example/research/
-    - Executive summary saved to opportunity-example/EXECUTIVE_SUMMARY.md
-    - Client summary saved to opportunity-example/CLIENT_SUMMARY.md
+    - Executive summary: opportunity-example/EXECUTIVE_SUMMARY.md + .pdf
+    - Client summary: opportunity-example/CLIENT_SUMMARY.md + .pdf
 
-This gives the user a complete analysis with a clear recommendation, a client-ready deliverable for the deal presenter, and actionable results, even if some agents encounter issues along the way.
+This gives the user a complete analysis with a clear recommendation, a client-ready PDF deliverable for the deal presenter, and actionable results, even if some agents encounter issues along the way.

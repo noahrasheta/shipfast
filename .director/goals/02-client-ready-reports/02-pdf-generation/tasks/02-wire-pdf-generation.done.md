@@ -16,10 +16,10 @@ A Python script invocation in the orchestrator after Wave 4. The PDF conversion 
 
 ## Done When
 
-- [ ] Orchestrator triggers PDF generation after all agent waves complete
-- [ ] Executive summary PDF is generated alongside the markdown version
-- [ ] Client summary PDF is generated alongside the markdown version
-- [ ] PDF files are named clearly (e.g., executive-summary.pdf, client-summary.pdf)
+- [x] Orchestrator triggers PDF generation after all agent waves complete
+- [x] Executive summary PDF is generated alongside the markdown version
+- [x] Client summary PDF is generated alongside the markdown version
+- [x] PDF files are named clearly (e.g., executive-summary.pdf, client-summary.pdf)
 
 ## Needs First
 
