@@ -309,6 +309,7 @@ After validation is complete, generate the executive summary that scores all 10 
    grep -q "## At a Glance" "$file" || missing="${missing} at-a-glance"
    grep -q "## Key Strengths" "$file" || missing="${missing} key-strengths"
    grep -q "## Critical Concerns" "$file" || missing="${missing} critical-concerns"
+   grep -q "## Key Questions" "$file" || missing="${missing} key-questions"
    grep -q "## Detailed Category Scores" "$file" || missing="${missing} detailed-scores"
    grep -q "## Detailed Findings" "$file" || missing="${missing} detailed-findings"
    grep -q "## Recommended Next Steps" "$file" || missing="${missing} next-steps"
@@ -410,6 +411,7 @@ After validation is complete, generate the executive summary that scores all 10 
    - Scored summary table (High / Medium / Low) for all 10 categories
    - Key strengths and critical concerns
    - Deal-breaker assessment
+   - Key Questions -- prioritized list of gaps and questions Data Canopy needs answered, organized by tier
    - Detailed findings per category
    - Information gaps and recommended next steps
 

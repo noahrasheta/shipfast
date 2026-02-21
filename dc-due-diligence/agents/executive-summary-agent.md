@@ -49,6 +49,7 @@ Before any scoring or writing, read every report and extract the structured data
    - **Executive summary text:** The agent's own summary of its findings
    - **Key findings:** The most important facts discovered, with their verification status (Verified, Partially Verified, Unverified, Not Found)
    - **Risks identified:** Each risk with its severity (Critical, High, Medium, Low)
+   - **Key Questions:** The 2-5 specific questions the agent identified in its Key Questions section. For each question, capture the question text and the "why this matters" explanation. Record which domain raised each question.
    - **Due diligence gaps:** What the agent could not find or verify
    - **Recommendations:** What the agent says should happen next
    - **Terminology notes:** Any terminology normalization the agent performed (from the Research Methodology section)
@@ -121,6 +122,44 @@ Before scoring, identify any places where two or more agent reports contradict e
 4. **If one agent's domain is authoritative for the claim:** Defer to the domain expert. For power figures, trust the Power agent. For cost terms, trust the Commercials agent. For environmental hazards, trust the Environmental agent.
 
 **Document all conflicts** in the executive summary's "Cross-Report Conflicts" section so stakeholders know where data disagreements exist.
+
+### Phase 3.5: Key Questions Aggregation
+
+After extracting all data and resolving conflicts, aggregate the Key Questions from all 9 domain agent reports into a single prioritized list for the executive summary.
+
+**Step 1: Collect all Key Questions.**
+
+Gather every question from the Key Questions section of each domain agent report. For each question, record:
+- The exact question text
+- The "why this matters" explanation
+- Which domain raised it
+- Which tier that domain belongs to (Tier 1: Power, Land/Zoning, Connectivity; Tier 2: Environmental, Commercials, Ownership; Tier 3: Water/Cooling, Natural Gas, Market Comparables)
+
+**Step 2: Deduplicate and merge overlapping questions.**
+
+Multiple agents may raise the same underlying question from different angles. For example, the Power agent might ask about natural gas supply for backup generators while the Natural Gas agent asks about gas pipeline availability -- these are related questions that should be merged.
+
+Deduplication rules:
+- **Identical questions:** If two agents ask the same question with different wording, keep one version and note both domains as the source.
+- **Overlapping questions:** If two questions address the same underlying issue from different angles, merge them into a single question that captures both perspectives. List all contributing domains.
+- **Related but distinct questions:** If two questions touch the same topic but ask genuinely different things (e.g., "What is the cost of grid upgrades?" vs. "Who pays for grid upgrades?"), keep them separate.
+
+When merging, prefer the wording from the higher-tier domain agent, since that domain's perspective carries more weight.
+
+**Step 3: Prioritize by tier.**
+
+Organize the deduplicated questions into three groups:
+1. **Critical Questions (from Tier 1 domains)** -- These questions address whether the site can physically and legally operate as a data center. They must be answered before committing to the opportunity. Flag these as critical.
+2. **Important Questions (from Tier 2 domains)** -- These questions address whether the deal is attractive and executable. They should be answered during deeper diligence.
+3. **Context Questions (from Tier 3 domains)** -- These questions provide additional context for risk assessment and negotiation strategy. They are useful but not decision-driving.
+
+Within each group, order questions by urgency: questions about verified gaps or contradictions first, then questions about missing data, then questions about clarification or additional context.
+
+**Step 4: Assess cross-domain questions.**
+
+If a question was raised by agents from multiple tiers, classify it at the highest tier involved. For example, if both the Power agent (Tier 1) and the Natural Gas agent (Tier 3) raised related questions about backup power fuel supply, the merged question belongs in the Critical Questions group.
+
+The final Key Questions section should contain 5-15 questions total. If more than 15 questions remain after deduplication, further consolidate by merging related questions within the same tier. If fewer than 5 questions remain, that is acceptable -- it indicates the agents found the opportunity well-documented.
 
 ### Phase 4: Category Scoring
 
@@ -276,6 +315,39 @@ The executive summary must follow this exact structure. Do not add, remove, or r
 - Whether there is any path to resolution
 
 If no deal-breakers were identified, state: "No deal-breakers were identified based on available information."]
+
+---
+
+## Key Questions
+
+[Aggregated and prioritized list of questions from all domain research agents. These are the specific gaps, unresolved issues, and missing data points that Data Canopy needs answered before making a final decision on this opportunity. Questions are organized by tier to reflect their relative urgency.]
+
+### Critical Questions (Tier 1 Domains)
+
+[Questions raised by Power, Land/Zoning, and Connectivity agents. These address whether the site can physically and legally operate as a data center. Each question must be answered before committing to the opportunity.
+
+For each question:
+- **[Question text]** ([Domain(s)]) -- [Why this matters: 1 sentence explaining the impact on site viability]
+
+If no Tier 1 questions exist, state: "No critical questions remain -- Tier 1 domains are well-documented and verified."]
+
+### Important Questions (Tier 2 Domains)
+
+[Questions raised by Environmental, Commercials, and Ownership agents. These address whether the deal is attractive and executable.
+
+For each question:
+- **[Question text]** ([Domain(s)]) -- [Why this matters: 1 sentence explaining the impact on deal attractiveness]
+
+If no Tier 2 questions exist, state: "No important questions remain -- Tier 2 domains are well-documented and verified."]
+
+### Context Questions (Tier 3 Domains)
+
+[Questions raised by Water/Cooling, Natural Gas, and Market Comparables agents. These provide additional context for risk assessment and negotiation strategy.
+
+For each question:
+- **[Question text]** ([Domain(s)]) -- [Why this matters: 1 sentence explaining what context this would provide]
+
+If no Tier 3 questions exist, state: "No context questions remain -- Tier 3 domains are well-documented and verified."]
 
 ---
 
@@ -582,7 +654,8 @@ The executive summary itself does not have a confidence score or traffic light -
 
 ## Key Reminders
 
-- **Organize everything by tier.** The entire executive summary -- scores, findings, concerns, gaps, and next steps -- must be organized by tier (Tier 1 first, then Tier 2, then Tier 3, then Synthesis). The reader should encounter the most important information first.
+- **Aggregate Key Questions from all domain reports.** Every domain agent produces a Key Questions section. The executive summary must collect all questions, deduplicate overlapping ones, and present them organized by tier. This section is the actionable deliverable for Data Canopy -- it tells them exactly what to ask for before committing to the opportunity.
+- **Organize everything by tier.** The entire executive summary -- scores, findings, concerns, gaps, questions, and next steps -- must be organized by tier (Tier 1 first, then Tier 2, then Tier 3, then Synthesis). The reader should encounter the most important information first.
 - **Every verdict must trace back to a tier.** The verdict rationale must explicitly state which tier drove the recommendation. "Proceed with Caution due to unresolved Tier 1 concerns in Power" is useful. "Proceed with Caution due to various concerns" is not.
 - **Tier 1 problems dominate Tier 2 strengths.** A site with Power RED and Commercials GREEN is still a problem site. Never let strong Tier 2 or Tier 3 scores compensate for Tier 1 failures.
 - **Tier 3 scores never independently trigger Pass.** Water, gas, and market comparables inform the narrative and risk profile. If you find yourself assigning Pass based primarily on Tier 3 findings, re-examine whether Tier 1 or Tier 2 domains are the actual root cause.

@@ -13,6 +13,6 @@ Shipfast is a Claude Code plugin marketplace where Noah builds and distributes p
 
 ## Current Focus
 
-**Current Goal:** Goal 1
-**Current Step:** Step 1 (Fix bugs and suppress noise)
-**Next Up:** Calibrate scoring with tiered weighting
+**Current Goal:** Goal 2
+**Current Step:** Step 1
+**Next Up:** First task in Goal 2
