@@ -1,15 +1,15 @@
 # Project State
 
 **Status:** In progress
-**Last updated:** 2026-02-20 20:30
+**Last updated:** 2026-02-20 21:00
 **Last session:** 2026-02-20
 
 ## Current Position
 
 **Current goal:** Analysis results can be shared directly with deal presenters
 **Current step:** Client-facing summary document
-**Current task:** Task 3: Wire client summary into orchestrator as new wave
-**Position:** Goal 2, Step 1, Task 2 complete
+**Current task:** Step 1 complete -- all 3 tasks done
+**Position:** Goal 2, Step 1, Task 3 complete
 
 ## Progress
 
@@ -27,13 +27,14 @@
   - [x] Task 2: Build Key Questions aggregation into executive summary generator
 
 ### Goal 2: Client-ready reports
-- Step 1: Client-facing summary document (2/3 tasks done)
+- Step 1: Client-facing summary document (3/3 tasks done)
   - [x] Task 1: Design client summary template
   - [x] Task 2: Build client summary agent
-  - [ ] Task 3: Wire client summary into orchestrator as new wave
+  - [x] Task 3: Wire client summary into orchestrator as new wave
 
 ## Recent Activity
 
+- 2026-02-20: Wired client summary agent into orchestrator as Wave 4 (`dc-due-diligence/skills/due-diligence/SKILL.md`) -- runs after executive summary generation, spawns `dc-due-diligence:client-summary-agent` with opportunity folder and plugin directory paths, validates output structure and checks for internal scoring language leaks, writes `CLIENT_SUMMARY.md` to opportunity folder root. Updated error handling, results reporting, and example execution flow. Pipeline is now four-wave: domain agents, risk assessment, executive summary, client summary.
 - 2026-02-20: Built client summary agent (`dc-due-diligence/agents/client-summary-agent.md`) -- reads executive summary and all 10 domain reports, transforms internal analysis into professional external communication. Four-phase workflow: data extraction, content transformation (removes scoring/tier/agent language), structured writing following the client summary template, and quality review with exclusion checks. Handles missing inputs gracefully.
 - 2026-02-20: Designed client-facing summary template (`dc-due-diligence/templates/client-summary-template.md`) -- defines structure and tone for external deliverable with sections for overview, recommendation, key findings (organized as infrastructure fundamentals / deal factors / supporting context), items requiring attention, numbered questions, and collaborative next steps. Explicitly excludes internal scoring labels, tier classifications, confidence percentages, and traffic light indicators.
 - 2026-02-20: Added Key Questions aggregation to executive summary generator -- collects questions from all 9 domain reports, deduplicates overlapping ones, organizes by tier priority (Critical/Important/Context), and presents as a dedicated section after the verdict. Orchestrator validates Key Questions presence.
@@ -51,4 +52,4 @@ No decisions recorded yet.
 
 ## Cost Summary
 
-**Total:** ~103000 tokens
+**Total:** ~108100 tokens

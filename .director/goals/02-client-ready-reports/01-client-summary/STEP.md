@@ -6,9 +6,9 @@ A standalone document summarizing the due diligence findings in a format appropr
 
 ## Tasks
 
-- [ ] Task 1: Design client summary template
-- [ ] Task 2: Build client summary agent
-- [ ] Task 3: Wire client summary into orchestrator as new wave
+- [x] Task 1: Design client summary template
+- [x] Task 2: Build client summary agent
+- [x] Task 3: Wire client summary into orchestrator as new wave
 
 ## Needs First
 

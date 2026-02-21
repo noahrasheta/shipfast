@@ -1,12 +1,12 @@
 ---
 name: due-diligence
-description: "Run due diligence on a data center opportunity. Triggered by '/due-diligence <folder-path>', 'analyze this data center deal', 'run due diligence', or 'evaluate this site'. Analyzes broker documents across 9 domains (power, connectivity, water/cooling, zoning, ownership, environmental, commercials, natural gas, market comparables), synthesizes cross-domain risks, and produces a scored executive summary with a Pursue / Proceed with Caution / Pass verdict."
+description: "Run due diligence on a data center opportunity. Triggered by '/due-diligence <folder-path>', 'analyze this data center deal', 'run due diligence', or 'evaluate this site'. Analyzes broker documents across 9 domains (power, connectivity, water/cooling, zoning, ownership, environmental, commercials, natural gas, market comparables), synthesizes cross-domain risks, produces a scored executive summary with a Pursue / Proceed with Caution / Pass verdict, and generates a client-facing summary document for the deal presenter."
 version: "0.1.0"
 ---
 
 # Due Diligence Orchestrator
 
-You are the orchestrator for the data center due diligence workflow. Your job is to take a folder of opportunity documents and coordinate the full analysis pipeline: 9 domain research agents running in parallel, followed by a Risk Assessment agent that synthesizes findings across all domains, and finally an Executive Summary Generator that scores each category and delivers a verdict.
+You are the orchestrator for the data center due diligence workflow. Your job is to take a folder of opportunity documents and coordinate the full analysis pipeline: 9 domain research agents running in parallel, followed by a Risk Assessment agent that synthesizes findings across all domains, an Executive Summary Generator that scores each category and delivers a verdict, and a Client Summary agent that produces a professional external deliverable for the deal presenter.
 
 ## What You're Given
 
@@ -322,8 +322,83 @@ After validation is complete, generate the executive summary that scores all 10 
    ```
 
 6. **Handle executive summary failure:**
-   - If the file was not created, note the failure but continue to results reporting. The individual research reports are still valuable.
+   - If the file was not created, note the failure but continue to client summary generation attempt and results reporting. The individual research reports are still valuable.
    - If the file exists but is incomplete, note which sections are missing.
+
+### Phase 6b: Client Summary Generation
+
+After the executive summary is validated, generate the client-facing summary document for the deal presenter. This is a separate document from the executive summary -- the executive summary is Data Canopy's internal evaluation; the client summary is the external deliverable.
+
+1. **Check if the executive summary exists:**
+
+   The client summary agent requires the executive summary as its primary input. If `EXECUTIVE_SUMMARY.md` was not generated (Phase 6 failed or was skipped), skip this phase and note:
+   ```
+   Client summary cannot be generated without the executive summary. Skipping Wave 4.
+   ```
+
+2. **Spawn the Client Summary agent:**
+
+   Use the Task tool to spawn the Client Summary agent. In the prompt, include the opportunity folder path and the plugin directory path.
+
+   - **Client Summary Agent**: `dc-due-diligence:client-summary-agent`
+     - Expected output: `<folder>/CLIENT_SUMMARY.md`
+
+3. **Report progress:**
+   ```
+   Executive summary complete. Launching Client Summary agent to produce the deal presenter deliverable...
+
+   The Client Summary agent reads the executive summary and all research reports, then produces a professional client-facing document with findings, recommendations, and key questions -- formatted for external communication.
+   ```
+
+4. **Wait for the Client Summary agent to complete.**
+
+5. **Validate the client summary was produced:**
+
+   ```bash
+   test -f "<folder>/CLIENT_SUMMARY.md" && echo "OK Client Summary" || echo "MISSING Client Summary"
+   ```
+
+   If the file exists, check that it contains the required sections:
+   ```bash
+   file="<folder>/CLIENT_SUMMARY.md"
+   missing=""
+   grep -q "## Overview" "$file" || missing="${missing} overview"
+   grep -q "## Recommendation" "$file" || missing="${missing} recommendation"
+   grep -q "## Key Findings" "$file" || missing="${missing} key-findings"
+   grep -q "### Infrastructure Fundamentals" "$file" || missing="${missing} infrastructure-fundamentals"
+   grep -q "### Deal Factors" "$file" || missing="${missing} deal-factors"
+   grep -q "### Supporting Context" "$file" || missing="${missing} supporting-context"
+   grep -q "## Items Requiring Attention" "$file" || missing="${missing} items-requiring-attention"
+   grep -q "## Questions" "$file" || missing="${missing} questions"
+   grep -q "## Next Steps" "$file" || missing="${missing} next-steps"
+   if [ -z "$missing" ]; then
+     echo "VALID: CLIENT_SUMMARY.md - all required sections present"
+   else
+     echo "INCOMPLETE: CLIENT_SUMMARY.md - missing:${missing}"
+   fi
+   ```
+
+6. **Exclusion check -- verify no internal scoring language leaked:**
+
+   ```bash
+   file="<folder>/CLIENT_SUMMARY.md"
+   leaked=""
+   grep -qE "Tier [123]" "$file" && leaked="${leaked} tier-labels"
+   grep -qE "GREEN|YELLOW|RED" "$file" && leaked="${leaked} traffic-lights"
+   grep -qE "Confidence:? [0-9]+%" "$file" && leaked="${leaked} confidence-scores"
+   grep -qE "Wave [1234]" "$file" && leaked="${leaked} wave-references"
+   grep -qi "scoring rubric" "$file" && leaked="${leaked} scoring-rubric"
+   if [ -z "$leaked" ]; then
+     echo "CLEAN: No internal scoring language detected"
+   else
+     echo "WARNING: Internal language detected:${leaked} -- manual review recommended"
+   fi
+   ```
+
+7. **Handle client summary failure:**
+   - If the file was not created, note the failure but continue to results reporting. The executive summary and individual research reports are still valuable.
+   - If the file exists but is incomplete, note which sections are missing.
+   - If internal scoring language was detected, flag for manual review.
 
 ### Phase 7: Results Reporting
 
@@ -366,7 +441,25 @@ After validation is complete, generate the executive summary that scores all 10 
    Executive summary could not be generated. Review individual research reports for findings.
    ```
 
-3. **If any agents failed or produced incomplete output:**
+3. **Report client summary status:**
+
+   If the client summary was generated successfully:
+   ```
+   Client Summary: <folder>/CLIENT_SUMMARY.md
+   This is the external deliverable for the deal presenter.
+   ```
+
+   If the client summary was generated but has issues:
+   ```
+   Client Summary: <folder>/CLIENT_SUMMARY.md (manual review recommended -- [reason])
+   ```
+
+   If the client summary was not generated:
+   ```
+   Client summary could not be generated. The executive summary and individual research reports are available for manual review.
+   ```
+
+4. **If any agents failed or produced incomplete output:**
 
    ```
    Some research domains require attention:
@@ -376,7 +469,7 @@ After validation is complete, generate the executive summary that scores all 10 
      Manual review recommended for this domain.
    ```
 
-4. **Provide overview of findings:**
+5. **Provide overview of findings:**
 
    Read each completed report's Status Indicator and Confidence Score, then present a quick summary table:
 
@@ -398,15 +491,23 @@ After validation is complete, generate the executive summary that scores all 10 
    Risk Assessment           [indicator]   [score]%
    ```
 
-5. **Next steps guidance:**
+6. **Next steps guidance:**
 
    ```
    Due diligence complete. Results:
 
-   Executive Summary: <absolute-folder-path>/EXECUTIVE_SUMMARY.md
+   Client Summary: <absolute-folder-path>/CLIENT_SUMMARY.md (external deliverable for deal presenter)
+   Executive Summary: <absolute-folder-path>/EXECUTIVE_SUMMARY.md (internal evaluation document)
    Research Reports: <absolute-folder-path>/research/
 
-   The executive summary contains:
+   The client summary is the document to share with the deal presenter. It contains:
+   - Professional recommendation in business language
+   - Key findings organized by infrastructure fundamentals, deal factors, and supporting context
+   - Items requiring attention with constructive framing
+   - Prioritized questions for the deal presenter
+   - Collaborative next steps
+
+   The executive summary is Data Canopy's internal evaluation document. It contains:
    - Overall verdict (Pursue / Proceed with Caution / Pass) with rationale
    - Scored summary table (High / Medium / Low) for all 10 categories
    - Key strengths and critical concerns
@@ -453,6 +554,13 @@ Handle failures at each phase appropriately:
 - Individual research reports and the Risk Assessment report are still valid and usable
 - Suggest manual review of domain reports to form a recommendation
 - The quick overview table from Phase 7 provides a partial substitute
+- Skip client summary generation (it requires the executive summary as input)
+
+**Client Summary agent fails:**
+- Report that the client summary could not be generated
+- The executive summary and individual research reports are still valid and usable
+- Suggest manual preparation of a client-facing document using the executive summary as a reference
+- The deal presenter deliverable will need to be prepared manually
 
 **Output validation finds issues:**
 - Note which reports seem incomplete
@@ -498,6 +606,10 @@ Please manually verify findings from this domain before making decisions.
 | Executive Summary fails | Continue with results reporting | "Executive summary could not be generated. Review individual research reports." |
 | Executive Summary incomplete | Note missing sections | "Executive summary generated but missing sections: X, Y -- manual review recommended" |
 | Too few reports for summary | Skip executive summary | "Too few research reports (<3) to generate meaningful executive summary." |
+| Executive Summary missing (for client summary) | Skip client summary | "Client summary cannot be generated without the executive summary." |
+| Client Summary fails | Continue with results reporting | "Client summary could not be generated. Prepare deal presenter deliverable manually." |
+| Client Summary incomplete | Note missing sections | "Client summary generated but missing sections: X, Y -- manual review recommended" |
+| Client Summary leaks internal language | Flag for manual review | "Client summary contains internal scoring language -- manual review recommended" |
 | Report validation fails | Note in summary | "[Domain] report incomplete or malformed - manual review recommended" |
 
 ## Implementation Notes
@@ -508,10 +620,11 @@ Please manually verify findings from this domain before making decisions.
 - **Report progress clearly** - users need to understand what's happening during long-running operations
 - **Preserve agent autonomy** - don't try to correct or rewrite agent outputs, just validate structure
 - **Graceful degradation** - partial results are better than no results
-- **Three-wave execution** is critical:
+- **Four-wave execution** is critical:
   - Wave 1: 9 domain agents run in parallel (they read broker documents)
   - Wave 2: Risk Assessment agent runs after Wave 1 (it reads domain reports)
-  - Wave 3: Executive Summary Generator runs after validation (it reads all 10 reports and produces the final deliverable)
+  - Wave 3: Executive Summary Generator runs after validation (it reads all 10 reports and produces the internal evaluation)
+  - Wave 4: Client Summary agent runs after Wave 3 (it reads the executive summary and domain reports to produce the external deliverable for the deal presenter)
 
 ## Example Execution Flow
 
@@ -527,12 +640,16 @@ User runs: `/due-diligence ./opportunity-example`
 8. Validate: 10/10 reports pass content checks
 9. Wave 3: Executive Summary Generator launched
 10. Wave 3 complete: EXECUTIVE_SUMMARY.md generated with verdict and scored categories
-11. Report:
+11. Wave 4: Client Summary agent launched
+12. Wave 4 complete: CLIENT_SUMMARY.md generated for deal presenter
+13. Report:
     - 10 research domains analyzed
     - Executive summary with verdict (Pursue / Proceed with Caution / Pass)
+    - Client summary ready for deal presenter
     - Scored summary table with High/Medium/Low ratings for all 10 categories
     - Quick overview table with traffic lights and confidence scores
     - All reports saved to opportunity-example/research/
     - Executive summary saved to opportunity-example/EXECUTIVE_SUMMARY.md
+    - Client summary saved to opportunity-example/CLIENT_SUMMARY.md
 
-This gives the user a complete analysis with a clear recommendation and actionable results, even if some agents encounter issues along the way.
+This gives the user a complete analysis with a clear recommendation, a client-ready deliverable for the deal presenter, and actionable results, even if some agents encounter issues along the way.
