@@ -1,0 +1,171 @@
+/*
+ * Client Summary PDF Stylesheet
+ *
+ * External-facing document styling for the client summary.
+ * Clean, professional appearance suitable for forwarding to
+ * deal presenters and external stakeholders. Less data-dense
+ * than the executive summary, with emphasis on readability.
+ */
+
+/* Base typography */
+body {
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 11pt;
+    line-height: 1.6;
+    color: #222222;
+    max-width: 100%;
+}
+
+/* Title and headings */
+h1 {
+    font-size: 22pt;
+    font-weight: 700;
+    color: #0d1b2a;
+    border-bottom: 3px solid #1b4965;
+    padding-bottom: 10px;
+    margin-top: 28px;
+    margin-bottom: 20px;
+}
+
+h2 {
+    font-size: 16pt;
+    font-weight: 600;
+    color: #1b4965;
+    border-bottom: 1px solid #cde5e8;
+    padding-bottom: 6px;
+    margin-top: 24px;
+    margin-bottom: 14px;
+}
+
+h3 {
+    font-size: 13pt;
+    font-weight: 600;
+    color: #1b4965;
+    margin-top: 18px;
+    margin-bottom: 10px;
+}
+
+h4 {
+    font-size: 12pt;
+    font-weight: 600;
+    color: #333;
+    margin-top: 14px;
+    margin-bottom: 8px;
+}
+
+h5, h6 {
+    font-size: 11pt;
+    font-weight: 600;
+    color: #555;
+    margin-top: 12px;
+    margin-bottom: 6px;
+}
+
+/* Paragraphs -- more generous spacing for readability */
+p {
+    margin-top: 6px;
+    margin-bottom: 10px;
+    text-align: left;
+}
+
+/* Emphasis */
+strong {
+    font-weight: 700;
+    color: #0d1b2a;
+}
+
+em {
+    font-style: italic;
+}
+
+/* Tables -- cleaner, less dense than executive summary */
+table {
+    border-collapse: collapse;
+    width: 100%;
+    margin-top: 14px;
+    margin-bottom: 18px;
+    font-size: 10pt;
+}
+
+th {
+    background-color: #1b4965;
+    color: #ffffff;
+    font-weight: 600;
+    text-align: left;
+    padding: 10px 12px;
+    border: 1px solid #1b4965;
+}
+
+td {
+    padding: 8px 12px;
+    border: 1px solid #d8d8d8;
+    text-align: left;
+    vertical-align: top;
+}
+
+tr:nth-child(even) {
+    background-color: #f7fafb;
+}
+
+tr:nth-child(odd) {
+    background-color: #ffffff;
+}
+
+/* Lists -- generous spacing for client readability */
+ul, ol {
+    margin-top: 6px;
+    margin-bottom: 10px;
+    padding-left: 28px;
+}
+
+li {
+    margin-bottom: 6px;
+    line-height: 1.5;
+}
+
+/* Nested lists */
+li ul, li ol {
+    margin-top: 4px;
+    margin-bottom: 4px;
+}
+
+/* Blockquotes -- recommendation callouts */
+blockquote {
+    border-left: 4px solid #1b4965;
+    background-color: #f0f7fa;
+    padding: 12px 20px;
+    margin: 16px 0;
+    font-style: italic;
+    color: #333;
+}
+
+/* Horizontal rules -- clean section dividers */
+hr {
+    border: none;
+    border-top: 2px solid #cde5e8;
+    margin: 24px 0;
+}
+
+/* Code blocks -- rarely used in client docs but styled for completeness */
+code {
+    font-family: "Courier New", Courier, monospace;
+    font-size: 10pt;
+    background-color: #f0f0f0;
+    padding: 1px 4px;
+    border-radius: 2px;
+}
+
+pre {
+    background-color: #f5f5f5;
+    padding: 14px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    overflow-x: auto;
+    font-size: 9pt;
+    line-height: 1.4;
+}
+
+pre code {
+    background-color: transparent;
+    padding: 0;
+}

@@ -60,11 +60,15 @@ shipfast/
 │   │   ├── excel.py                  # Excel converter (openpyxl, pyxlsb)
 │   │   ├── word.py                   # Word document converter (python-docx)
 │   │   ├── powerpoint.py             # PowerPoint converter (python-pptx)
-│   │   └── vision.py                 # Image & scanned PDF converter (Anthropic vision API)
+│   │   ├── vision.py                 # Image & scanned PDF converter (Anthropic vision API)
+│   │   └── generate_pdf.py           # Markdown-to-PDF converter (markdown-pdf)
 │   ├── templates/                    # Output templates for agents
 │   │   ├── agent-output-template.md  # Standardized structure all agents follow
 │   │   ├── client-summary-template.md # Client-facing summary structure for deal presenters
-│   │   └── scoring-rubric.md         # Category scoring guide for executive summary
+│   │   ├── scoring-rubric.md         # Category scoring guide for executive summary
+│   │   └── pdf-styles/               # CSS stylesheets for PDF generation
+│   │       ├── executive-summary.css  # Internal executive summary styling
+│   │       └── client-summary.css     # External client summary styling
 │   ├── tests/                        # pytest test suite
 │   │   ├── __init__.py
 │   │   ├── test_imports.py           # Verify dependencies installed

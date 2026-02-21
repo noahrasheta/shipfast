@@ -16,11 +16,11 @@ New Python module following the existing converter pattern, plus CSS stylesheets
 
 ## Done When
 
-- [ ] generate_pdf.py module exists in dc-due-diligence/converters/
-- [ ] Converts markdown input to styled PDF output
-- [ ] CSS stylesheets in templates/pdf-styles/ control document appearance
-- [ ] Tables, headings, lists, and emphasis render correctly in PDF
-- [ ] No system-level dependencies required (pure Python)
+- [x] generate_pdf.py module exists in dc-due-diligence/converters/
+- [x] Converts markdown input to styled PDF output
+- [x] CSS stylesheets in templates/pdf-styles/ control document appearance
+- [x] Tables, headings, lists, and emphasis render correctly in PDF
+- [x] No system-level dependencies required (pure Python)
 
 ## Needs First
 

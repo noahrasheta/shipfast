@@ -15,6 +15,12 @@ staging subfolder, and produces a JSON manifest for downstream agents.
 
 from converters.base import BaseConverter, ExtractionResult, ConfidenceLevel
 from converters.excel import ExcelConverter
+from converters.generate_pdf import (
+    PDFResult,
+    generate_pdf,
+    generate_executive_pdf,
+    generate_client_pdf,
+)
 from converters.pdf import PDFConverter
 from converters.pipeline import (
     ConvertedFile,
@@ -39,8 +45,12 @@ __all__ = [
     "ExtractionResult",
     "FileEntry",
     "FileType",
+    "generate_client_pdf",
+    "generate_executive_pdf",
+    "generate_pdf",
     "MANIFEST_FILENAME",
     "PDFConverter",
+    "PDFResult",
     "PipelineResult",
     "PowerPointConverter",
     "print_status_report",

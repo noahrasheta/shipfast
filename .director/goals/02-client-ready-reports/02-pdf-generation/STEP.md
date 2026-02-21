@@ -6,7 +6,7 @@ Both the executive summary and client-facing summary are available as polished P
 
 ## Tasks
 
-- [ ] Task 1: Build markdown-to-PDF conversion pipeline
+- [x] Task 1: Build markdown-to-PDF conversion pipeline
 - [ ] Task 2: Wire PDF generation into orchestrator for both summaries
 
 ## Needs First
