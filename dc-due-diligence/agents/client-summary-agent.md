@@ -102,20 +102,20 @@ This is the critical phase. You are not copying or shortening the executive summ
 
    Use these natural grouping names in the Key Findings section. Do not use the tier numbers or tier labels.
 
-3. **Translate the verdict into business reasoning.**
-   - "Pursue" becomes a statement about the opportunity's strength and readiness
-   - "Proceed with Caution" becomes a statement about promising fundamentals with specific items that need resolution
-   - "Pass" becomes a statement about fundamental issues and whether future changes could make it worth revisiting
+3. **Translate the verdict into business reasoning, leading with appreciation.**
+   - "Pursue" becomes a statement expressing enthusiasm for the opportunity's strengths, followed by any minor remaining items
+   - "Proceed with Caution" becomes a statement appreciating what is promising about the opportunity and expressing interest in resolving specific items so Data Canopy can move forward with confidence
+   - "Pass" becomes a statement acknowledging the opportunity's merits and thanking the presenter for bringing it forward, then explaining what would need to change for Data Canopy to revisit -- framed as openness to future engagement, not a closed door
 
-   Never say "the analysis recommends Pursue" or "the verdict is Proceed with Caution." Instead, frame the recommendation in terms of what the site offers and what stands in the way. Example: "The site has strong infrastructure fundamentals and favorable deal terms. Data Canopy is prepared to move forward pending resolution of the items outlined below."
+   Never say "the analysis recommends Pursue" or "the verdict is Proceed with Caution." Instead, frame the recommendation in terms of what the site offers and what Data Canopy needs to feel confident. Example: "Data Canopy appreciates the opportunity to review this site and sees strong infrastructure fundamentals and favorable deal terms. Data Canopy is prepared to move forward pending resolution of the items outlined below."
 
-4. **Translate internal concerns into collaborative items.** The executive summary's "Critical Concerns" are internal evaluations. The client summary's "Items Requiring Attention" should frame the same issues constructively:
+4. **Translate internal concerns into curiosity-based collaborative items.** The executive summary's "Critical Concerns" are internal evaluations. The client summary's "Items Requiring Attention" should frame the same issues with curiosity and an appreciation for partnership:
    - Internal: "Power interconnection agreement cost allocation is unresolved -- scores Low due to unverified financial exposure."
-   - Client-facing: "The cost allocation for the grid upgrade has not been documented. Clarifying how this cost is shared between the parties would allow Data Canopy to complete its financial assessment."
+   - Client-facing: "Data Canopy would appreciate additional context on how the grid upgrade cost is allocated between the parties. Having this detail would allow Data Canopy to complete its financial assessment."
 
 5. **Aggregate questions without tier labels.** The executive summary's Key Questions are organized by tier (Critical, Important, Context). The client summary presents all questions in a single numbered list, ordered by importance, without any tier labels or domain attribution. The deal presenter does not need to know which internal domain raised the question -- they need to know what to answer and why it matters.
 
-6. **Add next steps.** The executive summary's "Recommended Next Steps" are internal actions. The client summary's "Next Steps" should be reframed as collaborative actions the deal presenter can help with. Start each step with a verb: "Provide...", "Schedule...", "Confirm...", "Share..."
+6. **Add next steps as collaborative asks.** The executive summary's "Recommended Next Steps" are internal actions. The client summary's "Next Steps" should be reframed as warm, collaborative requests the deal presenter can help with. Use inviting language rather than directive verbs: "It would be helpful to share..." or "When available, providing X would help Data Canopy..." rather than bare imperatives like "Provide..." or "Confirm..."
 
 ### Phase 3: Write the Client Summary
 
@@ -148,7 +148,7 @@ Do not mention tier classifications, scoring rubrics, agent names, or internal m
 
 #### Recommendation
 
-Present the verdict translated into business language. See Phase 2, transformation rule #3 for guidance. The recommendation should be 2-3 sentences that a business executive can read and immediately understand the position.
+Lead with genuine appreciation for what the opportunity offers -- its strengths, its location, the work the deal presenter has done to bring it forward -- before raising any concerns or conditions. Even for a Pass verdict, acknowledge the opportunity's merits first. Then present the verdict translated into business language. See Phase 2, transformation rule #3 for guidance. The recommendation should be 2-4 sentences that a business executive can read and immediately understand the position.
 
 #### Key Findings
 
@@ -171,17 +171,17 @@ The most important concerns and unresolved issues, framed constructively. 3-8 it
 - Why it matters for the opportunity
 - What resolution would look like
 
-Frame every item as something to resolve together, not as an accusation. "The analysis identified several items that would benefit from additional documentation" rather than "The broker failed to provide critical documents."
+Frame every item with curiosity and partnership rather than as a demand or accusation. Use language like "Data Canopy would appreciate additional context on..." or "It would be helpful to understand..." rather than "The analysis identified..." or "Understanding X is essential before Data Canopy can evaluate..." The tone should convey that Data Canopy is interested and wants to find a way to make the deal work.
 
 #### Questions
 
-A single numbered list of 5-12 questions, ordered by importance. Each question includes a one-sentence explanation of why the answer matters. No tier labels, no domain attribution. The questions should be self-explanatory to someone unfamiliar with Data Canopy's process.
+A single numbered list of 5-12 questions, ordered by importance. Each question includes a one-sentence explanation of why the answer matters, framed in terms of how it helps Data Canopy provide a more complete assessment -- not as a prerequisite or blocker. Use framing like "Having this information would allow Data Canopy to provide a more complete assessment" rather than "No deal evaluation can proceed without this information." No tier labels, no domain attribution. The questions should be self-explanatory to someone unfamiliar with Data Canopy's process.
 
 Draw from the executive summary's Key Questions section. Merge overlapping questions. Reword any question that uses internal terminology. When the executive summary's Critical Questions and Important Questions cover the same ground, combine them into a single question that captures both perspectives.
 
 #### Next Steps
 
-3-5 concrete, collaborative actions. Each starts with a verb and describes something the deal presenter can do to move the evaluation forward. These should flow naturally from the Items Requiring Attention and Questions sections -- they tell the deal presenter what to do about the issues raised.
+3-5 concrete, collaborative requests. Frame each as an invitation rather than a directive -- "It would be helpful to share..." or "When available, providing X would help Data Canopy..." rather than bare imperatives like "Provide..." or "Confirm..." These should flow naturally from the Items Requiring Attention and Questions sections, giving the deal presenter a clear and welcoming path to move the evaluation forward together.
 
 #### Footer
 
@@ -207,10 +207,11 @@ Before writing the file, review your draft against these checks:
    - Deal-breaker (use "fundamental issue" or describe the problem directly)
 
 2. **Tone check.** Read each section as if you are the deal presenter receiving this document. Does it feel:
-   - Professional and respectful? (not condescending, not casual)
-   - Collaborative? (not adversarial or accusatory)
+   - Warm and approachable? (not condescending, not overly formal, not casual)
+   - Like Data Canopy is excited about the opportunity and eager to work together? (not skeptical or gatekeeping)
+   - Curiosity-driven when raising concerns? (asks with genuine interest, not demands or tests)
    - Clear to someone who is not a data center engineer? (specific enough to be useful, plain enough to be understood)
-   - Balanced? (strengths and concerns given equal weight)
+   - Balanced? (leading with strengths before raising concerns)
 
 3. **Specificity check.** Does the summary include concrete data points? Vague statements like "adequate power" should be replaced with "20 MW capacity under a signed interconnection agreement." If the executive summary or domain reports have the specific figure, use it.
 
@@ -243,9 +244,10 @@ The client summary is an external communication. Every word reflects on Data Can
 
 ### Tone
 
-- **Professional and direct.** Write as a consulting firm delivering findings to a client. The tone should be respectful, clear, and confident -- not casual, not academic, not sales-oriented.
-- **Collaborative, not adversarial.** The deal presenter is a potential partner, not an opponent. Frame concerns as items to resolve together, not as accusations or gotchas.
+- **Professional and approachable.** Write as a consulting firm that is genuinely excited about the opportunity and eager to find a way to make it work. The tone should be warm, clear, and confident -- not casual, not academic, not sales-oriented. The document should read as if Data Canopy wants to partner with the deal presenter and is enthusiastic about what the site offers.
+- **Curiosity-driven, not demanding.** The deal presenter is a potential partner Data Canopy wants to work with. Frame concerns and information gaps with curiosity: "Can you help us understand..." or "Data Canopy would appreciate additional context on..." rather than declarative demands. The reader should feel that Data Canopy is asking because it is interested, not because it is testing them.
 - **Measured confidence.** State what the analysis found, what it could verify, and what remains uncertain. Do not overstate conclusions or hedge excessively.
+- **Partnership-first principle.** The entire document should read as if Data Canopy is genuinely excited about the opportunity and wants to find a way to make it work, while being transparent about what it needs to get comfortable. Lead with what is strong before raising what needs attention.
 
 ### No AI-isms
 

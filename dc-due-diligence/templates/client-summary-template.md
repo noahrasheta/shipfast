@@ -36,12 +36,12 @@ Do not mention tier classifications, scoring rubrics, confidence percentages, or
 
 **[Pursue / Proceed with Caution / Pass]**
 
-[2-3 sentences summarizing the recommendation in plain business language. Frame the recommendation around the opportunity's fundamentals:
-- For Pursue: State what makes the opportunity strong and what minor items remain to finalize.
-- For Proceed with Caution: State what is promising about the opportunity and what specific issues need resolution before Data Canopy can commit.
-- For Pass: State the fundamental issues that prevent Data Canopy from moving forward and whether any future changes could make the opportunity worth revisiting.
+[2-4 sentences summarizing the recommendation in plain business language. Always lead with genuine appreciation for what the opportunity offers before raising any conditions or concerns. Frame the recommendation around the opportunity's strengths first:
+- For Pursue: Express enthusiasm for the opportunity's strengths and note any minor items remaining to finalize.
+- For Proceed with Caution: Appreciate what is promising about the opportunity and express interest in resolving specific items so Data Canopy can move forward with confidence.
+- For Pass: Acknowledge the opportunity's merits and thank the presenter for bringing it forward. Explain what would need to change for Data Canopy to revisit -- frame as openness to future engagement, not a closed door.
 
-Do not reference tier numbers, score labels (High/Medium/Low), or internal scoring logic. Translate the verdict into business reasoning: "The site has a clear path to adequate power and legal permissibility for data center use" rather than "All Tier 1 domains scored High."]
+Do not reference tier numbers, score labels (High/Medium/Low), or internal scoring logic. Translate the verdict into business reasoning: "Data Canopy appreciates the opportunity to review this site and sees a clear path to adequate power and legal permissibility for data center use" rather than "All Tier 1 domains scored High."]
 
 ---
 
@@ -86,46 +86,46 @@ Example:
 
 ## Items Requiring Attention
 
-[The most important concerns, risks, and unresolved issues that Data Canopy has identified. These are organized by urgency, not by internal tier classification. Present each item as an actionable concern with enough context for the deal presenter to understand what is needed.
+[Items where Data Canopy would appreciate additional context or documentation to move forward with confidence. These are organized by urgency, not by internal tier classification. Frame each item with curiosity and partnership -- Data Canopy is raising these because it is interested and wants to find a way to make the deal work.
 
 For each item:
-- **[Item title]** -- [2-3 sentences describing the issue, why it matters for the opportunity, and what resolution would look like. Be specific: "The cost allocation for the $4.2M grid upgrade has not been documented" rather than "There are some cost concerns."]
+- **[Item title]** -- [2-3 sentences framed with curiosity. Use language like "Data Canopy would appreciate additional context on..." or "It would be helpful to understand..." Be specific: "Data Canopy would appreciate additional context on how the $4.2M grid upgrade cost is allocated between the parties, as this would help complete the financial assessment" rather than "There are some cost concerns."]
 
-Present the most urgent items first -- issues that could affect whether the site can function as a data center, followed by issues that affect deal terms and execution, followed by background items that inform risk.
+Present the most urgent items first -- items that would help Data Canopy feel confident about whether the site can function as a data center, followed by items related to deal terms and execution, followed by background items.
 
-3-8 items total. If the analysis found no significant concerns, state: "The analysis did not identify any issues requiring immediate attention. The items in the Questions section below would strengthen confidence in the opportunity."]
+3-8 items total. If the analysis found no significant concerns, state: "Data Canopy did not identify any items requiring immediate attention. The questions below would help strengthen confidence in the opportunity."]
 
 ---
 
 ## Questions
 
-[The specific questions Data Canopy needs answered before making a final decision. These questions are drawn from all domain analyses and represent gaps in the available information that the deal presenter or property owner may be able to address.
+[Questions where additional information from the deal presenter would help Data Canopy provide a more complete assessment. These questions are drawn from all domain analyses and represent areas where the deal presenter or property owner may be able to provide helpful context.
 
-Present questions in order of importance, without tier labels or domain attribution. Each question should be self-explanatory to someone unfamiliar with Data Canopy's analysis process.
+Present questions in order of importance, without tier labels or domain attribution. Each question should be self-explanatory to someone unfamiliar with Data Canopy's analysis process. Frame the explanation for each question in terms of how the answer helps Data Canopy build a stronger picture -- not as a prerequisite or blocker.
 
 For each question:
-1. **[Question text]** -- [1 sentence explaining why the answer matters for evaluating this opportunity.]
+1. **[Question text]** -- [1 sentence explaining how the answer would help Data Canopy's assessment.]
 
 5-12 questions total. If the opportunity is well-documented and few questions remain, fewer is acceptable.
 
 Example:
-1. **Has the utility issued a binding interconnection agreement, or is the current capacity reservation non-binding?** -- A binding agreement secures the 20 MW allocation; without one, the capacity could be reassigned.
-2. **What is the cost allocation for the $4.2M grid upgrade between landlord and tenant?** -- This directly affects the capital required to bring the site online.
-3. **Is the Q3 2026 energization timeline contingent on any approvals beyond the substation upgrade?** -- Additional contingencies could delay power delivery and shift the project schedule.]
+1. **Has the utility issued a binding interconnection agreement, or is the current capacity reservation non-binding?** -- Having clarity on this would help Data Canopy assess the security of the 20 MW allocation.
+2. **Can you help us understand how the $4.2M grid upgrade cost is allocated between landlord and tenant?** -- This would allow Data Canopy to complete its assessment of the capital required to bring the site online.
+3. **Is the Q3 2026 energization timeline contingent on any approvals beyond the substation upgrade?** -- Understanding the full timeline would help Data Canopy plan around the project schedule.]
 
 ---
 
 ## Next Steps
 
-[3-5 concrete next steps that Data Canopy recommends based on the analysis. These should be framed as collaborative actions -- things the deal presenter can help with, information that would move the evaluation forward, or meetings that should be scheduled.
+[3-5 concrete next steps framed as collaborative invitations -- things the deal presenter can help with to move the evaluation forward together. Use warm, inviting language rather than bare imperatives.
 
 For each step:
-- [Actionable recommendation in 1-2 sentences. Start with a verb: "Provide...", "Schedule...", "Confirm...", "Share..."]
+- [Collaborative request in 1-2 sentences. Use framing like "It would be helpful to share..." or "When available, providing X would help Data Canopy..." rather than directive verbs like "Provide..." or "Confirm..."]
 
 Example:
-- Provide the cost allocation agreement for the grid upgrade, or confirm in writing that the landlord will bear the full cost.
-- Schedule a call to discuss the backup power strategy and timeline for natural gas delivery.
-- Share any updated utility correspondence regarding the Q3 2026 energization timeline.]
+- It would be helpful to share the cost allocation agreement for the grid upgrade, or to confirm how the upgrade cost is expected to be handled between the parties.
+- When convenient, scheduling a call to discuss the backup power strategy and timeline for natural gas delivery would help Data Canopy refine its assessment.
+- If available, sharing any updated utility correspondence regarding the Q3 2026 energization timeline would be appreciated.]
 
 ---
 
@@ -140,9 +140,10 @@ The client summary is an external communication. Every word reflects on Data Can
 
 ### Tone
 
-- **Professional and direct.** Write as a consulting firm delivering findings to a client. The tone should be respectful, clear, and confident -- not casual, not academic, not sales-oriented.
-- **Collaborative, not adversarial.** The deal presenter is a potential partner, not an opponent. Frame concerns as items to resolve together, not as accusations or gotchas. "The analysis identified several items that would benefit from additional documentation" rather than "The broker failed to provide critical documents."
+- **Professional and approachable.** Write as a consulting firm that is genuinely excited about the opportunity and eager to find a way to make it work. The tone should be warm, clear, and confident -- not casual, not academic, not sales-oriented. The document should read as if Data Canopy wants to partner with the deal presenter and is enthusiastic about what the site offers.
+- **Curiosity-driven, not demanding.** The deal presenter is a potential partner Data Canopy wants to work with. Frame concerns and information gaps with curiosity: "Data Canopy would appreciate additional context on..." or "It would be helpful to understand..." rather than declarative statements like "The analysis identified several items that would benefit from additional documentation." The reader should feel that Data Canopy is asking because it is interested, not because it is testing them.
 - **Measured confidence.** State what the analysis found, what it could verify, and what remains uncertain. Do not overstate conclusions or hedge excessively.
+- **Partnership-first principle.** The entire document should read as if Data Canopy is genuinely excited about the opportunity and wants to find a way to make it work, while being transparent about what it needs to get comfortable. Lead with what is strong before raising what needs attention.
 
 ### What to Exclude
 
@@ -205,7 +206,7 @@ The client summary draws from the executive summary but is not a shortened copy 
 
 1. **Removing internal scoring framework** -- Replace scored categories with narrative findings organized by importance
 2. **Translating tier language** -- "Tier 1 Critical domains" becomes "infrastructure fundamentals"; "Tier 2 Important domains" becomes "deal factors"; "Tier 3 Context domains" becomes "supporting context"
-3. **Reframing concerns as collaborative items** -- Internal "Critical Concerns" become "Items Requiring Attention" with constructive framing
+3. **Reframing concerns as curiosity-based collaborative items** -- Internal "Critical Concerns" become "Items Requiring Attention" framed with curiosity and partnership language
 4. **Condensing detail** -- The executive summary's 10-section detailed findings become a focused set of key findings organized by importance
 5. **Aggregating questions** -- The tiered Key Questions from the executive summary become a single numbered list without tier labels, ordered by importance
 6. **Adding next steps** -- Concrete collaborative actions the deal presenter can take, which do not appear in the internal executive summary
