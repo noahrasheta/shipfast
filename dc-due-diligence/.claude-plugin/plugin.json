@@ -1,7 +1,7 @@
 {
   "name": "dc-due-diligence",
   "description": "Data center due diligence workflow automation - analyzes opportunity folders and produces executive summaries with scored categories",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "author": {
     "name": "Data Canopy"
   }
