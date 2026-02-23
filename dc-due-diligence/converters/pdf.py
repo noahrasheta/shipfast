@@ -18,10 +18,24 @@ from converters.base import BaseConverter, ConfidenceLevel, ExtractionResult
 
 # If a page yields fewer than this many characters of text on average, the
 # document is likely scanned / image-based and should be handled by vision.
-_SCANNED_CHARS_PER_PAGE_THRESHOLD = 50
+_SCANNED_CHARS_PER_PAGE_THRESHOLD = 200
 
 # Minimum average characters per page to consider extraction HIGH confidence.
 _HIGH_CONFIDENCE_CHARS_PER_PAGE = 200
+
+# Minimum fraction of characters that must be "readable" (alphanumeric, common
+# whitespace, or common punctuation) for extracted text to be considered real
+# content rather than font-encoding gibberish from a scanned-as-image PDF.
+_MIN_READABLE_CHAR_RATIO = 0.75
+
+# Characters considered "readable" for the gibberish quality check.
+_READABLE_CHARS = set(
+    "abcdefghijklmnopqrstuvwxyz"
+    "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+    "0123456789"
+    " \t\n\r"
+    ".,;:!?'\"-()[]{}/@#$%&*+=<>~`^\\_"
+)
 
 
 class PDFConverter(BaseConverter):
@@ -137,9 +151,28 @@ class PDFConverter(BaseConverter):
         avg_chars_per_page = total_chars / max(page_count, 1)
         is_scanned = avg_chars_per_page < _SCANNED_CHARS_PER_PAGE_THRESHOLD
 
+        # Second net: even if text volume looks sufficient, check whether it is
+        # actually readable content or font-encoding gibberish from a scanned
+        # PDF.  A low ratio of recognizable characters indicates the extracted
+        # "text" is noise and vision should be used instead.
+        gibberish_detected = False
+        readable_ratio = 1.0
+        if not is_scanned and total_chars > 0:
+            readable_ratio = _compute_readable_ratio(combined_text)
+            if readable_ratio < _MIN_READABLE_CHAR_RATIO:
+                is_scanned = True
+                gibberish_detected = True
+
         rounded_avg = round(avg_chars_per_page, 1)
 
-        if is_scanned:
+        if is_scanned and gibberish_detected:
+            confidence = ConfidenceLevel.LOW
+            confidence_reason = (
+                f"likely scanned, gibberish detected "
+                f"({round(readable_ratio * 100, 1)}% readable), "
+                f"{rounded_avg} avg chars/page"
+            )
+        elif is_scanned:
             confidence = ConfidenceLevel.LOW
             confidence_reason = (
                 f"likely scanned, only {rounded_avg} avg chars/page"
@@ -272,6 +305,19 @@ class PDFConverter(BaseConverter):
 # ------------------------------------------------------------------
 # Module-level helpers
 # ------------------------------------------------------------------
+
+
+def _compute_readable_ratio(text: str) -> float:
+    """Return the fraction of characters in *text* that are readable.
+
+    Readable characters include ASCII letters, digits, common whitespace, and
+    standard punctuation.  A low ratio indicates font-encoding gibberish from
+    scanned-as-image PDFs where pdfplumber extracts noise instead of real text.
+    """
+    if not text:
+        return 1.0
+    readable_count = sum(1 for ch in text if ch in _READABLE_CHARS)
+    return readable_count / len(text)
 
 
 def _clean_text(raw: str) -> str:
