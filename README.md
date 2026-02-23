@@ -130,7 +130,7 @@ The 12 research agents verify broker claims using web research. There are two la
 
 The folder should contain the broker-provided documents for the opportunity. The plugin handles conversion, analysis, and reporting end to end.
 
-**Status:** v0.1.0 -- initial release. Full pipeline functional with 12 agents, document conversion, and web research verification.
+**Status:** v0.2.1 -- tiered domain weighting, Key Questions section, client-facing summary with PDF output, scoring calibration.
 
 ---
 

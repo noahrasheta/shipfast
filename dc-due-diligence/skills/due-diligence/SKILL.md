@@ -1,7 +1,7 @@
 ---
 name: due-diligence
 description: "Run due diligence on a data center opportunity. Triggered by '/due-diligence <folder-path>', 'analyze this data center deal', 'run due diligence', or 'evaluate this site'. Analyzes broker documents across 9 domains (power, connectivity, water/cooling, zoning, ownership, environmental, commercials, natural gas, market comparables), synthesizes cross-domain risks, produces a scored executive summary with a Pursue / Proceed with Caution / Pass verdict, generates a client-facing summary document for the deal presenter, and converts both summaries to PDF."
-version: "0.1.0"
+version: "0.2.1"
 ---
 
 # Due Diligence Orchestrator

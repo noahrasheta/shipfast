@@ -66,6 +66,31 @@ shipfast/
 - **Paths in agents** use `${CLAUDE_PLUGIN_ROOT}` to reference files within the plugin (never hardcode absolute paths)
 - **Marketplace catalog** at `.claude-plugin/marketplace.json` lists all available plugins
 - **Three files to update** when adding a plugin: `marketplace.json`, `CLAUDE.md` (plugin reference), `README.md` (summary table + detailed section)
+- **Plugins are Claude Code only** -- the plugin system (agents, skills, Task tool orchestration) requires Claude Code (CLI). Plugins do not work in Claude Desktop.
+
+## Versioning
+
+When bumping a plugin's version, **all version references must be updated together**. The source of truth is `<plugin>/.claude-plugin/plugin.json`.
+
+### dc-due-diligence version locations
+
+Update ALL of these when changing the version:
+
+1. `dc-due-diligence/.claude-plugin/plugin.json` -- `"version"` field (source of truth)
+2. `dc-due-diligence/skills/due-diligence/SKILL.md` -- `version` in YAML frontmatter
+3. `dc-due-diligence/pyproject.toml` -- `version` field under `[project]`
+4. `README.md` -- `**Status:**` line in the `### dc-due-diligence` section
+
+### create-image version locations
+
+Update ALL of these when changing the version:
+
+1. `create-image/.claude-plugin/plugin.json` -- `"version"` field (source of truth)
+2. `README.md` -- `**Status:**` line in the `### create-image` section
+
+### Adding a new plugin
+
+When adding a new plugin, add a version locations section here following the same pattern. List every file where the version string appears.
 
 ## Plugin Reference: create-image
 
