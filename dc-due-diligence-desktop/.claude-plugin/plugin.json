@@ -1,0 +1,8 @@
+{
+  "name": "dc-due-diligence-desktop",
+  "description": "Run 9-domain data center due diligence analysis from Claude Cowork — no terminal required.",
+  "version": "0.1.0",
+  "author": {
+    "name": "Data Canopy"
+  }
+}
