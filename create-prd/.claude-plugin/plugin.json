@@ -2,5 +2,11 @@
   "name": "create-prd",
   "description": "Create AI-optimized Product Requirements Documents through guided brainstorming. Designed for solo founders and vibe coders who have a product idea and want to produce a comprehensive PRD that any AI coding tool can build from.",
   "version": "1.0.0",
-  "author": "Noah Rasheta"
+  "author": {
+    "name": "Noah Rasheta"
+  },
+  "homepage": "https://shipfast.cc",
+  "repository": "https://github.com/noahrasheta/shipfast",
+  "license": "MIT",
+  "keywords": ["prd", "product-requirements", "brainstorming", "spec", "mvp-planning"]
 }
