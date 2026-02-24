@@ -61,12 +61,12 @@ Plans:
   2. At least one domain agent returns a verifiable recent data point from live web research (not training-data hallucination) — confirmed by querying for data that changes frequently
   3. If an agent's run is interrupted, its completed report is already on disk and the orchestrator skips that domain on resume
   4. Any document containing an embedded instruction attempt is flagged in the agent report rather than executed
-**Plans**: TBD
+**Plans**: 3 plans in 1 wave (parallel — all 3 plans create independent agent files with no shared files)
 
 Plans:
-- [ ] 03-01: Port Power, Connectivity, and Water/Cooling agents with web research, disk write, and safety protocol — validate full pipeline end-to-end
-- [ ] 03-02: Port Land/Zoning, Ownership, Environmental, and Commercials agents
-- [ ] 03-03: Port Natural Gas and Market Comparables agents — complete Wave 1
+- [ ] 03-01-PLAN.md — Port Power, Connectivity, Water/Cooling agents + orchestrator dispatch logic (resume, parallel dispatch, checkpoint) [Wave 1, autonomous]
+- [ ] 03-02-PLAN.md — Port Land/Zoning, Ownership, Environmental, Commercials agents [Wave 1, autonomous]
+- [ ] 03-03-PLAN.md — Port Natural Gas and Market Comparables agents — complete 9-agent roster [Wave 1, autonomous]
 
 ### Phase 4: Synthesis and Document Output
 **Goal**: Risk Assessment, Executive Summary, and Client Summary agents synthesize domain reports into a Pursue/Proceed/Pass verdict, with final deliverables in Word and PDF format
