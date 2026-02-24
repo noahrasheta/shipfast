@@ -33,6 +33,14 @@ shipfast/
 │   └── skills/
 │       └── create-image/
 │           └── SKILL.md          # Orchestrator skill
+├── create-prd/                  # Plugin: AI-optimized PRD generation
+│   ├── .claude-plugin/
+│   │   └── plugin.json           # Plugin manifest
+│   ├── skills/
+│   │   └── create-prd/
+│   │       └── SKILL.md          # Conversational PRD builder skill
+│   ├── references/               # AI PRD best practices guide
+│   └── examples/                 # Sample PRD (FocusFlow)
 ├── dc-due-diligence/             # Plugin: Data center due diligence
 │   ├── .claude-plugin/
 │   │   └── plugin.json           # Plugin manifest
@@ -88,9 +96,27 @@ Update ALL of these when changing the version:
 1. `create-image/.claude-plugin/plugin.json` -- `"version"` field (source of truth)
 2. `README.md` -- `**Status:**` line in the `### create-image` section
 
+### create-prd version locations
+
+Update ALL of these when changing the version:
+
+1. `create-prd/.claude-plugin/plugin.json` -- `"version"` field (source of truth)
+2. `README.md` -- `**Status:**` line in the `### create-prd` section
+
 ### Adding a new plugin
 
 When adding a new plugin, add a version locations section here following the same pattern. List every file where the version string appears.
+
+## Plugin Reference: create-prd
+
+The `create-prd` plugin generates AI-optimized Product Requirements Documents through guided conversation:
+
+- **Skill** (`/create-prd`): Runs an adaptive brainstorming conversation that assesses the user's technical level and extracts their product vision
+- **Conversation Flow**: 7 phases -- Vision & Context, Technical Assessment, Features & Scope, User Experience, Business Context (optional), Generate PRD, Refine
+- **Adaptive**: Non-technical users get plain-language questions and recommended tech stacks; technical users get direct stack/integration questions
+- **Output**: Comprehensive PRD in markdown with testable acceptance criteria, explicit scope boundaries, phased implementation, data models, and environment setup
+- **Compatibility**: PRD output works with Claude Code, Cursor, Windsurf, Lovable, GSD, Director, Conductor, or any LLM-based builder
+- **References**: Bundled best practices guide (`references/ai_prd_best_practices.md`) and sample PRD (`examples/sample_prd.md`)
 
 ## Plugin Reference: create-image
 

@@ -21,8 +21,33 @@ Add the marketplace and install any plugin:
 
 | Plugin | What it does | Command |
 |--------|-------------|---------|
+| [create-prd](#create-prd) | AI-optimized PRD generation through guided brainstorming | `/create-prd` |
 | [create-image](#create-image) | AI image generation with multi-agent pipeline | `/create-image` |
 | [dc-due-diligence](#dc-due-diligence) | Data center site analysis across 9 domains | `/due-diligence <folder>` |
+
+---
+
+### create-prd
+
+Turn a product idea into a comprehensive, AI-agent-optimized Product Requirements Document through guided conversation. Invoke `/create-prd` and the skill acts as a brainstorming partner -- asking one question at a time, adapting to your technical level, and producing a PRD that any AI coding tool can build from.
+
+**What it does:**
+- Detects your technical level and adapts questioning accordingly (plain language for non-technical founders, direct stack questions for developers)
+- Runs a 7-phase conversation: Vision & Context, Technical Assessment, Features & Scope, User Experience, Business Context (optional), Generate PRD, Refine
+- Produces a structured PRD with: executive summary, problem statement, user stories with testable acceptance criteria, MVP feature scope, user flows, tech stack, data models, UI/UX requirements, non-functional requirements, explicit out-of-scope list, risks, implementation phases, and environment setup
+- Validates the PRD against a 6-point quality checklist before delivering
+- Includes bundled reference material on AI-optimized PRD best practices and a complete sample PRD
+
+**Works with:** Claude Code, Cursor, Windsurf, Lovable, GSD (`/gsd:new-project --auto @PRD.md`), Director, Conductor, or any LLM-based builder.
+
+**Usage:**
+```
+/create-prd
+```
+
+The skill will start a guided conversation to understand your product idea and generate the PRD.
+
+**Status:** v1.0.0 -- initial release. Conversational PRD generation with adaptive technical assessment.
 
 ---
 
