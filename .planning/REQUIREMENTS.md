@@ -24,18 +24,18 @@ Requirements for initial release. Each maps to roadmap phases.
 
 ### Domain Analysis
 
-- [ ] **DOMAIN-01**: Power agent analyzes power infrastructure, utility providers, capacity, and redundancy
-- [ ] **DOMAIN-02**: Connectivity agent analyzes fiber routes, carrier availability, and network infrastructure
-- [ ] **DOMAIN-03**: Water & Cooling agent analyzes cooling systems, water sources, and efficiency
-- [ ] **DOMAIN-04**: Land & Zoning agent analyzes property details, zoning compliance, and entitlements
-- [ ] **DOMAIN-05**: Ownership agent analyzes ownership structure, liens, and transaction history
-- [ ] **DOMAIN-06**: Environmental agent analyzes environmental risks, compliance, and remediation
-- [ ] **DOMAIN-07**: Commercials agent analyzes financial terms, lease structures, and pricing
-- [ ] **DOMAIN-08**: Natural Gas agent analyzes gas infrastructure, supply, and backup generation
-- [ ] **DOMAIN-09**: Market Comparables agent analyzes comparable transactions and market positioning
-- [ ] **DOMAIN-10**: Each domain agent conducts web research using built-in WebSearch for live market data, regulatory info, and utility rates
-- [ ] **DOMAIN-11**: Each domain agent writes its report to the workspace folder as an intermediate file (session resilience)
-- [ ] **DOMAIN-12**: Each domain agent implements document safety protocol to detect and flag embedded prompt injection attempts
+- [x] **DOMAIN-01**: Power agent analyzes power infrastructure, utility providers, capacity, and redundancy
+- [x] **DOMAIN-02**: Connectivity agent analyzes fiber routes, carrier availability, and network infrastructure
+- [x] **DOMAIN-03**: Water & Cooling agent analyzes cooling systems, water sources, and efficiency
+- [x] **DOMAIN-04**: Land & Zoning agent analyzes property details, zoning compliance, and entitlements
+- [x] **DOMAIN-05**: Ownership agent analyzes ownership structure, liens, and transaction history
+- [x] **DOMAIN-06**: Environmental agent analyzes environmental risks, compliance, and remediation
+- [x] **DOMAIN-07**: Commercials agent analyzes financial terms, lease structures, and pricing
+- [x] **DOMAIN-08**: Natural Gas agent analyzes gas infrastructure, supply, and backup generation
+- [x] **DOMAIN-09**: Market Comparables agent analyzes comparable transactions and market positioning
+- [x] **DOMAIN-10**: Each domain agent conducts web research using built-in WebSearch for live market data, regulatory info, and utility rates
+- [x] **DOMAIN-11**: Each domain agent writes its report to the workspace folder as an intermediate file (session resilience)
+- [x] **DOMAIN-12**: Each domain agent implements document safety protocol to detect and flag embedded prompt injection attempts
 
 ### Synthesis & Scoring
 
@@ -105,18 +105,18 @@ Which phases cover which requirements. Updated during roadmap creation.
 | INGEST-03 | Phase 2 | Complete (Plan 02-01) |
 | INGEST-04 | Phase 2 | Complete (Plan 02-02) |
 | INGEST-05 | Phase 2 | Complete (Plan 02-01, 02-02) |
-| DOMAIN-01 | Phase 3 | Pending |
-| DOMAIN-02 | Phase 3 | Pending |
-| DOMAIN-03 | Phase 3 | Pending |
-| DOMAIN-04 | Phase 3 | Pending |
-| DOMAIN-05 | Phase 3 | Pending |
-| DOMAIN-06 | Phase 3 | Pending |
-| DOMAIN-07 | Phase 3 | Pending |
-| DOMAIN-08 | Phase 3 | Pending |
-| DOMAIN-09 | Phase 3 | Pending |
-| DOMAIN-10 | Phase 3 | Pending |
-| DOMAIN-11 | Phase 3 | Pending |
-| DOMAIN-12 | Phase 3 | Pending |
+| DOMAIN-01 | Phase 3 | Complete (Plan 03-01) |
+| DOMAIN-02 | Phase 3 | Complete (Plan 03-01) |
+| DOMAIN-03 | Phase 3 | Complete (Plan 03-01) |
+| DOMAIN-04 | Phase 3 | Complete (Plan 03-02) |
+| DOMAIN-05 | Phase 3 | Complete (Plan 03-02) |
+| DOMAIN-06 | Phase 3 | Complete (Plan 03-02) |
+| DOMAIN-07 | Phase 3 | Complete (Plan 03-02) |
+| DOMAIN-08 | Phase 3 | Complete (Plan 03-03) |
+| DOMAIN-09 | Phase 3 | Complete (Plan 03-03) |
+| DOMAIN-10 | Phase 3 | Complete (Plan 03-01) |
+| DOMAIN-11 | Phase 3 | Complete (Plan 03-01) |
+| DOMAIN-12 | Phase 3 | Complete (Plan 03-01) |
 | SYNTH-01 | Phase 4 | Pending |
 | SYNTH-02 | Phase 4 | Pending |
 | SYNTH-03 | Phase 4 | Pending |
@@ -137,4 +137,4 @@ Which phases cover which requirements. Updated during roadmap creation.
 
 ---
 *Requirements defined: 2026-02-23*
-*Last updated: 2026-02-24 after Phase 2 — INGEST-01 through INGEST-05 marked complete*
+*Last updated: 2026-02-24 after Phase 3 — DOMAIN-01 through DOMAIN-12 marked complete*

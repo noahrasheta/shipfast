@@ -9,19 +9,19 @@ See: .planning/PROJECT.md (updated 2026-02-23)
 
 ## Current Position
 
-Phase: 2 of 5 (Document Ingestion and Routing)
-Plan: 2 of 2 in current phase
-Status: Phase 2 complete
-Last activity: 2026-02-24 — Plan 02-02 complete: Domain categorization, batch routing, and routing metadata added to command and skill files
+Phase: 3 of 5 (Domain Analysis Agents)
+Plan: 3 of 3 in current phase
+Status: Phase 3 complete
+Last activity: 2026-02-24 — All 9 domain agents ported to Cowork with dispatch logic, resume, and safety protocol
 
-Progress: [████░░░░░░] 40%
+Progress: [██████░░░░] 60%
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 5
+- Total plans completed: 8
 - Average duration: 1.6 min
-- Total execution time: ~0.13 hours
+- Total execution time: ~0.21 hours
 
 **By Phase:**
 
@@ -29,13 +29,11 @@ Progress: [████░░░░░░] 40%
 |-------|-------|-------|----------|
 | 01-foundation-and-validation | 3 | 3 min | 1 min |
 | 02-document-ingestion-and-routing | 2 | 5 min | 2.5 min |
+| 03-domain-analysis-agents | 3 | 9 min | 3 min |
 
 **Recent Trend:**
-- Last 5 plans: 01-01 (1 min), 01-02 (1 min), 01-03 (1 min), 02-01 (2 min), 02-02 (3 min)
+- Last 5 plans: 02-01 (2 min), 02-02 (3 min), 03-01 (4 min), 03-02 (3 min), 03-03 (2 min)
 - Trend: On track
-
-*Updated after each plan completion*
-| Phase 02-document-ingestion-and-routing P02 | 3min | 2 tasks | 2 files |
 
 ## Accumulated Context
 
@@ -68,6 +66,18 @@ Recent decisions affecting current work:
 - [02-02]: Uncategorized files displayed in chat output per user decision
 - [02-02]: No user confirmation prompt — categorization and routing happen automatically
 - [Phase 02-document-ingestion-and-routing]: Full ingestion pipeline complete — discovery, inventory, categorization, batch routing, checkpointing
+- [03-01]: Agent files adapted from CLI with inventory-based reading (no _converted/ paths) — agents read `_dd_inventory.json` for file assignments
+- [03-01]: MCP tool references removed from all agents — WebSearch/WebFetch only per locked decision
+- [03-01]: Dispatch logic handles all 9 domains generically (not just first 3)
+- [03-01]: Resume uses file size > 500 bytes, not just existence — prevents treating empty/corrupt files as complete
+- [03-01]: Agent adaptation pattern established: keep verbatim (Safety Protocol, extraction categories, verification sources), replace (OPPORTUNITY_FOLDER -> WORKSPACE_FOLDER, _converted -> inventory), remove (MCP tools), add (Your Task with Read tool)
+- [03-02]: Followed identical adaptation pattern from Plan 01 — no new patterns needed for batch 2
+- [03-02]: Environmental agent preserves FEMA/EPA lookup queries as WebSearch queries
+- [03-02]: Commercials agent scoped to financial/commercial aspects only (not power pricing or land acquisition)
+- [03-03]: Market Comparables agent emphasizes web research as primary value driver (10-20 searches vs 5-15)
+- [03-03]: Market Comparables handles zero-document scenario with web-research-only path
+- [03-03]: Natural Gas agent preserves cross-domain notes referencing Power agent (backup generation)
+- [Phase 03-domain-analysis-agents]: All 9 domain agents ported to Cowork with parallel dispatch, resume logic, and Document Safety Protocol
 
 ### Pending Todos
 
@@ -81,5 +91,5 @@ None.
 ## Session Continuity
 
 Last session: 2026-02-24
-Stopped at: Phase 2 complete — all ingestion and routing logic built, ready for Phase 3 domain agent dispatch
+Stopped at: Phase 3 complete — all 9 domain agents created, dispatch logic with resume and safety protocol in orchestrator, ready for Phase 4 synthesis
 Resume file: None
