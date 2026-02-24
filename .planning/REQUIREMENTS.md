@@ -9,7 +9,7 @@ Requirements for initial release. Each maps to roadmap phases.
 
 ### Plugin Infrastructure
 
-- [ ] **INFRA-01**: Plugin uses correct Cowork format (.claude-plugin/plugin.json, commands/, skills/) and activates when uploaded
+- [x] **INFRA-01**: Plugin uses correct Cowork format (.claude-plugin/plugin.json, commands/, skills/) and activates when uploaded
 - [ ] **INFRA-02**: Plugin distributable as ZIP file that installs via drag-and-drop in Cowork — no terminal required
 - [ ] **INFRA-03**: User can type `/due-diligence` to trigger the full analysis workflow
 - [ ] **INFRA-04**: Plugin includes clear README with setup instructions a non-technical user can follow
@@ -96,7 +96,7 @@ Which phases cover which requirements. Updated during roadmap creation.
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| INFRA-01 | Phase 1 | Pending |
+| INFRA-01 | Phase 1 | Complete (Plan 01-01) |
 | INFRA-02 | Phase 1 | Pending |
 | INFRA-03 | Phase 1 | Pending |
 | INFRA-04 | Phase 5 | Pending |
@@ -137,4 +137,4 @@ Which phases cover which requirements. Updated during roadmap creation.
 
 ---
 *Requirements defined: 2026-02-23*
-*Last updated: 2026-02-23 after roadmap creation — all 33 requirements mapped*
+*Last updated: 2026-02-24 after Plan 01-01 — INFRA-01 marked complete*

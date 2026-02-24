@@ -33,7 +33,7 @@ Decimal phases appear between their surrounding integers in numeric order.
 **Plans**: 3 plans in 3 waves (sequential — each depends on prior)
 
 Plans:
-- [ ] 01-01-PLAN.md — Scaffold Cowork plugin directory structure (plugin.json, commands/due-diligence.md, skills/due-diligence/SKILL.md) [Wave 1, autonomous]
+- [x] 01-01-PLAN.md — Scaffold Cowork plugin directory structure (plugin.json, commands/due-diligence.md, skills/due-diligence/SKILL.md) [Wave 1, autonomous]
 - [ ] 01-02-PLAN.md — ZIP packaging, file discovery, slash command validation in Cowork [Wave 2, has checkpoint]
 - [ ] 01-03-PLAN.md — Parallel dispatch smoke test and architecture decision recording [Wave 3, has checkpoint]
 
@@ -107,7 +107,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. Foundation and Validation | 0/3 | Not started | - |
+| 1. Foundation and Validation | 1/3 | In progress | - |
 | 2. Document Ingestion and Routing | 0/2 | Not started | - |
 | 3. Domain Analysis Agents | 0/3 | Not started | - |
 | 4. Synthesis and Document Output | 0/3 | Not started | - |
