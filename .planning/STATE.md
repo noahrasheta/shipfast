@@ -5,16 +5,16 @@
 See: .planning/PROJECT.md (updated 2026-02-23)
 
 **Core value:** A non-technical co-worker can run a full 9-domain data center due diligence analysis from Claude Desktop without ever touching a terminal, and get results in an editable document format.
-**Current focus:** Phase 4 complete — Synthesis and Document Output
+**Current focus:** Phase 5 in progress — Hardening and Distribution
 
 ## Current Position
 
-Phase: 4 of 5 (Synthesis and Document Output)
-Plan: 3 of 3 in current phase
-Status: Phase 4 complete
-Last activity: 2026-02-24 — Risk Assessment, Executive Summary, Client Summary agents ported; orchestrator wired with synthesis dispatch, DOCX generation, and completion UX
+Phase: 5 of 5 (Hardening and Distribution)
+Plan: 1 of 2 in current phase
+Status: Phase 5 in progress
+Last activity: 2026-02-24 — Orchestrator hardened with pre-dispatch size warning and enhanced Wave-1 failure validation; SKILL.md updated to reflect hardening capabilities
 
-Progress: [████████░░] 80%
+Progress: [█████████░] 90%
 
 ## Performance Metrics
 
@@ -42,6 +42,10 @@ Progress: [████████░░] 80%
 
 Decisions are logged in PROJECT.md Key Decisions table.
 Recent decisions affecting current work:
+
+- [05-01]: 30-file threshold for pre-dispatch warning — aligns with 20-file batch ceiling, large data rooms will have batched domains and longer run times
+- [05-01]: Synthesis proceeds regardless of failed domains (SYNTH-05) — synthesis agents handle missing reports gracefully, partial data better than blocking
+- [05-01]: Retry via /due-diligence re-run — resume check (> 500 bytes) already skips completed agents, making retry transparent
 
 - [Pre-Phase 1]: Separate plugin, not fork of existing CLI plugin — CLI version stays as-is
 - [Pre-Phase 1]: Architecture approach — Cowork plugin with parallel sub-agent dispatch (confirmed available)
@@ -101,5 +105,5 @@ None.
 ## Session Continuity
 
 Last session: 2026-02-24
-Stopped at: Phase 4 complete — all 3 synthesis agents created, orchestrator wired with synthesis dispatch (Waves 2/3), DOCX generation, completion UX, session resilience for synthesis phase. Ready for Phase 5 hardening and distribution.
+Stopped at: Phase 5 Plan 01 complete — orchestrator hardened with pre-dispatch size warning (30+ files) and enhanced Wave-1 domain failure validation; SKILL.md updated with Hardening (Phase 5) capabilities and Future Capabilities stub removed. Ready for Phase 5 Plan 02 (README and clean-machine install validation).
 Resume file: None
