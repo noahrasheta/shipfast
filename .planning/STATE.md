@@ -5,23 +5,23 @@
 See: .planning/PROJECT.md (updated 2026-02-23)
 
 **Core value:** A non-technical co-worker can run a full 9-domain data center due diligence analysis from Claude Desktop without ever touching a terminal, and get results in an editable document format.
-**Current focus:** Phase 3 — Domain Analysis Agents
+**Current focus:** Phase 4 complete — Synthesis and Document Output
 
 ## Current Position
 
-Phase: 3 of 5 (Domain Analysis Agents)
+Phase: 4 of 5 (Synthesis and Document Output)
 Plan: 3 of 3 in current phase
-Status: Phase 3 complete
-Last activity: 2026-02-24 — All 9 domain agents ported to Cowork with dispatch logic, resume, and safety protocol
+Status: Phase 4 complete
+Last activity: 2026-02-24 — Risk Assessment, Executive Summary, Client Summary agents ported; orchestrator wired with synthesis dispatch, DOCX generation, and completion UX
 
-Progress: [██████░░░░] 60%
+Progress: [████████░░] 80%
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 8
-- Average duration: 1.6 min
-- Total execution time: ~0.21 hours
+- Total plans completed: 11
+- Average duration: ~2 min
+- Total execution time: ~0.37 hours
 
 **By Phase:**
 
@@ -30,9 +30,10 @@ Progress: [██████░░░░] 60%
 | 01-foundation-and-validation | 3 | 3 min | 1 min |
 | 02-document-ingestion-and-routing | 2 | 5 min | 2.5 min |
 | 03-domain-analysis-agents | 3 | 9 min | 3 min |
+| 04-synthesis-and-document-output | 3 | 5 min | 1.7 min |
 
 **Recent Trend:**
-- Last 5 plans: 02-01 (2 min), 02-02 (3 min), 03-01 (4 min), 03-02 (3 min), 03-03 (2 min)
+- Last 5 plans: 03-01 (4 min), 03-02 (3 min), 03-03 (2 min), 04-01 (2 min), 04-02 (1 min)
 - Trend: On track
 
 ## Accumulated Context
@@ -78,6 +79,15 @@ Recent decisions affecting current work:
 - [03-03]: Market Comparables handles zero-document scenario with web-research-only path
 - [03-03]: Natural Gas agent preserves cross-domain notes referencing Power agent (backup generation)
 - [Phase 03-domain-analysis-agents]: All 9 domain agents ported to Cowork with parallel dispatch, resume logic, and Document Safety Protocol
+- [04-01]: Scoring rubric embedded directly in executive-summary-agent.md (~34KB) — avoids cross-file template reads that fail in Cowork Task tool scope
+- [04-01]: Risk Assessment agent has no Document Safety Protocol — reads agent reports, not broker documents
+- [04-02]: Client summary template embedded directly in client-summary-agent.md — same embedding pattern as scoring rubric
+- [04-02]: Client Summary agent strips all internal scoring language (Tier labels, scores, confidence %, traffic lights, agent names)
+- [04-03]: Synthesis agents dispatch sequentially: Risk Assessment -> Executive Summary -> Client Summary
+- [04-03]: DOCX generation via pandoc with runtime availability check — graceful fallback to markdown-only if pandoc not installed
+- [04-03]: Completion UX displays verdict, key highlights, and deliverable file paths
+- [04-03]: Synthesis phase added to session resilience checkpoint system — individual agent completion tracked
+- [Phase 04-synthesis-and-document-output]: Full synthesis pipeline complete — 3 synthesis agents, DOCX output, completion UX, session resilience
 
 ### Pending Todos
 
@@ -86,10 +96,10 @@ None.
 ### Blockers/Concerns
 
 - [RESOLVED] [Phase 1 dependency]: Parallel sub-agent dispatch confirmed available in Cowork. Task tool supports concurrent agent execution. Sequential fallback retained as backup. Phase 3 architecture: parallel Wave 1 dispatch for 9 domain agents.
-- [Phase 4 dependency]: Word/PDF output mechanism (native Cowork file creation vs. VM LibreOffice) depends on Phase 1 VM architecture finding. Decision point at Plan 04-03.
+- [RESOLVED] [Phase 4 dependency]: Word output via pandoc (confirmed installed locally). Runtime check with fallback to markdown-only output if pandoc unavailable. PDF output deferred per user decision.
 
 ## Session Continuity
 
 Last session: 2026-02-24
-Stopped at: Phase 3 complete — all 9 domain agents created, dispatch logic with resume and safety protocol in orchestrator, ready for Phase 4 synthesis
+Stopped at: Phase 4 complete — all 3 synthesis agents created, orchestrator wired with synthesis dispatch (Waves 2/3), DOCX generation, completion UX, session resilience for synthesis phase. Ready for Phase 5 hardening and distribution.
 Resume file: None
