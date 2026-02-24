@@ -254,6 +254,116 @@ If a session resumes and `_dd_status.json` shows `"phase": "routing"`, skip dire
 
 Per user decision: no confirmation prompt. After routing completes, the orchestrator proceeds directly to domain agent dispatch (Phase 3). The user's mental model is "one command does everything."
 
+## Domain Agent Dispatch (Phase 3)
+
+After routing is complete, dispatch all 9 domain agents to analyze their assigned documents.
+
+### Research Folder Creation
+
+```bash
+TARGET_FOLDER="${ARGUMENTS:-$(pwd)}"
+mkdir -p "$TARGET_FOLDER/research"
+echo "Research folder ready: $TARGET_FOLDER/research"
+```
+
+### Resume Check
+
+Before dispatching agents, check which reports already exist and skip those domains:
+
+```bash
+TARGET_FOLDER="${ARGUMENTS:-$(pwd)}"
+echo "=== Checking for existing domain reports ==="
+DISPATCH_LIST=""
+SKIP_COUNT=0
+DISPATCH_COUNT=0
+for domain in power connectivity water-cooling land-zoning ownership environmental commercials natural-gas market-comparables; do
+  REPORT="$TARGET_FOLDER/research/${domain}-report.md"
+  REPORT_SIZE=$(stat -f%z "$REPORT" 2>/dev/null || echo 0)
+  if [ "$REPORT_SIZE" -gt 500 ]; then
+    echo "SKIP: $domain (report exists, ${REPORT_SIZE} bytes)"
+    SKIP_COUNT=$((SKIP_COUNT + 1))
+  else
+    echo "DISPATCH: $domain"
+    DISPATCH_LIST="$DISPATCH_LIST $domain"
+    DISPATCH_COUNT=$((DISPATCH_COUNT + 1))
+  fi
+done
+echo ""
+echo "Dispatching $DISPATCH_COUNT agents, skipping $SKIP_COUNT with existing reports"
+```
+
+### Parallel Agent Dispatch
+
+For each domain that needs to run:
+
+1. Read the agent file at `agents/{domain}-agent.md`
+2. Pass the agent file content as the task description to the Task tool
+3. Replace `${WORKSPACE_FOLDER}` in the agent content with the actual target folder path (agents cannot inherit variables across Task tool boundaries)
+4. Dispatch all agents that need to run simultaneously using parallel Task tool calls
+5. Each agent writes its report to `research/{domain}-report.md` when complete
+
+**Domain agent files:**
+- `agents/power-agent.md` -- Power infrastructure, capacity, interconnection
+- `agents/connectivity-agent.md` -- Fiber carriers, route diversity, carrier neutrality
+- `agents/water-cooling-agent.md` -- Water supply, cooling design, scarcity risk
+- `agents/land-zoning-agent.md` -- Zoning compliance, permits, entitlements
+- `agents/ownership-agent.md` -- Ownership verification, title, middleman detection
+- `agents/environmental-agent.md` -- Hazard risk, compliance, contamination
+- `agents/commercials-agent.md` -- Financial terms, lease structure, pricing
+- `agents/natural-gas-agent.md` -- Gas supply, pipeline access, on-site generation
+- `agents/market-comparables-agent.md` -- Comparable transactions, market rates, competition
+
+### Progress Feedback
+
+Before dispatch, display a status table showing which agents will run vs. skip:
+
+```
+Domain Agent Status:
+| Domain | Status | Reason |
+|--------|--------|--------|
+| Power | DISPATCH | No existing report |
+| Connectivity | SKIP | Report exists (2,450 bytes) |
+...
+```
+
+After all agents complete, display a completion summary:
+
+```bash
+TARGET_FOLDER="${ARGUMENTS:-$(pwd)}"
+echo "=== Domain Agent Results ==="
+COMPLETE_COUNT=0
+for domain in power connectivity water-cooling land-zoning ownership environmental commercials natural-gas market-comparables; do
+  REPORT="$TARGET_FOLDER/research/${domain}-report.md"
+  if [ -f "$REPORT" ]; then
+    SIZE=$(stat -f%z "$REPORT" 2>/dev/null || echo 0)
+    echo "$domain: COMPLETE ($SIZE bytes)"
+    COMPLETE_COUNT=$((COMPLETE_COUNT + 1))
+  else
+    echo "$domain: MISSING"
+  fi
+done
+echo ""
+echo "$COMPLETE_COUNT of 9 domain reports complete"
+```
+
+### Analysis Checkpoint
+
+After all agents finish (or are skipped), update the checkpoint:
+
+```bash
+TARGET_FOLDER="${ARGUMENTS:-$(pwd)}"
+TIMESTAMP=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
+REPORTS_COMPLETE=$(ls "$TARGET_FOLDER/research/"*-report.md 2>/dev/null | wc -l | tr -d ' ')
+cat > "$TARGET_FOLDER/_dd_status.json" << EOF
+{
+  "phase": "analysis",
+  "reports_complete": $REPORTS_COMPLETE,
+  "timestamp": "$TIMESTAMP"
+}
+EOF
+echo "Analysis checkpoint written: $REPORTS_COMPLETE reports complete"
+```
+
 ## Session Resilience
 
 After file discovery and inventory write complete, write a status checkpoint to the workspace folder:
@@ -291,7 +401,9 @@ if [ -f "$STATUS_FILE" ]; then
     echo "Found prior session checkpoint ($(( FILE_AGE_SECONDS / 60 )) minutes old)"
     cat "$STATUS_FILE"
     PHASE=$(cat "$STATUS_FILE" | grep -o '"phase"[[:space:]]*:[[:space:]]*"[^"]*"' | grep -o '"[^"]*"$' | tr -d '"')
-    if [ "$PHASE" = "routing" ]; then
+    if [ "$PHASE" = "analysis" ]; then
+      echo "Analysis phase. Checking for incomplete reports."
+    elif [ "$PHASE" = "routing" ]; then
       echo "Routing complete. Proceeding to domain agent dispatch."
     elif [ "$PHASE" = "inventory" ]; then
       echo "Inventory complete. Proceeding to categorization."
