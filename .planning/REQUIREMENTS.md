@@ -96,45 +96,45 @@ Which phases cover which requirements. Updated during roadmap creation.
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| INFRA-01 | — | Pending |
-| INFRA-02 | — | Pending |
-| INFRA-03 | — | Pending |
-| INFRA-04 | — | Pending |
-| INGEST-01 | — | Pending |
-| INGEST-02 | — | Pending |
-| INGEST-03 | — | Pending |
-| INGEST-04 | — | Pending |
-| INGEST-05 | — | Pending |
-| DOMAIN-01 | — | Pending |
-| DOMAIN-02 | — | Pending |
-| DOMAIN-03 | — | Pending |
-| DOMAIN-04 | — | Pending |
-| DOMAIN-05 | — | Pending |
-| DOMAIN-06 | — | Pending |
-| DOMAIN-07 | — | Pending |
-| DOMAIN-08 | — | Pending |
-| DOMAIN-09 | — | Pending |
-| DOMAIN-10 | — | Pending |
-| DOMAIN-11 | — | Pending |
-| DOMAIN-12 | — | Pending |
-| SYNTH-01 | — | Pending |
-| SYNTH-02 | — | Pending |
-| SYNTH-03 | — | Pending |
-| SYNTH-04 | — | Pending |
-| SYNTH-05 | — | Pending |
-| OUTPUT-01 | — | Pending |
-| OUTPUT-02 | — | Pending |
-| OUTPUT-03 | — | Pending |
-| OUTPUT-04 | — | Pending |
-| PLAT-01 | — | Pending |
-| PLAT-02 | — | Pending |
-| PLAT-03 | — | Pending |
+| INFRA-01 | Phase 1 | Pending |
+| INFRA-02 | Phase 1 | Pending |
+| INFRA-03 | Phase 1 | Pending |
+| INFRA-04 | Phase 5 | Pending |
+| INGEST-01 | Phase 2 | Pending |
+| INGEST-02 | Phase 2 | Pending |
+| INGEST-03 | Phase 2 | Pending |
+| INGEST-04 | Phase 2 | Pending |
+| INGEST-05 | Phase 2 | Pending |
+| DOMAIN-01 | Phase 3 | Pending |
+| DOMAIN-02 | Phase 3 | Pending |
+| DOMAIN-03 | Phase 3 | Pending |
+| DOMAIN-04 | Phase 3 | Pending |
+| DOMAIN-05 | Phase 3 | Pending |
+| DOMAIN-06 | Phase 3 | Pending |
+| DOMAIN-07 | Phase 3 | Pending |
+| DOMAIN-08 | Phase 3 | Pending |
+| DOMAIN-09 | Phase 3 | Pending |
+| DOMAIN-10 | Phase 3 | Pending |
+| DOMAIN-11 | Phase 3 | Pending |
+| DOMAIN-12 | Phase 3 | Pending |
+| SYNTH-01 | Phase 4 | Pending |
+| SYNTH-02 | Phase 4 | Pending |
+| SYNTH-03 | Phase 4 | Pending |
+| SYNTH-04 | Phase 4 | Pending |
+| SYNTH-05 | Phase 4 | Pending |
+| OUTPUT-01 | Phase 4 | Pending |
+| OUTPUT-02 | Phase 4 | Pending |
+| OUTPUT-03 | Phase 4 | Pending |
+| OUTPUT-04 | Phase 4 | Pending |
+| PLAT-01 | Phase 1 | Pending |
+| PLAT-02 | Phase 1 | Pending |
+| PLAT-03 | Phase 1 | Pending |
 
 **Coverage:**
 - v1 requirements: 33 total
-- Mapped to phases: 0
-- Unmapped: 33
+- Mapped to phases: 33
+- Unmapped: 0
 
 ---
 *Requirements defined: 2026-02-23*
-*Last updated: 2026-02-23 after initial definition*
+*Last updated: 2026-02-23 after roadmap creation — all 33 requirements mapped*
