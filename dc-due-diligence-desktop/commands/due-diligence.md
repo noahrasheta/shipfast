@@ -11,7 +11,7 @@ Analyze the data center opportunity documents in your workspace.
 
 1. Identify the target folder. If a path was provided: use `$ARGUMENTS`. Otherwise, scan the current workspace root for document files.
 
-2. Check for a prior session checkpoint. If `_dd_status.json` exists in the target folder, read it. If the file is less than 24 hours old and `phase` is "inventory", report that a prior inventory was found and use it. If the file is older than 24 hours, discard it and start fresh.
+2. Check for a prior session checkpoint. If `_dd_status.json` exists in the target folder, read it. If the file is less than 24 hours old and `phase` is "routing", skip to domain agent dispatch (Phase 3). If `phase` is "inventory", skip to categorization. If the file is older than 24 hours, discard it and start fresh.
 
 3. Run the file discovery bash block below to list all document files by type.
 
@@ -19,15 +19,17 @@ Analyze the data center opportunity documents in your workspace.
 
 5. Display a summary table grouped by file type with counts.
 
-6. Write `_dd_status.json` to the target folder with the discovery results.
+6. Write `_dd_inventory.json` to the target folder with the full file listing.
 
-7. [Phase 1 stub] Report that the document inventory is complete. Full domain agent dispatch will be added in Phase 2+.
+7. Write `_dd_status.json` checkpoint.
+
+8. Proceed to document categorization and routing (see Domain Categorization section below).
 
 ## Orchestration Notes
 
-This command orchestrates the full due diligence workflow. Full instructions are also available in the orchestrator skill. For Phase 1, the workflow performs document discovery and inventory. Future phases will dispatch 9 domain agents (Power, Connectivity, Water/Cooling, Land/Zoning, Ownership, Environmental, Commercials, Natural Gas, Market Comparables), synthesize findings with a Risk Assessment agent, and generate a scored Executive Summary with a Pursue / Proceed with Caution / Pass verdict.
+This command orchestrates the full due diligence workflow. Full instructions are also available in the orchestrator skill. The workflow performs document discovery, creates a structured inventory, categorizes documents by domain, and routes them to domain agents. Future phases will dispatch 9 domain agents (Power, Connectivity, Water/Cooling, Land/Zoning, Ownership, Environmental, Commercials, Natural Gas, Market Comparables), synthesize findings with a Risk Assessment agent, and generate a scored Executive Summary with a Pursue / Proceed with Caution / Pass verdict.
 
-Dispatch pattern: Sequential — 9 domain agents run one at a time in sequence. This is the confirmed safe execution pattern for Cowork (see Phase 1 smoke test results in STATE.md).
+Dispatch pattern: Parallel — 9 domain agents run concurrently via the Task tool. Sequential fallback is retained if parallel encounters issues (see Phase 1 smoke test results in STATE.md).
 
 ## Workspace File Discovery
 
@@ -37,7 +39,7 @@ Use bash to find all document files in the target folder and count them by type:
 TARGET_FOLDER="${ARGUMENTS:-$(pwd)}"
 echo "Scanning $TARGET_FOLDER for documents..."
 
-# Find all document files
+# Find all document files including text-based extensions
 ALL_FILES=$(find "$TARGET_FOLDER" -maxdepth 3 \( \
   -name "*.pdf" -o \
   -name "*.docx" -o \
@@ -45,8 +47,11 @@ ALL_FILES=$(find "$TARGET_FOLDER" -maxdepth 3 \( \
   -name "*.pptx" -o \
   -name "*.jpg" -o \
   -name "*.jpeg" -o \
-  -name "*.png" \
-\) 2>/dev/null | sort)
+  -name "*.png" -o \
+  -name "*.csv" -o \
+  -name "*.txt" -o \
+  -name "*.eml" \
+\) ! -path "*/_converted/*" ! -path "*/research/*" ! -name "_dd_*" 2>/dev/null | sort)
 
 # Count by type
 PDF_COUNT=$(echo "$ALL_FILES" | grep -ic "\.pdf$" || echo 0)
@@ -54,6 +59,7 @@ DOCX_COUNT=$(echo "$ALL_FILES" | grep -ic "\.docx$" || echo 0)
 XLSX_COUNT=$(echo "$ALL_FILES" | grep -ic "\.xlsx$" || echo 0)
 PPTX_COUNT=$(echo "$ALL_FILES" | grep -ic "\.pptx$" || echo 0)
 IMG_COUNT=$(echo "$ALL_FILES" | grep -iE "\.(jpg|jpeg|png)$" | wc -l | tr -d ' ')
+OTHER_COUNT=$(echo "$ALL_FILES" | grep -iE "\.(csv|txt|eml)$" | wc -l | tr -d ' ')
 TOTAL_COUNT=$(echo "$ALL_FILES" | grep -c . || echo 0)
 
 echo "--- File Discovery Results ---"
@@ -62,17 +68,67 @@ echo "DOCX:  $DOCX_COUNT"
 echo "XLSX:  $XLSX_COUNT"
 echo "PPTX:  $PPTX_COUNT"
 echo "Images (JPG/JPEG/PNG): $IMG_COUNT"
+echo "Other (CSV/TXT/EML):   $OTHER_COUNT"
 echo "Total: $TOTAL_COUNT"
-echo ""
-echo "Files found:"
-echo "$ALL_FILES"
 ```
 
-Display results to the user in a clear table grouped by type.
+Display results to the user as a summary table grouped by file type with counts only. Do NOT list individual filenames in chat output — the detailed listing lives in `_dd_inventory.json`.
+
+## Document Inventory
+
+After file discovery, write a structured JSON inventory to disk. This file is consumed by domain agents in Phase 3 and must be written BEFORE any agent dispatch (INGEST-05 requirement).
+
+```bash
+TARGET_FOLDER="${ARGUMENTS:-$(pwd)}"
+TIMESTAMP=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
+
+# Build file list as JSON array (handle spaces in filenames)
+FILE_LIST_JSON=$(echo "$ALL_FILES" | while IFS= read -r f; do
+  [ -z "$f" ] && continue
+  printf '"%s",' "$f"
+done | sed 's/,$//')
+
+cat > "$TARGET_FOLDER/_dd_inventory.json" << INVENTORY_EOF
+{
+  "generated": "$TIMESTAMP",
+  "workspace_folder": "$TARGET_FOLDER",
+  "total_files": $TOTAL_COUNT,
+  "file_types": {
+    "pdf": $PDF_COUNT,
+    "docx": $DOCX_COUNT,
+    "xlsx": $XLSX_COUNT,
+    "pptx": $PPTX_COUNT,
+    "images": $IMG_COUNT,
+    "other": $OTHER_COUNT
+  },
+  "files": [$FILE_LIST_JSON],
+  "domains": {},
+  "uncategorized": [],
+  "status": "inventory_complete"
+}
+INVENTORY_EOF
+echo "Inventory written to $TARGET_FOLDER/_dd_inventory.json"
+```
+
+The `domains` and `uncategorized` fields start empty — they are populated during the categorization step.
+
+## Native Document Reading
+
+Claude Cowork reads all document types natively — no Python conversion pipeline needed:
+
+- **PDF files:** Use the Read tool directly. Claude extracts text content from text-based PDFs.
+- **DOCX files:** Use the Read tool. Claude reads Word documents and extracts text content.
+- **XLSX files:** Use the Read tool. Claude reads spreadsheet data as structured content.
+- **PPTX files:** Use the Read tool. Claude reads slide content as text.
+- **Images (JPG, JPEG, PNG):** Use the Read tool. Claude's vision capabilities interpret image content visually.
+- **Scanned PDFs:** If a PDF returns very little or no text via Read, it may be a scanned document. Use the Read tool — Claude's multimodal vision will interpret the page images directly.
+- **Text files (.csv, .txt, .eml):** Use the Read tool. These are read as plain text.
+
+For categorization purposes, read only the first page or first ~500 words of each document to determine its domain. Do NOT read entire documents during categorization — preserve context window for domain agents in Phase 3.
 
 ## Session Resilience
 
-After file discovery completes, write a status checkpoint to the workspace folder:
+After file discovery and inventory write complete, write a status checkpoint to the workspace folder:
 
 ```bash
 TARGET_FOLDER="${ARGUMENTS:-$(pwd)}"
@@ -86,8 +142,10 @@ cat > "$TARGET_FOLDER/_dd_status.json" << EOF
     "docx": $DOCX_COUNT,
     "xlsx": $XLSX_COUNT,
     "pptx": $PPTX_COUNT,
-    "images": $IMG_COUNT
+    "images": $IMG_COUNT,
+    "other": $OTHER_COUNT
   },
+  "inventory_file": "$TARGET_FOLDER/_dd_inventory.json",
   "timestamp": "$TIMESTAMP"
 }
 EOF
@@ -104,7 +162,12 @@ if [ -f "$STATUS_FILE" ]; then
   if [ "$FILE_AGE_SECONDS" -lt 86400 ]; then
     echo "Found prior session checkpoint ($(( FILE_AGE_SECONDS / 60 )) minutes old)"
     cat "$STATUS_FILE"
-    echo "Using prior inventory. To rescan, delete $STATUS_FILE and re-run."
+    PHASE=$(cat "$STATUS_FILE" | grep -o '"phase"[[:space:]]*:[[:space:]]*"[^"]*"' | grep -o '"[^"]*"$' | tr -d '"')
+    if [ "$PHASE" = "routing" ]; then
+      echo "Routing complete. Proceeding to domain agent dispatch."
+    elif [ "$PHASE" = "inventory" ]; then
+      echo "Inventory complete. Proceeding to categorization."
+    fi
   else
     echo "Prior checkpoint is older than 24 hours — starting fresh."
     rm "$STATUS_FILE"
