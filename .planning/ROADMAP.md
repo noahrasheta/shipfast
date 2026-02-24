@@ -79,12 +79,12 @@ Plans:
   4. Final reports are available as Word (.docx) files the user can open and edit
   5. Final reports are also available as PDF files ready for distribution
   6. Workflow completes successfully when one or more domain reports are missing (graceful degradation)
-**Plans**: TBD
+**Plans**: 3 plans in 2 waves (Wave 1 parallel agent porting, Wave 2 orchestrator wiring)
 
 Plans:
-- [ ] 04-01: Implement Risk Assessment and Executive Summary agents with scoring rubric — validate verdict output matches CLI version
-- [ ] 04-02: Implement Client Summary agent and markdown output to workspace folder
-- [ ] 04-03: Implement Word/PDF output generation — evaluate native Cowork file creation vs. VM LibreOffice based on Phase 1 findings
+- [ ] 04-01-PLAN.md — Port Risk Assessment and Executive Summary agents with embedded scoring rubric [Wave 1, autonomous]
+- [ ] 04-02-PLAN.md — Port Client Summary agent with embedded template structure [Wave 1, autonomous]
+- [ ] 04-03-PLAN.md — Add synthesis dispatch, DOCX generation, and completion UX to orchestrator [Wave 2, autonomous, depends on 04-01 + 04-02]
 
 ### Phase 5: Hardening and Distribution
 **Goal**: Plugin survives large data rooms, installs cleanly on a fresh Cowork instance a non-technical user has never configured, and ships with documentation they can follow
