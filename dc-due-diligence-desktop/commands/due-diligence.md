@@ -126,6 +126,134 @@ Claude Cowork reads all document types natively — no Python conversion pipelin
 
 For categorization purposes, read only the first page or first ~500 words of each document to determine its domain. Do NOT read entire documents during categorization — preserve context window for domain agents in Phase 3.
 
+## Domain Categorization
+
+After inventory is written, categorize each file into one of the 9 domain buckets. Use a two-pass approach to conserve context window:
+
+### Pass 1: Filename and Path Heuristics
+
+For each file in the inventory, check the filename and parent directory name against domain keyword sets. This pass is fast and requires no file reading.
+
+Domain keyword sets for filename matching (case-insensitive):
+
+| Domain | Keywords |
+|--------|----------|
+| power | utility, substation, transformer, MW, megawatt, electrical, grid, voltage, redundancy, UPS, generator, switchgear, power purchase, PPA |
+| connectivity | fiber, carrier, latency, bandwidth, network, ISP, peering, dark fiber, lit services, cross-connect, route diversity, meet-me, telecom |
+| water-cooling | cooling, water, chiller, HVAC, airflow, temperature, humidity, PUE, WUE, cooling tower, mechanical |
+| land-zoning | zoning, parcel, entitlement, setback, easement, lot, acre, building permit, land use, variance, conditional use, survey, plat |
+| ownership | deed, title, lien, mortgage, LLC, owner, entity, beneficial, encumbrance, UCC, litigation, corporate |
+| environmental | contamination, hazardous, flood, seismic, Phase I, Phase II, remediation, brownfield, EPA, environmental impact, ESA |
+| commercials | lease, rent, NNN, CAM, tenant, escalation, term, option, pricing, rate, cost, revenue, EBITDA, financial, pro forma, LOI |
+| natural-gas | gas, pipeline, natural gas, BTU, therms, generation, turbine, fuel, backup power |
+| market-comparables | comparable, market rate, transaction, sale, acquisition, benchmark, competitor, vacancy, comp |
+
+If a filename matches keywords from exactly one domain, assign it. If it matches multiple domains, assign to the domain with the most keyword hits. If no keywords match, mark as "needs content inspection" for Pass 2.
+
+### Pass 2: Content Inspection (only for unmatched files)
+
+For files that could not be categorized by filename alone, read the first page or first ~500 words using the Read tool. Apply the same keyword matching against the extracted content.
+
+If a scanned PDF or image returns no text, use Claude's vision to inspect the first page — look for letterheads, logos, table headers, or other visual cues that indicate the domain.
+
+If content inspection still doesn't yield a clear domain match, mark the file as "uncategorized" with reason "No domain keywords matched".
+
+### Categorization Output
+
+After both passes complete:
+
+1. Display to chat (summary only per user decision):
+```
+Documents categorized:
+- Power: X files
+- Connectivity: X files
+- Water & Cooling: X files
+- Land & Zoning: X files
+- Ownership: X files
+- Environmental: X files
+- Commercials: X files
+- Natural Gas: X files
+- Market Comparables: X files
+- Uncategorized: X files [list filenames if any]
+```
+
+2. Each file assigned to exactly ONE domain or uncategorized — no duplicates.
+
+## Document Routing
+
+After categorization, prepare routing metadata for Phase 3 agent dispatch.
+
+### Batch Splitting
+
+For each domain bucket, check if the file count exceeds 20 (the per-chat platform limit). If so, split into sequential batches of max 20 files each.
+
+```bash
+# Batch splitting logic (orchestrator implements this during Phase 3 dispatch)
+BATCH_SIZE=20
+for domain in power connectivity water-cooling land-zoning ownership environmental commercials natural-gas market-comparables; do
+  DOMAIN_COUNT=$(jq -r ".domains.\"$domain\".count // 0" "$TARGET_FOLDER/_dd_inventory.json")
+  if [ "$DOMAIN_COUNT" -gt "$BATCH_SIZE" ]; then
+    BATCHES=$(( (DOMAIN_COUNT + BATCH_SIZE - 1) / BATCH_SIZE ))
+    echo "$domain: $DOMAIN_COUNT files -> $BATCHES batches"
+  else
+    echo "$domain: $DOMAIN_COUNT files -> 1 batch"
+  fi
+done
+```
+
+### Update Inventory JSON
+
+After categorization and batch assignment, update `_dd_inventory.json` with the routing metadata. For each domain:
+
+```json
+"domains": {
+  "power": {
+    "files": ["/path/to/file1.pdf", "/path/to/file2.xlsx"],
+    "count": 2,
+    "batches": [
+      {"batch": 1, "files": ["/path/to/file1.pdf", "/path/to/file2.xlsx"]}
+    ]
+  }
+}
+```
+
+For uncategorized files:
+```json
+"uncategorized": [
+  {"path": "/path/to/mystery.pdf", "reason": "No domain keywords matched"}
+]
+```
+
+Update the `status` field from `"inventory_complete"` to `"routing_complete"`.
+
+### Routing Checkpoint
+
+After routing metadata is written, update `_dd_status.json`:
+
+```bash
+TARGET_FOLDER="${ARGUMENTS:-$(pwd)}"
+TIMESTAMP=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
+CATEGORIZED_COUNT=$(jq '[.domains[].count] | add // 0' "$TARGET_FOLDER/_dd_inventory.json")
+UNCATEGORIZED_COUNT=$(jq '.uncategorized | length' "$TARGET_FOLDER/_dd_inventory.json")
+cat > "$TARGET_FOLDER/_dd_status.json" << EOF
+{
+  "phase": "routing",
+  "files_found": $TOTAL_COUNT,
+  "files_categorized": $CATEGORIZED_COUNT,
+  "files_uncategorized": $UNCATEGORIZED_COUNT,
+  "inventory_file": "$TARGET_FOLDER/_dd_inventory.json",
+  "timestamp": "$TIMESTAMP"
+}
+EOF
+echo "Routing checkpoint written."
+```
+
+If a session resumes and `_dd_status.json` shows `"phase": "routing"`, skip directly to Phase 3 domain agent dispatch — the inventory and routing are already complete.
+
+### Automatic Dispatch
+
+Per user decision: no confirmation prompt. After routing completes, the orchestrator proceeds directly to domain agent dispatch (Phase 3). The user's mental model is "one command does everything."
+
 ## Session Resilience
 
 After file discovery and inventory write complete, write a status checkpoint to the workspace folder:
