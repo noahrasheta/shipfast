@@ -5,16 +5,16 @@
 See: .planning/PROJECT.md (updated 2026-02-23)
 
 **Core value:** A non-technical co-worker can run a full 9-domain data center due diligence analysis from Claude Desktop without ever touching a terminal, and get results in an editable document format.
-**Current focus:** Phase 5 in progress — Hardening and Distribution
+**Current focus:** Phase 5 complete — All plans done. Plugin hardened and documented for distribution.
 
 ## Current Position
 
 Phase: 5 of 5 (Hardening and Distribution)
-Plan: 1 of 2 in current phase
-Status: Phase 5 in progress
-Last activity: 2026-02-24 — Orchestrator hardened with pre-dispatch size warning and enhanced Wave-1 failure validation; SKILL.md updated to reflect hardening capabilities
+Plan: 2 of 2 in current phase
+Status: Phase 5 COMPLETE — all 5 phases done
+Last activity: 2026-02-24 — Plain-language README written for non-technical Cowork users; covers install, usage, output, and troubleshooting with zero developer jargon
 
-Progress: [█████████░] 90%
+Progress: [██████████] 100%
 
 ## Performance Metrics
 
@@ -31,10 +31,11 @@ Progress: [█████████░] 90%
 | 02-document-ingestion-and-routing | 2 | 5 min | 2.5 min |
 | 03-domain-analysis-agents | 3 | 9 min | 3 min |
 | 04-synthesis-and-document-output | 3 | 5 min | 1.7 min |
+| 05-hardening-and-distribution | 2 | 4 min | 2 min |
 
 **Recent Trend:**
-- Last 5 plans: 03-01 (4 min), 03-02 (3 min), 03-03 (2 min), 04-01 (2 min), 04-02 (1 min)
-- Trend: On track
+- Last 5 plans: 03-03 (2 min), 04-01 (2 min), 04-02 (1 min), 05-01 (2 min), 05-02 (2 min)
+- Trend: All plans complete — project done
 
 ## Accumulated Context
 
@@ -46,6 +47,9 @@ Recent decisions affecting current work:
 - [05-01]: 30-file threshold for pre-dispatch warning — aligns with 20-file batch ceiling, large data rooms will have batched domains and longer run times
 - [05-01]: Synthesis proceeds regardless of failed domains (SYNTH-05) — synthesis agents handle missing reports gracefully, partial data better than blocking
 - [05-01]: Retry via /due-diligence re-run — resume check (> 500 bytes) already skips completed agents, making retry transparent
+- [05-02]: Install steps use UI description language not exact button labels — Cowork UI labels change during preview period
+- [05-02]: Troubleshooting entries titled with user's symptom not technical cause — matches how non-technical users describe problems
+- [05-02]: Markdown output referred to as "text files" in README — "markdown" is developer vocabulary non-technical users don't recognize
 
 - [Pre-Phase 1]: Separate plugin, not fork of existing CLI plugin — CLI version stays as-is
 - [Pre-Phase 1]: Architecture approach — Cowork plugin with parallel sub-agent dispatch (confirmed available)
@@ -105,5 +109,5 @@ None.
 ## Session Continuity
 
 Last session: 2026-02-24
-Stopped at: Phase 5 Plan 01 complete — orchestrator hardened with pre-dispatch size warning (30+ files) and enhanced Wave-1 domain failure validation; SKILL.md updated with Hardening (Phase 5) capabilities and Future Capabilities stub removed. Ready for Phase 5 Plan 02 (README and clean-machine install validation).
+Stopped at: Phase 5 Plan 02 complete — plain-language README written for dc-due-diligence-desktop covering install, usage, output, and troubleshooting. All 5 phases and 12 plans complete. Project is done.
 Resume file: None
