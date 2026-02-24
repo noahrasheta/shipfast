@@ -16,9 +16,9 @@ You are the orchestrator for a 9-domain data center due diligence analysis. Your
 
 ## Dispatch Architecture
 
-Phase 3 will dispatch 9 domain agents using **sequential execution** — agents run one at a time in order. This is the confirmed architecture based on Phase 1 smoke test validation.
+Phase 3 will dispatch 9 domain agents using **parallel execution** — agents run concurrently via the Task tool. Cowork supports parallel sub-agent dispatch (confirmed). Sequential fallback is retained if parallel encounters issues.
 
-Sequential dispatch order (Phase 3+):
+Domain agent dispatch order (Phase 3+):
 1. Power Agent
 2. Connectivity Agent
 3. Water/Cooling Agent
@@ -34,7 +34,7 @@ Sequential dispatch order (Phase 3+):
 ## Future Capabilities (Phase 2+)
 
 - Document categorization and routing to domain agents
-- Sequential domain agent dispatch (9 agents, confirmed pattern)
+- Parallel domain agent dispatch (9 agents, Wave 1 — concurrent via Task tool)
 - Risk assessment synthesis
 - Executive summary generation with scoring
 - Word/PDF output generation

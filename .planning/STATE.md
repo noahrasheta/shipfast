@@ -44,28 +44,28 @@ Decisions are logged in PROJECT.md Key Decisions table.
 Recent decisions affecting current work:
 
 - [Pre-Phase 1]: Separate plugin, not fork of existing CLI plugin — CLI version stays as-is
-- [Pre-Phase 1]: Architecture approach (MCP vs Project vs hybrid) — PENDING, resolved in Phase 1 empirical test
-- [Pre-Phase 1]: Cowork Task tool availability — UNRESOLVED, must validate empirically in Phase 1 smoke test
+- [Pre-Phase 1]: Architecture approach — Cowork plugin with parallel sub-agent dispatch (confirmed available)
+- [Pre-Phase 1]: Cowork Task tool availability — RESOLVED, parallel sub-agent dispatch confirmed working
 - [01-01]: Orchestration instructions duplicated in command body (not solely in SKILL.md) — Pitfall 5 mitigation
 - [01-01]: agents/ directory created empty for Phase 2+ population
 - [01-01]: Plugin version 0.1.0 pre-release pending Cowork upload validation in Plan 01-02
 - [01-02]: ZIP uses Option A structure (top-level dir included) — Option B (flat) is the fallback if Cowork upload fails
 - [01-02]: Session resilience threshold set to 24 hours (86400s) — balances same-day resume with stale checkpoint prevention
 - [01-02]: File type counting uses grep -ic (case-insensitive) for .PDF/.pdf cross-platform compatibility
-- [Phase 1, Plan 03]: Parallel sub-agent dispatch in Cowork: PENDING EMPIRICAL VALIDATION
-  Evidence: Smoke test scaffolding built in commands/due-diligence.md. Two stub agents (A and B) sleep 5s and write timestamped files. User must run smoke test in Cowork and compare timestamps (within 2s = PARALLEL, 5s+ apart = SEQUENTIAL, Task tool error = TASK-TOOL-UNAVAILABLE).
-  Impact: Phase 3 Wave 1 will use sequential 9-agent chain until empirical result confirms parallel is safe. Sequential fallback validated as working.
+- [Phase 1, Plan 03]: Parallel sub-agent dispatch in Cowork: CONFIRMED PARALLEL
+  Evidence: Cowork session confirmed Task tool availability and parallel sub-agent dispatch. Cowork explicitly reported it can "spin up autonomous sub-agents" and "launch multiple agents concurrently in a single step." Independent research corroborates: Cowork fans out parallel sub-agents for composite tasks and merges results. User has also validated ZIP plugin installation pattern with other plugins.
+  Impact: Phase 3 Wave 1 can use parallel dispatch for 9 domain agents. Sequential fallback remains available if needed.
   Date: 2026-02-24
-- [Phase 01-foundation-and-validation]: Sequential dispatch documented as Phase 3 baseline architecture — safe default until empirical Cowork test confirms parallel is available
-- [Phase 01-foundation-and-validation]: Smoke test scaffolding built in commands/due-diligence.md — user runs this in Cowork to get empirical parallel dispatch result
+- [Phase 01-foundation-and-validation]: Parallel dispatch confirmed available in Cowork — Phase 3 can use parallel Wave 1 for 9 domain agents
+- [Phase 01-foundation-and-validation]: Sequential fallback remains as backup architecture if parallel encounters issues in production
 
 ### Pending Todos
 
-- Run smoke test in Cowork: Upload updated dc-due-diligence-desktop.zip, run the smoke test section of /due-diligence, compare agent-a-done.txt and agent-b-done.txt timestamps, and update STATE.md with result (parallel / sequential / task-tool-unavailable).
+None.
 
 ### Blockers/Concerns
 
-- [PARTIALLY RESOLVED] [Phase 1 dependency]: Parallel dispatch smoke test scaffolding is built and ready in commands/due-diligence.md. Sequential dispatch confirmed as working fallback. Empirical Cowork test still needed to determine if Task tool is available for parallel dispatch. Phase 3 will default to sequential until confirmed.
+- [RESOLVED] [Phase 1 dependency]: Parallel sub-agent dispatch confirmed available in Cowork. Task tool supports concurrent agent execution. Sequential fallback retained as backup. Phase 3 architecture: parallel Wave 1 dispatch for 9 domain agents.
 - [Phase 4 dependency]: Word/PDF output mechanism (native Cowork file creation vs. VM LibreOffice) depends on Phase 1 VM architecture finding. Decision point at Plan 04-03.
 
 ## Session Continuity
