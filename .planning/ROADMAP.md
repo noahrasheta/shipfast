@@ -30,12 +30,12 @@ Decimal phases appear between their surrounding integers in numeric order.
   3. Orchestrator lists files present in the mounted workspace folder and displays the count
   4. Empirical test confirms whether sub-agent dispatch runs concurrently or sequentially — result documented and architecture decision recorded
   5. Sequential fallback executes all orchestrator steps correctly when parallel dispatch is unavailable
-**Plans**: TBD
+**Plans**: 3 plans in 3 waves (sequential — each depends on prior)
 
 Plans:
-- [ ] 01-01: Scaffold Cowork plugin (plugin.json, commands/, skills/ structure) and validate against official anthropics/knowledge-work-plugins reference format
-- [ ] 01-02: Implement ZIP packaging, workspace file listing, and slash command entry point — test install on clean Cowork instance
-- [ ] 01-03: Build parallel dispatch smoke test (dispatch two stub sub-agents, observe concurrency) and record architectural decision
+- [ ] 01-01-PLAN.md — Scaffold Cowork plugin directory structure (plugin.json, commands/due-diligence.md, skills/due-diligence/SKILL.md) [Wave 1, autonomous]
+- [ ] 01-02-PLAN.md — ZIP packaging, file discovery, slash command validation in Cowork [Wave 2, has checkpoint]
+- [ ] 01-03-PLAN.md — Parallel dispatch smoke test and architecture decision recording [Wave 3, has checkpoint]
 
 ### Phase 2: Document Ingestion and Routing
 **Goal**: Orchestrator inventories the full data room, categorizes documents by domain, and routes relevant files to each agent in batches that stay within the 20-file-per-chat platform limit
