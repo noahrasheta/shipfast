@@ -15,7 +15,7 @@ Decimal phases appear between their surrounding integers in numeric order.
 - [x] **Phase 1: Foundation and Validation** - Prove plugin loads in Cowork, slash command fires, and validate whether parallel sub-agent dispatch is available (completed 2026-02-24)
 - [x] **Phase 2: Document Ingestion and Routing** - Build orchestrator document inventory and per-agent file routing that keeps each agent within token budget (completed 2026-02-24)
 - [x] **Phase 3: Domain Analysis Agents** - Port all 9 domain agents with web research, disk writes, and safety protocol (completed 2026-02-24)
-- [ ] **Phase 4: Synthesis and Document Output** - Add Risk Assessment, Executive Summary, Client Summary, and Word/PDF output
+- [x] **Phase 4: Synthesis and Document Output** - Add Risk Assessment, Executive Summary, Client Summary, and Word/PDF output (completed 2026-02-24)
 - [ ] **Phase 5: Hardening and Distribution** - Stress test with large data rooms, validate clean-machine install, write non-technical README
 
 ## Phase Details
@@ -82,9 +82,9 @@ Plans:
 **Plans**: 3 plans in 2 waves (Wave 1 parallel agent porting, Wave 2 orchestrator wiring)
 
 Plans:
-- [ ] 04-01-PLAN.md — Port Risk Assessment and Executive Summary agents with embedded scoring rubric [Wave 1, autonomous]
-- [ ] 04-02-PLAN.md — Port Client Summary agent with embedded template structure [Wave 1, autonomous]
-- [ ] 04-03-PLAN.md — Add synthesis dispatch, DOCX generation, and completion UX to orchestrator [Wave 2, autonomous, depends on 04-01 + 04-02]
+- [x] 04-01-PLAN.md — Port Risk Assessment and Executive Summary agents with embedded scoring rubric [Wave 1, autonomous]
+- [x] 04-02-PLAN.md — Port Client Summary agent with embedded template structure [Wave 1, autonomous]
+- [x] 04-03-PLAN.md — Add synthesis dispatch, DOCX generation, and completion UX to orchestrator [Wave 2, autonomous, depends on 04-01 + 04-02]
 
 ### Phase 5: Hardening and Distribution
 **Goal**: Plugin survives large data rooms, installs cleanly on a fresh Cowork instance a non-technical user has never configured, and ships with documentation they can follow
@@ -94,11 +94,11 @@ Plans:
   1. Plugin runs successfully on a data room with 50+ files without context window exhaustion or silent agent failure
   2. A non-technical user following only the README can install the plugin and complete a full analysis run with no external help
   3. README is written in plain language with no terminal commands, no git references, and no technical jargon
-**Plans**: TBD
+**Plans**: 2 plans in 2 waves (sequential — Plan 02 depends on Plan 01)
 
 Plans:
-- [ ] 05-01: Stress test with 50+ file data room — identify and fix any context budget or routing failures
-- [ ] 05-02: Write non-technical README and run clean-machine install validation
+- [ ] 05-01-PLAN.md — Harden orchestrator with pre-dispatch data room warning, enhanced post-Wave-1 validation, failure messaging, and SKILL.md cleanup [Wave 1, autonomous]
+- [ ] 05-02-PLAN.md — Write non-technical README with plain-language install, usage, output, and troubleshooting guide [Wave 2, autonomous, depends on 05-01]
 
 ## Progress
 
@@ -110,5 +110,5 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5
 | 1. Foundation and Validation | 3/3 | Complete   | 2026-02-24 |
 | 2. Document Ingestion and Routing | 2/2 | Complete | 2026-02-24 |
 | 3. Domain Analysis Agents | 3/3 | Complete | 2026-02-24 |
-| 4. Synthesis and Document Output | 0/3 | Not started | - |
+| 4. Synthesis and Document Output | 3/3 | Complete | 2026-02-24 |
 | 5. Hardening and Distribution | 0/2 | Not started | - |
