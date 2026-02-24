@@ -10,8 +10,8 @@ Requirements for initial release. Each maps to roadmap phases.
 ### Plugin Infrastructure
 
 - [x] **INFRA-01**: Plugin uses correct Cowork format (.claude-plugin/plugin.json, commands/, skills/) and activates when uploaded
-- [ ] **INFRA-02**: Plugin distributable as ZIP file that installs via drag-and-drop in Cowork — no terminal required
-- [ ] **INFRA-03**: User can type `/due-diligence` to trigger the full analysis workflow
+- [x] **INFRA-02**: Plugin distributable as ZIP file that installs via drag-and-drop in Cowork — no terminal required
+- [x] **INFRA-03**: User can type `/due-diligence` to trigger the full analysis workflow
 - [ ] **INFRA-04**: Plugin includes clear README with setup instructions a non-technical user can follow
 
 ### Document Ingestion
@@ -56,7 +56,7 @@ Requirements for initial release. Each maps to roadmap phases.
 
 - [ ] **PLAT-01**: Validate whether Cowork supports parallel sub-agent dispatch (Task tool equivalent) — if yes, use parallel Wave 1; if no, use sequential execution
 - [ ] **PLAT-02**: Sequential execution fallback works correctly for all 9 domain agents if parallel is unavailable
-- [ ] **PLAT-03**: Workflow handles Cowork session interruptions by writing intermediate results to disk after each agent completes
+- [x] **PLAT-03**: Workflow handles Cowork session interruptions by writing intermediate results to disk after each agent completes
 
 ## v2 Requirements
 
@@ -97,8 +97,8 @@ Which phases cover which requirements. Updated during roadmap creation.
 | Requirement | Phase | Status |
 |-------------|-------|--------|
 | INFRA-01 | Phase 1 | Complete (Plan 01-01) |
-| INFRA-02 | Phase 1 | Pending |
-| INFRA-03 | Phase 1 | Pending |
+| INFRA-02 | Phase 1 | Complete |
+| INFRA-03 | Phase 1 | Complete |
 | INFRA-04 | Phase 5 | Pending |
 | INGEST-01 | Phase 2 | Pending |
 | INGEST-02 | Phase 2 | Pending |
@@ -128,7 +128,7 @@ Which phases cover which requirements. Updated during roadmap creation.
 | OUTPUT-04 | Phase 4 | Pending |
 | PLAT-01 | Phase 1 | Pending |
 | PLAT-02 | Phase 1 | Pending |
-| PLAT-03 | Phase 1 | Pending |
+| PLAT-03 | Phase 1 | Complete |
 
 **Coverage:**
 - v1 requirements: 33 total
