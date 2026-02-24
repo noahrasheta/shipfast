@@ -146,6 +146,48 @@ Claude Cowork reads all document types natively — no external dependencies:
 
 **Key principle:** No Python, no Tesseract, no external converters. Everything runs through Claude's native capabilities. This is the core advantage over the CLI version.
 
+## Document Routing Workflow
+
+After document discovery and inventory write, the orchestrator routes files to domain agents:
+
+1. **Categorize** — Two-pass approach:
+   - Pass 1: Filename/path keyword matching (fast, no file reading)
+   - Pass 2: Content inspection for unmatched files (read first page only)
+2. **Batch** — Split domains with >20 files into batches of max 20
+3. **Update inventory** — Write domain assignments and batch metadata to `_dd_inventory.json`
+4. **Checkpoint** — Update `_dd_status.json` to `phase: routing`
+5. **Dispatch** — Proceed directly to Phase 3 agent dispatch (no user confirmation)
+
+### Domain Keyword Reference
+
+Each of the 9 domains has characteristic keywords used for categorization:
+
+| Domain | Agent | Primary Keywords |
+|--------|-------|-----------------|
+| power | Power Agent | utility, substation, transformer, MW, megawatt, electrical, grid, voltage, UPS, generator, switchgear, PPA |
+| connectivity | Connectivity Agent | fiber, carrier, latency, bandwidth, network, ISP, peering, dark fiber, cross-connect, route diversity, telecom |
+| water-cooling | Water/Cooling Agent | cooling, water, chiller, HVAC, airflow, temperature, humidity, PUE, WUE, cooling tower, mechanical |
+| land-zoning | Land/Zoning Agent | zoning, parcel, entitlement, setback, easement, lot, acre, building permit, land use, survey, plat |
+| ownership | Ownership Agent | deed, title, lien, mortgage, LLC, owner, entity, beneficial, encumbrance, UCC, litigation |
+| environmental | Environmental Agent | contamination, hazardous, flood, seismic, Phase I, Phase II, remediation, brownfield, EPA, ESA |
+| commercials | Commercials Agent | lease, rent, NNN, CAM, tenant, escalation, term, pricing, rate, cost, revenue, EBITDA, LOI, pro forma |
+| natural-gas | Natural Gas Agent | gas, pipeline, natural gas, BTU, therms, generation, turbine, fuel, backup power |
+| market-comparables | Market Comparables Agent | comparable, market rate, transaction, sale, acquisition, benchmark, competitor, vacancy |
+
+### Batch Splitting Rules
+
+- Maximum 20 files per agent dispatch (platform limit)
+- When a domain exceeds 20 files, split deterministically: files 1-20 in batch 1, 21-40 in batch 2, etc.
+- Each batch is dispatched as a separate agent run
+- No data left behind — every file in a domain gets processed
+
+### Uncategorized Files
+
+- Files matching no domain keywords are logged as "uncategorized"
+- Uncategorized filenames displayed in chat so user can see what was excluded
+- Uncategorized files are NOT routed to any agent
+- Phase 3 synthesis handles partial data gracefully
+
 ## Checkpoint Write
 
 After completing file discovery, write `_dd_status.json` to the workspace:
