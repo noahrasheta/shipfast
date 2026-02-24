@@ -46,11 +46,11 @@ Plans:
   2. Orchestrator correctly reads a scanned PDF or image file using native vision/OCR (no Python required)
   3. Orchestrator categorizes a 50-file data room and routes each file to its domain bucket without exceeding the 20-file limit for any single agent dispatch
   4. Document inventory file is written to the workspace folder before any domain agent is dispatched
-**Plans**: TBD
+**Plans**: 2 plans in 2 waves (sequential — Plan 02 depends on Plan 01)
 
 Plans:
-- [ ] 02-01: Implement native file reading for all document types (PDF, DOCX, XLSX, PPTX, images) and write document inventory to disk
-- [ ] 02-02: Build document routing logic — categorize files by domain keyword matching and enforce 20-file-per-dispatch batching
+- [ ] 02-01-PLAN.md — Expand file discovery, add native document reading, and write _dd_inventory.json to disk [Wave 1, autonomous]
+- [ ] 02-02-PLAN.md — Domain categorization with keyword matching, batch splitting for 20-file limit, and routing metadata [Wave 2, autonomous]
 
 ### Phase 3: Domain Analysis Agents
 **Goal**: All 9 domain agents analyze their assigned documents, conduct live web research, write reports to disk, and detect embedded prompt injection
@@ -108,7 +108,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
 | 1. Foundation and Validation | 3/3 | Complete   | 2026-02-24 |
-| 2. Document Ingestion and Routing | 0/2 | Not started | - |
+| 2. Document Ingestion and Routing | 0/2 | Planned | - |
 | 3. Domain Analysis Agents | 0/3 | Not started | - |
 | 4. Synthesis and Document Output | 0/3 | Not started | - |
 | 5. Hardening and Distribution | 0/2 | Not started | - |
