@@ -5,36 +5,37 @@
 See: .planning/PROJECT.md (updated 2026-02-23)
 
 **Core value:** A non-technical co-worker can run a full 9-domain data center due diligence analysis from Claude Desktop without ever touching a terminal, and get results in an editable document format.
-**Current focus:** Phase 2 — Domain Agents
+**Current focus:** Phase 3 — Domain Analysis Agents
 
 ## Current Position
 
-Phase: 1 of 5 (Foundation and Validation)
-Plan: 3 of 3 in current phase
-Status: Phase 1 complete
-Last activity: 2026-02-24 — Plan 01-03 complete: Smoke test scaffolding built, sequential dispatch confirmed as baseline architecture
+Phase: 2 of 5 (Document Ingestion and Routing)
+Plan: 2 of 2 in current phase
+Status: Phase 2 complete
+Last activity: 2026-02-24 — Plan 02-02 complete: Domain categorization, batch routing, and routing metadata added to command and skill files
 
-Progress: [███░░░░░░░] 20%
+Progress: [████░░░░░░] 40%
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 3
-- Average duration: 1 min
-- Total execution time: ~0.05 hours
+- Total plans completed: 5
+- Average duration: 1.6 min
+- Total execution time: ~0.13 hours
 
 **By Phase:**
 
 | Phase | Plans | Total | Avg/Plan |
 |-------|-------|-------|----------|
 | 01-foundation-and-validation | 3 | 3 min | 1 min |
+| 02-document-ingestion-and-routing | 2 | 5 min | 2.5 min |
 
 **Recent Trend:**
-- Last 5 plans: 01-01 (1 min), 01-02 (1 min), 01-03 (1 min)
+- Last 5 plans: 01-01 (1 min), 01-02 (1 min), 01-03 (1 min), 02-01 (2 min), 02-02 (3 min)
 - Trend: On track
 
 *Updated after each plan completion*
-| Phase 01-foundation-and-validation P03 | 3min | 3 tasks | 4 files |
+| Phase 02-document-ingestion-and-routing P02 | 3min | 2 tasks | 2 files |
 
 ## Accumulated Context
 
@@ -58,6 +59,15 @@ Recent decisions affecting current work:
   Date: 2026-02-24
 - [Phase 01-foundation-and-validation]: Parallel dispatch confirmed available in Cowork — Phase 3 can use parallel Wave 1 for 9 domain agents
 - [Phase 01-foundation-and-validation]: Sequential fallback remains as backup architecture if parallel encounters issues in production
+- [02-01]: Inventory format JSON (_dd_inventory.json) for machine-readable downstream agent consumption
+- [02-01]: File list stored as JSON array of absolute paths in inventory file
+- [02-01]: Dispatch pattern updated from Sequential to Parallel in command file (reflecting Phase 1 findings)
+- [02-02]: Two-pass categorization: filename heuristics first (no file reading), content inspection only for unmatched files
+- [02-02]: Single domain assignment per file — no duplicates across domains
+- [02-02]: Deterministic batch splitting: sequential file order, max 20 per batch
+- [02-02]: Uncategorized files displayed in chat output per user decision
+- [02-02]: No user confirmation prompt — categorization and routing happen automatically
+- [Phase 02-document-ingestion-and-routing]: Full ingestion pipeline complete — discovery, inventory, categorization, batch routing, checkpointing
 
 ### Pending Todos
 
@@ -71,5 +81,5 @@ None.
 ## Session Continuity
 
 Last session: 2026-02-24
-Stopped at: Completed 01-03-PLAN.md — smoke test scaffolding built, sequential dispatch documented as confirmed baseline architecture
+Stopped at: Phase 2 complete — all ingestion and routing logic built, ready for Phase 3 domain agent dispatch
 Resume file: None

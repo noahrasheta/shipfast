@@ -16,11 +16,11 @@ Requirements for initial release. Each maps to roadmap phases.
 
 ### Document Ingestion
 
-- [ ] **INGEST-01**: Orchestrator reads PDF files from workspace folder using Cowork's native file reading
-- [ ] **INGEST-02**: Orchestrator reads DOCX, XLSX, PPTX files from workspace folder using native file reading
-- [ ] **INGEST-03**: Orchestrator reads scanned PDFs and images using Claude's native vision/OCR capabilities
-- [ ] **INGEST-04**: Orchestrator handles data rooms with 50+ files by batching or routing documents across agents to stay within the 20-file-per-chat platform limit
-- [ ] **INGEST-05**: Orchestrator creates a document inventory/index of all files in the data room before dispatching agents
+- [x] **INGEST-01**: Orchestrator reads PDF files from workspace folder using Cowork's native file reading
+- [x] **INGEST-02**: Orchestrator reads DOCX, XLSX, PPTX files from workspace folder using native file reading
+- [x] **INGEST-03**: Orchestrator reads scanned PDFs and images using Claude's native vision/OCR capabilities
+- [x] **INGEST-04**: Orchestrator handles data rooms with 50+ files by batching or routing documents across agents to stay within the 20-file-per-chat platform limit
+- [x] **INGEST-05**: Orchestrator creates a document inventory/index of all files in the data room before dispatching agents
 
 ### Domain Analysis
 
@@ -100,11 +100,11 @@ Which phases cover which requirements. Updated during roadmap creation.
 | INFRA-02 | Phase 1 | Complete |
 | INFRA-03 | Phase 1 | Complete |
 | INFRA-04 | Phase 5 | Pending |
-| INGEST-01 | Phase 2 | Pending |
-| INGEST-02 | Phase 2 | Pending |
-| INGEST-03 | Phase 2 | Pending |
-| INGEST-04 | Phase 2 | Pending |
-| INGEST-05 | Phase 2 | Pending |
+| INGEST-01 | Phase 2 | Complete (Plan 02-01) |
+| INGEST-02 | Phase 2 | Complete (Plan 02-01) |
+| INGEST-03 | Phase 2 | Complete (Plan 02-01) |
+| INGEST-04 | Phase 2 | Complete (Plan 02-02) |
+| INGEST-05 | Phase 2 | Complete (Plan 02-01, 02-02) |
 | DOMAIN-01 | Phase 3 | Pending |
 | DOMAIN-02 | Phase 3 | Pending |
 | DOMAIN-03 | Phase 3 | Pending |
@@ -137,4 +137,4 @@ Which phases cover which requirements. Updated during roadmap creation.
 
 ---
 *Requirements defined: 2026-02-23*
-*Last updated: 2026-02-24 after Plan 01-01 — INFRA-01 marked complete*
+*Last updated: 2026-02-24 after Phase 2 — INGEST-01 through INGEST-05 marked complete*

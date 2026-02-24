@@ -13,7 +13,7 @@ Build a Claude Cowork-native version of the data center due diligence plugin tha
 Decimal phases appear between their surrounding integers in numeric order.
 
 - [x] **Phase 1: Foundation and Validation** - Prove plugin loads in Cowork, slash command fires, and validate whether parallel sub-agent dispatch is available (completed 2026-02-24)
-- [ ] **Phase 2: Document Ingestion and Routing** - Build orchestrator document inventory and per-agent file routing that keeps each agent within token budget
+- [x] **Phase 2: Document Ingestion and Routing** - Build orchestrator document inventory and per-agent file routing that keeps each agent within token budget (completed 2026-02-24)
 - [ ] **Phase 3: Domain Analysis Agents** - Port all 9 domain agents with web research, disk writes, and safety protocol
 - [ ] **Phase 4: Synthesis and Document Output** - Add Risk Assessment, Executive Summary, Client Summary, and Word/PDF output
 - [ ] **Phase 5: Hardening and Distribution** - Stress test with large data rooms, validate clean-machine install, write non-technical README
@@ -49,8 +49,8 @@ Plans:
 **Plans**: 2 plans in 2 waves (sequential — Plan 02 depends on Plan 01)
 
 Plans:
-- [ ] 02-01-PLAN.md — Expand file discovery, add native document reading, and write _dd_inventory.json to disk [Wave 1, autonomous]
-- [ ] 02-02-PLAN.md — Domain categorization with keyword matching, batch splitting for 20-file limit, and routing metadata [Wave 2, autonomous]
+- [x] 02-01-PLAN.md — Expand file discovery, add native document reading, and write _dd_inventory.json to disk [Wave 1, autonomous]
+- [x] 02-02-PLAN.md — Domain categorization with keyword matching, batch splitting for 20-file limit, and routing metadata [Wave 2, autonomous]
 
 ### Phase 3: Domain Analysis Agents
 **Goal**: All 9 domain agents analyze their assigned documents, conduct live web research, write reports to disk, and detect embedded prompt injection
@@ -108,7 +108,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
 | 1. Foundation and Validation | 3/3 | Complete   | 2026-02-24 |
-| 2. Document Ingestion and Routing | 0/2 | Planned | - |
+| 2. Document Ingestion and Routing | 2/2 | Complete | 2026-02-24 |
 | 3. Domain Analysis Agents | 0/3 | Not started | - |
 | 4. Synthesis and Document Output | 0/3 | Not started | - |
 | 5. Hardening and Distribution | 0/2 | Not started | - |
