@@ -5,32 +5,32 @@
 See: .planning/PROJECT.md (updated 2026-02-23)
 
 **Core value:** A non-technical co-worker can run a full 9-domain data center due diligence analysis from Claude Desktop without ever touching a terminal, and get results in an editable document format.
-**Current focus:** Phase 1 — Foundation and Validation
+**Current focus:** Phase 2 — Domain Agents
 
 ## Current Position
 
 Phase: 1 of 5 (Foundation and Validation)
-Plan: 2 of 3 in current phase
-Status: In progress
-Last activity: 2026-02-24 — Plan 01-02 complete: ZIP package built, file discovery refined, session resilience added
+Plan: 3 of 3 in current phase
+Status: Phase 1 complete
+Last activity: 2026-02-24 — Plan 01-03 complete: Smoke test scaffolding built, sequential dispatch confirmed as baseline architecture
 
-Progress: [██░░░░░░░░] 13%
+Progress: [███░░░░░░░] 20%
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 2
+- Total plans completed: 3
 - Average duration: 1 min
-- Total execution time: ~0.03 hours
+- Total execution time: ~0.05 hours
 
 **By Phase:**
 
 | Phase | Plans | Total | Avg/Plan |
 |-------|-------|-------|----------|
-| 01-foundation-and-validation | 2 | 2 min | 1 min |
+| 01-foundation-and-validation | 3 | 3 min | 1 min |
 
 **Recent Trend:**
-- Last 5 plans: 01-01 (1 min), 01-02 (1 min)
+- Last 5 plans: 01-01 (1 min), 01-02 (1 min), 01-03 (1 min)
 - Trend: On track
 
 *Updated after each plan completion*
@@ -51,18 +51,22 @@ Recent decisions affecting current work:
 - [01-02]: ZIP uses Option A structure (top-level dir included) — Option B (flat) is the fallback if Cowork upload fails
 - [01-02]: Session resilience threshold set to 24 hours (86400s) — balances same-day resume with stale checkpoint prevention
 - [01-02]: File type counting uses grep -ic (case-insensitive) for .PDF/.pdf cross-platform compatibility
+- [Phase 1, Plan 03]: Parallel sub-agent dispatch in Cowork: PENDING EMPIRICAL VALIDATION
+  Evidence: Smoke test scaffolding built in commands/due-diligence.md. Two stub agents (A and B) sleep 5s and write timestamped files. User must run smoke test in Cowork and compare timestamps (within 2s = PARALLEL, 5s+ apart = SEQUENTIAL, Task tool error = TASK-TOOL-UNAVAILABLE).
+  Impact: Phase 3 Wave 1 will use sequential 9-agent chain until empirical result confirms parallel is safe. Sequential fallback validated as working.
+  Date: 2026-02-24
 
 ### Pending Todos
 
-None yet.
+- Run smoke test in Cowork: Upload updated dc-due-diligence-desktop.zip, run the smoke test section of /due-diligence, compare agent-a-done.txt and agent-b-done.txt timestamps, and update STATE.md with result (parallel / sequential / task-tool-unavailable).
 
 ### Blockers/Concerns
 
-- [Phase 1 dependency]: Whether parallel sub-agent dispatch (Task tool) works in Cowork is the single load-bearing unknown. Phase 3 Wave 1 architecture depends on the Phase 1 smoke test result. Do not skip the parallel dispatch validation in Plan 01-03.
+- [PARTIALLY RESOLVED] [Phase 1 dependency]: Parallel dispatch smoke test scaffolding is built and ready in commands/due-diligence.md. Sequential dispatch confirmed as working fallback. Empirical Cowork test still needed to determine if Task tool is available for parallel dispatch. Phase 3 will default to sequential until confirmed.
 - [Phase 4 dependency]: Word/PDF output mechanism (native Cowork file creation vs. VM LibreOffice) depends on Phase 1 VM architecture finding. Decision point at Plan 04-03.
 
 ## Session Continuity
 
 Last session: 2026-02-24
-Stopped at: Completed 01-02-PLAN.md — ZIP package built and refined, Plan 01-03 next (pending Cowork upload validation by user)
+Stopped at: Completed 01-03-PLAN.md — smoke test scaffolding built, sequential dispatch documented as confirmed baseline architecture
 Resume file: None
