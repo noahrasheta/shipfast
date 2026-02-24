@@ -27,9 +27,15 @@ Analyze the data center opportunity documents in your workspace.
 
 ## Orchestration Notes
 
-This command orchestrates the full due diligence workflow. Full instructions are also available in the orchestrator skill. The workflow performs document discovery, creates a structured inventory, categorizes documents by domain, and routes them to domain agents. Future phases will dispatch 9 domain agents (Power, Connectivity, Water/Cooling, Land/Zoning, Ownership, Environmental, Commercials, Natural Gas, Market Comparables), synthesize findings with a Risk Assessment agent, and generate a scored Executive Summary with a Pursue / Proceed with Caution / Pass verdict.
+This command orchestrates the full due diligence workflow. Full instructions are also available in the orchestrator skill. The workflow performs document discovery, creates a structured inventory, categorizes documents by domain, routes them to domain agents, synthesizes findings with Risk Assessment, Executive Summary, and Client Summary agents, and generates Word document deliverables.
 
-Dispatch pattern: Parallel — 9 domain agents run concurrently via the Task tool. Sequential fallback is retained if parallel encounters issues (see Phase 1 smoke test results in STATE.md).
+Dispatch pattern:
+- **Wave 1 (Parallel):** 9 domain agents run concurrently via the Task tool
+- **Wave 2 (Sequential):** Risk Assessment agent reads all 9 domain reports
+- **Wave 3 (Sequential):** Executive Summary agent scores all 10 reports, then Client Summary agent produces external document
+- **Post-processing:** Convert final reports to Word (.docx) format using pandoc
+
+Sequential fallback is retained if parallel dispatch encounters issues (see Phase 1 smoke test results in STATE.md).
 
 ## Workspace File Discovery
 
@@ -292,6 +298,26 @@ echo ""
 echo "Dispatching $DISPATCH_COUNT agents, skipping $SKIP_COUNT with existing reports"
 ```
 
+## Pre-Dispatch Data Room Assessment
+
+Before dispatching agents, check the data room size and display a warning if the analysis will take significant time:
+
+```bash
+TARGET_FOLDER="${ARGUMENTS:-$(pwd)}"
+TOTAL_FILES=$(jq '.total_files // 0' "$TARGET_FOLDER/_dd_inventory.json" 2>/dev/null || echo 0)
+if [ "$TOTAL_FILES" -gt 30 ]; then
+  BATCHED_DOMAINS=$(jq '[.domains | to_entries[] | select(.value.count > 20)] | length' "$TARGET_FOLDER/_dd_inventory.json" 2>/dev/null || echo 0)
+  echo "Data room size: $TOTAL_FILES files."
+  if [ "$BATCHED_DOMAINS" -gt 0 ]; then
+    echo "$BATCHED_DOMAINS domain(s) have more than 20 files and will run in multiple passes."
+  fi
+  echo "Estimated completion: 20-40 minutes depending on file complexity and web research."
+  echo ""
+fi
+```
+
+If total_files is 30 or fewer, no warning is displayed and the pipeline proceeds at normal speed.
+
 ### Parallel Agent Dispatch
 
 For each domain that needs to run:
@@ -313,6 +339,11 @@ For each domain that needs to run:
 - `agents/natural-gas-agent.md` -- Gas supply, pipeline access, on-site generation
 - `agents/market-comparables-agent.md` -- Comparable transactions, market rates, competition
 
+**Synthesis agent files (Wave 2/3 — dispatched after all domain agents complete):**
+- `agents/risk-assessment-agent.md` -- Cross-domain risk synthesis (Wave 2)
+- `agents/executive-summary-agent.md` -- Scored executive summary with verdict (Wave 3a)
+- `agents/client-summary-agent.md` -- External-facing client summary (Wave 3b)
+
 ### Progress Feedback
 
 Before dispatch, display a status table showing which agents will run vs. skip:
@@ -332,23 +363,35 @@ After all agents complete, display a completion summary:
 TARGET_FOLDER="${ARGUMENTS:-$(pwd)}"
 echo "=== Domain Agent Results ==="
 COMPLETE_COUNT=0
+FAILED_DOMAINS=""
 for domain in power connectivity water-cooling land-zoning ownership environmental commercials natural-gas market-comparables; do
   REPORT="$TARGET_FOLDER/research/${domain}-report.md"
-  if [ -f "$REPORT" ]; then
-    SIZE=$(stat -f%z "$REPORT" 2>/dev/null || echo 0)
-    echo "$domain: COMPLETE ($SIZE bytes)"
+  SIZE=$(stat -f%z "$REPORT" 2>/dev/null || echo 0)
+  if [ "$SIZE" -gt 500 ]; then
+    echo "  $domain: Complete (${SIZE} bytes)"
     COMPLETE_COUNT=$((COMPLETE_COUNT + 1))
   else
-    echo "$domain: MISSING"
+    echo "  $domain: MISSING or incomplete"
+    FAILED_DOMAINS="$FAILED_DOMAINS $domain"
   fi
 done
+
+if [ -n "$FAILED_DOMAINS" ]; then
+  echo ""
+  echo "Warning: $((9 - COMPLETE_COUNT)) domain agent(s) did not produce a report."
+  echo "Affected domains:$FAILED_DOMAINS"
+  echo "These domains will be marked as unavailable in the Executive Summary."
+  echo "To retry failed domains only, run /due-diligence again — completed reports will be kept."
+fi
 echo ""
-echo "$COMPLETE_COUNT of 9 domain reports complete"
+echo "$COMPLETE_COUNT of 9 domain reports complete. Proceeding to synthesis."
 ```
+
+If any domains failed, display the warning message above. Then proceed to synthesis regardless — synthesis agents handle missing reports gracefully (SYNTH-05).
 
 ### Analysis Checkpoint
 
-After all agents finish (or are skipped), update the checkpoint:
+After all domain agents finish (or are skipped), update the checkpoint:
 
 ```bash
 TARGET_FOLDER="${ARGUMENTS:-$(pwd)}"
@@ -363,6 +406,173 @@ cat > "$TARGET_FOLDER/_dd_status.json" << EOF
 EOF
 echo "Analysis checkpoint written: $REPORTS_COMPLETE reports complete"
 ```
+
+### Synthesis Checkpoint
+
+After each synthesis agent completes, update the checkpoint with synthesis progress:
+
+```bash
+TARGET_FOLDER="${ARGUMENTS:-$(pwd)}"
+TIMESTAMP=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
+
+# Check synthesis progress
+RA_DONE=false
+ES_DONE=false
+CS_DONE=false
+[ $(stat -f%z "$TARGET_FOLDER/research/risk-assessment-report.md" 2>/dev/null || echo 0) -gt 500 ] && RA_DONE=true
+[ $(stat -f%z "$TARGET_FOLDER/EXECUTIVE_SUMMARY.md" 2>/dev/null || echo 0) -gt 500 ] && ES_DONE=true
+[ $(stat -f%z "$TARGET_FOLDER/CLIENT_SUMMARY.md" 2>/dev/null || echo 0) -gt 500 ] && CS_DONE=true
+
+cat > "$TARGET_FOLDER/_dd_status.json" << EOF
+{
+  "phase": "synthesis",
+  "reports_complete": $(ls "$TARGET_FOLDER/research/"*-report.md 2>/dev/null | wc -l | tr -d ' '),
+  "risk_assessment_complete": $RA_DONE,
+  "executive_summary_complete": $ES_DONE,
+  "client_summary_complete": $CS_DONE,
+  "timestamp": "$TIMESTAMP"
+}
+EOF
+```
+
+## Synthesis Agent Dispatch (Phase 4)
+
+After all 9 domain agents complete, dispatch the synthesis agents sequentially. Each synthesis agent reads reports from the workspace folder and writes its output to disk.
+
+### Wave 2: Risk Assessment
+
+The Risk Assessment agent reads all 9 domain reports and identifies cross-cutting risks.
+
+**Resume check:** If `research/risk-assessment-report.md` exists and is > 500 bytes, skip this agent.
+
+```bash
+TARGET_FOLDER="${ARGUMENTS:-$(pwd)}"
+REPORT="$TARGET_FOLDER/research/risk-assessment-report.md"
+REPORT_SIZE=$(stat -f%z "$REPORT" 2>/dev/null || echo 0)
+if [ "$REPORT_SIZE" -gt 500 ]; then
+  echo "SKIP: Risk Assessment (report exists, ${REPORT_SIZE} bytes)"
+else
+  echo "DISPATCH: Risk Assessment agent"
+fi
+```
+
+If dispatch is needed:
+1. Read `agents/risk-assessment-agent.md`
+2. Replace `${WORKSPACE_FOLDER}` with the actual target folder path
+3. Dispatch as a Task tool call (single agent, not parallel)
+4. Wait for completion before proceeding to Wave 3
+
+### Wave 3a: Executive Summary
+
+The Executive Summary agent reads all 10 reports (9 domain + risk assessment), applies the scoring rubric, and produces the Pursue / Proceed with Caution / Pass verdict.
+
+**Resume check:** If `EXECUTIVE_SUMMARY.md` exists in the workspace root and is > 500 bytes, skip this agent.
+
+```bash
+TARGET_FOLDER="${ARGUMENTS:-$(pwd)}"
+REPORT="$TARGET_FOLDER/EXECUTIVE_SUMMARY.md"
+REPORT_SIZE=$(stat -f%z "$REPORT" 2>/dev/null || echo 0)
+if [ "$REPORT_SIZE" -gt 500 ]; then
+  echo "SKIP: Executive Summary (report exists, ${REPORT_SIZE} bytes)"
+else
+  echo "DISPATCH: Executive Summary agent"
+fi
+```
+
+If dispatch is needed:
+1. Read `agents/executive-summary-agent.md`
+2. Replace `${WORKSPACE_FOLDER}` with the actual target folder path
+3. Dispatch as a Task tool call
+4. Wait for completion before proceeding to Wave 3b
+
+### Wave 3b: Client Summary
+
+The Client Summary agent reads the executive summary and research reports, then produces an external-facing document for the deal presenter.
+
+**Resume check:** If `CLIENT_SUMMARY.md` exists in the workspace root and is > 500 bytes, skip this agent.
+
+```bash
+TARGET_FOLDER="${ARGUMENTS:-$(pwd)}"
+REPORT="$TARGET_FOLDER/CLIENT_SUMMARY.md"
+REPORT_SIZE=$(stat -f%z "$REPORT" 2>/dev/null || echo 0)
+if [ "$REPORT_SIZE" -gt 500 ]; then
+  echo "SKIP: Client Summary (report exists, ${REPORT_SIZE} bytes)"
+else
+  echo "DISPATCH: Client Summary agent"
+fi
+```
+
+If dispatch is needed:
+1. Read `agents/client-summary-agent.md`
+2. Replace `${WORKSPACE_FOLDER}` with the actual target folder path
+3. Dispatch as a Task tool call
+4. Wait for completion
+
+## DOCX Generation
+
+After all synthesis agents complete, convert final reports to Word format using pandoc. This step runs as post-processing — it does not require a sub-agent.
+
+```bash
+TARGET_FOLDER="${ARGUMENTS:-$(pwd)}"
+mkdir -p "$TARGET_FOLDER/output"
+
+if command -v pandoc &> /dev/null; then
+  echo "Converting reports to Word format..."
+
+  if [ -f "$TARGET_FOLDER/EXECUTIVE_SUMMARY.md" ]; then
+    pandoc -f markdown -t docx -o "$TARGET_FOLDER/output/executive-summary.docx" "$TARGET_FOLDER/EXECUTIVE_SUMMARY.md"
+    echo "Created: output/executive-summary.docx"
+  fi
+
+  if [ -f "$TARGET_FOLDER/CLIENT_SUMMARY.md" ]; then
+    pandoc -f markdown -t docx -o "$TARGET_FOLDER/output/client-summary.docx" "$TARGET_FOLDER/CLIENT_SUMMARY.md"
+    echo "Created: output/client-summary.docx"
+  fi
+
+  if [ -f "$TARGET_FOLDER/research/risk-assessment-report.md" ]; then
+    pandoc -f markdown -t docx -o "$TARGET_FOLDER/output/risk-assessment.docx" "$TARGET_FOLDER/research/risk-assessment-report.md"
+    echo "Created: output/risk-assessment.docx"
+  fi
+else
+  echo ""
+  echo "Note: pandoc not found. Word document generation skipped."
+  echo "Install pandoc for DOCX output: brew install pandoc"
+  echo "Markdown reports are available in the workspace folder."
+fi
+```
+
+## Completion UX
+
+After DOCX generation (or after Client Summary if pandoc is unavailable), display the completion output.
+
+The orchestrator must:
+1. Read the first few lines of `EXECUTIVE_SUMMARY.md` to extract the verdict from the `**Verdict:**` line
+2. Extract 3-4 bullet points from the Key Strengths and Critical Concerns sections
+3. Display in this format:
+
+```
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+ VERDICT: [Pursue / Proceed with Caution / Pass]
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Key Highlights:
+• [Strength or concern 1]
+• [Strength or concern 2]
+• [Strength or concern 3]
+• [Strength or concern 4]
+
+Deliverables:
+• [TARGET_FOLDER]/output/executive-summary.docx
+• [TARGET_FOLDER]/output/client-summary.docx
+• [TARGET_FOLDER]/output/risk-assessment.docx
+• [TARGET_FOLDER]/EXECUTIVE_SUMMARY.md
+• [TARGET_FOLDER]/CLIENT_SUMMARY.md
+• [TARGET_FOLDER]/research/risk-assessment-report.md
+
+9 domain reports available in: [TARGET_FOLDER]/research/
+```
+
+If DOCX files were not generated (no pandoc), omit the `.docx` lines from the deliverables list and show only the markdown files.
 
 ## Session Resilience
 
@@ -401,7 +611,9 @@ if [ -f "$STATUS_FILE" ]; then
     echo "Found prior session checkpoint ($(( FILE_AGE_SECONDS / 60 )) minutes old)"
     cat "$STATUS_FILE"
     PHASE=$(cat "$STATUS_FILE" | grep -o '"phase"[[:space:]]*:[[:space:]]*"[^"]*"' | grep -o '"[^"]*"$' | tr -d '"')
-    if [ "$PHASE" = "analysis" ]; then
+    if [ "$PHASE" = "synthesis" ]; then
+      echo "Synthesis phase. Checking for incomplete synthesis reports."
+    elif [ "$PHASE" = "analysis" ]; then
       echo "Analysis phase. Checking for incomplete reports."
     elif [ "$PHASE" = "routing" ]; then
       echo "Routing complete. Proceeding to domain agent dispatch."
