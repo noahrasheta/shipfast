@@ -54,8 +54,8 @@ Requirements for initial release. Each maps to roadmap phases.
 
 ### Platform Validation
 
-- [ ] **PLAT-01**: Validate whether Cowork supports parallel sub-agent dispatch (Task tool equivalent) — if yes, use parallel Wave 1; if no, use sequential execution
-- [ ] **PLAT-02**: Sequential execution fallback works correctly for all 9 domain agents if parallel is unavailable
+- [x] **PLAT-01**: Validate whether Cowork supports parallel sub-agent dispatch (Task tool equivalent) — if yes, use parallel Wave 1; if no, use sequential execution
+- [x] **PLAT-02**: Sequential execution fallback works correctly for all 9 domain agents if parallel is unavailable
 - [x] **PLAT-03**: Workflow handles Cowork session interruptions by writing intermediate results to disk after each agent completes
 
 ## v2 Requirements
@@ -126,8 +126,8 @@ Which phases cover which requirements. Updated during roadmap creation.
 | OUTPUT-02 | Phase 4 | Pending |
 | OUTPUT-03 | Phase 4 | Pending |
 | OUTPUT-04 | Phase 4 | Pending |
-| PLAT-01 | Phase 1 | Pending |
-| PLAT-02 | Phase 1 | Pending |
+| PLAT-01 | Phase 1 | Complete |
+| PLAT-02 | Phase 1 | Complete |
 | PLAT-03 | Phase 1 | Complete |
 
 **Coverage:**

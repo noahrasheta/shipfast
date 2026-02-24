@@ -34,6 +34,7 @@ Progress: [███░░░░░░░] 20%
 - Trend: On track
 
 *Updated after each plan completion*
+| Phase 01-foundation-and-validation P03 | 3min | 3 tasks | 4 files |
 
 ## Accumulated Context
 
@@ -55,6 +56,8 @@ Recent decisions affecting current work:
   Evidence: Smoke test scaffolding built in commands/due-diligence.md. Two stub agents (A and B) sleep 5s and write timestamped files. User must run smoke test in Cowork and compare timestamps (within 2s = PARALLEL, 5s+ apart = SEQUENTIAL, Task tool error = TASK-TOOL-UNAVAILABLE).
   Impact: Phase 3 Wave 1 will use sequential 9-agent chain until empirical result confirms parallel is safe. Sequential fallback validated as working.
   Date: 2026-02-24
+- [Phase 01-foundation-and-validation]: Sequential dispatch documented as Phase 3 baseline architecture — safe default until empirical Cowork test confirms parallel is available
+- [Phase 01-foundation-and-validation]: Smoke test scaffolding built in commands/due-diligence.md — user runs this in Cowork to get empirical parallel dispatch result
 
 ### Pending Todos
 
