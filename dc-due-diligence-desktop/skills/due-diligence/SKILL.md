@@ -14,10 +14,27 @@ You are the orchestrator for a 9-domain data center due diligence analysis. Your
 - Write status checkpoints to disk for session resilience
 - Resume interrupted sessions using `_dd_status.json`
 
+## Dispatch Architecture
+
+Phase 3 will dispatch 9 domain agents using **sequential execution** — agents run one at a time in order. This is the confirmed architecture based on Phase 1 smoke test validation.
+
+Sequential dispatch order (Phase 3+):
+1. Power Agent
+2. Connectivity Agent
+3. Water/Cooling Agent
+4. Land/Zoning Agent
+5. Ownership Agent
+6. Environmental Agent
+7. Commercials Agent
+8. Natural Gas Agent
+9. Market Comparables Agent
+10. Risk Assessment Agent (Wave 2 — after all domain agents)
+11. Executive Summary Agent (Wave 3 — final)
+
 ## Future Capabilities (Phase 2+)
 
 - Document categorization and routing to domain agents
-- Parallel or sequential agent dispatch (architecture TBD — see Phase 1 smoke test results)
+- Sequential domain agent dispatch (9 agents, confirmed pattern)
 - Risk assessment synthesis
 - Executive summary generation with scoring
 - Word/PDF output generation

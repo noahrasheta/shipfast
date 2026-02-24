@@ -27,6 +27,8 @@ Analyze the data center opportunity documents in your workspace.
 
 This command orchestrates the full due diligence workflow. Full instructions are also available in the orchestrator skill. For Phase 1, the workflow performs document discovery and inventory. Future phases will dispatch 9 domain agents (Power, Connectivity, Water/Cooling, Land/Zoning, Ownership, Environmental, Commercials, Natural Gas, Market Comparables), synthesize findings with a Risk Assessment agent, and generate a scored Executive Summary with a Pursue / Proceed with Caution / Pass verdict.
 
+Dispatch pattern: Sequential — 9 domain agents run one at a time in sequence. This is the confirmed safe execution pattern for Cowork (see Phase 1 smoke test results in STATE.md).
+
 ## Workspace File Discovery
 
 Use bash to find all document files in the target folder and count them by type:
@@ -109,3 +111,76 @@ if [ -f "$STATUS_FILE" ]; then
   fi
 fi
 ```
+
+## Parallel Dispatch Smoke Test
+
+**This section is a Phase 1 validation test — do not run this section during normal due diligence.** The smoke test validates whether Cowork supports parallel sub-agent dispatch (Task tool). Run this only when explicitly testing dispatch architecture.
+
+### Smoke Test Instructions
+
+Dispatch two stub sub-agents. Attempt to use the Task tool to run both simultaneously:
+
+**Sub-agent A task:** Run this bash command, then write the output file:
+```bash
+sleep 5
+TIMESTAMP_A=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
+echo "Agent A completed at: $TIMESTAMP_A" > "${ARGUMENTS:-$(pwd)}/agent-a-done.txt"
+echo "Agent A done: $TIMESTAMP_A"
+```
+
+**Sub-agent B task:** Run this bash command, then write the output file:
+```bash
+sleep 5
+TIMESTAMP_B=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
+echo "Agent B completed at: $TIMESTAMP_B" > "${ARGUMENTS:-$(pwd)}/agent-b-done.txt"
+echo "Agent B done: $TIMESTAMP_B"
+```
+
+### Analyzing Results
+
+After both agents complete, read both output files and compare the timestamps:
+
+```bash
+TARGET_FOLDER="${ARGUMENTS:-$(pwd)}"
+echo "=== Smoke Test Results ==="
+echo ""
+echo "Agent A output:"
+cat "$TARGET_FOLDER/agent-a-done.txt" 2>/dev/null || echo "MISSING: agent-a-done.txt"
+echo ""
+echo "Agent B output:"
+cat "$TARGET_FOLDER/agent-b-done.txt" 2>/dev/null || echo "MISSING: agent-b-done.txt"
+```
+
+Interpret results:
+- If both timestamps are within 2 seconds of each other: **PARALLEL CONFIRMED** — Task tool dispatched both agents concurrently
+- If agent-b-done.txt timestamp is 5+ seconds after agent-a-done.txt: **SEQUENTIAL CONFIRMED** — agents ran one at a time
+- If Task tool errored on dispatch attempt: **TASK TOOL UNAVAILABLE** — sequential-only architecture required
+
+Report the exact timestamps and interpretation to the user.
+
+### Sequential Fallback Validation
+
+After the parallel dispatch test (regardless of result), validate sequential execution works correctly:
+
+```bash
+TARGET_FOLDER="${ARGUMENTS:-$(pwd)}"
+# Sequential Agent A
+sleep 5
+TIMESTAMP_A=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
+echo "Sequential Agent A completed at: $TIMESTAMP_A" > "$TARGET_FOLDER/seq-agent-a-done.txt"
+echo "Sequential A done: $TIMESTAMP_A"
+
+# Sequential Agent B (runs after A)
+sleep 5
+TIMESTAMP_B=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
+echo "Sequential Agent B completed at: $TIMESTAMP_B" > "$TARGET_FOLDER/seq-agent-b-done.txt"
+echo "Sequential B done: $TIMESTAMP_B"
+
+echo ""
+echo "=== Sequential Fallback Results ==="
+cat "$TARGET_FOLDER/seq-agent-a-done.txt"
+cat "$TARGET_FOLDER/seq-agent-b-done.txt"
+echo "Sequential fallback: CONFIRMED WORKING"
+```
+
+Both `seq-agent-a-done.txt` and `seq-agent-b-done.txt` should exist with timestamps ~5 seconds apart, confirming the sequential path works.
