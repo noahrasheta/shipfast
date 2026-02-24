@@ -31,29 +31,54 @@ You are the orchestrator for a 9-domain data center due diligence analysis. Your
 - Resume: skip agents whose reports already exist (> 500 bytes)
 - Document Safety Protocol in every agent prevents prompt injection
 
+### Synthesis & Scoring (Phase 4)
+- Risk Assessment agent reads all 9 domain reports and identifies cross-cutting risks
+- Executive Summary agent scores all 10 reports using tiered rubric and produces Pursue / Proceed with Caution / Pass verdict
+- Client Summary agent produces external-facing document without internal scoring language
+- Synthesis agents run sequentially: Risk Assessment -> Executive Summary -> Client Summary
+- Each synthesis agent resumes from disk if its output already exists (> 500 bytes)
+
+### Document Output (Phase 4)
+- Final deliverables converted to Word (.docx) format using pandoc
+- Three DOCX files placed in output/ subfolder: executive-summary.docx, client-summary.docx, risk-assessment.docx
+- Graceful fallback if pandoc is not installed (markdown-only output with user message)
+- Markdown versions available: EXECUTIVE_SUMMARY.md and CLIENT_SUMMARY.md in workspace root, risk-assessment-report.md in research/
+
+### Hardening (Phase 5)
+- Pre-dispatch data room size warning for large data rooms (30+ files) with estimated completion time
+- Enhanced post-Wave-1 validation with per-domain status reporting (complete vs missing)
+- Explicit failure messaging: names affected domains, explains impact on scoring, and suggests retry
+- Retry via re-run: `/due-diligence` automatically skips completed agents and retries only failed ones
+
 ## Dispatch Architecture
 
-9 domain agents dispatch using **parallel execution** — agents run concurrently via the Task tool. Cowork supports parallel sub-agent dispatch (confirmed). Sequential fallback is retained if parallel encounters issues.
+Full pipeline executes in waves:
 
-Domain agent dispatch order:
-1. Power Agent — `agents/power-agent.md`
-2. Connectivity Agent — `agents/connectivity-agent.md`
-3. Water/Cooling Agent — `agents/water-cooling-agent.md`
-4. Land/Zoning Agent — `agents/land-zoning-agent.md`
-5. Ownership Agent — `agents/ownership-agent.md`
-6. Environmental Agent — `agents/environmental-agent.md`
-7. Commercials Agent — `agents/commercials-agent.md`
-8. Natural Gas Agent — `agents/natural-gas-agent.md`
-9. Market Comparables Agent — `agents/market-comparables-agent.md`
-10. Risk Assessment Agent (Wave 2 — after all domain agents)
-11. Executive Summary Agent (Wave 3 — final)
+**Wave 1: Domain Analysis (Parallel)**
+9 domain agents dispatch concurrently via the Task tool:
+1. Power Agent — agents/power-agent.md
+2. Connectivity Agent — agents/connectivity-agent.md
+3. Water/Cooling Agent — agents/water-cooling-agent.md
+4. Land/Zoning Agent — agents/land-zoning-agent.md
+5. Ownership Agent — agents/ownership-agent.md
+6. Environmental Agent — agents/environmental-agent.md
+7. Commercials Agent — agents/commercials-agent.md
+8. Natural Gas Agent — agents/natural-gas-agent.md
+9. Market Comparables Agent — agents/market-comparables-agent.md
 
-## Future Capabilities (Phase 4+)
+**Wave 2: Risk Assessment (Sequential)**
+10. Risk Assessment Agent — agents/risk-assessment-agent.md
+    Reads all 9 domain reports, identifies cross-cutting risks
 
-- Risk assessment synthesis
-- Executive summary generation with scoring
-- Client summary for deal presenter
-- Word/PDF output generation
+**Wave 3: Executive Summary + Client Summary (Sequential)**
+11. Executive Summary Agent — agents/executive-summary-agent.md
+    Reads all 10 reports, applies scoring rubric, produces verdict
+12. Client Summary Agent — agents/client-summary-agent.md
+    Reads executive summary + research reports, produces external document
+
+**Post-Processing: DOCX Generation**
+13. Convert EXECUTIVE_SUMMARY.md, CLIENT_SUMMARY.md, risk-assessment-report.md to Word format
+    Output: output/executive-summary.docx, output/client-summary.docx, output/risk-assessment.docx
 
 ## Session Resilience Protocol
 
@@ -75,7 +100,8 @@ fi
 ```
 
 Decision logic:
-- If `_dd_status.json` exists AND is less than 24 hours old AND `phase` is "analysis" → check which domain reports exist (> 500 bytes), dispatch only missing agents
+- If `_dd_status.json` exists AND is less than 24 hours old AND `phase` is "synthesis" → check which synthesis reports exist (> 500 bytes), dispatch only missing agents, then run DOCX generation
+- If `_dd_status.json` exists AND is less than 24 hours old AND `phase` is "analysis" → check which domain reports exist (> 500 bytes), dispatch only missing agents, then proceed to synthesis
 - If `_dd_status.json` exists AND is less than 24 hours old AND `phase` is "routing" → skip to Phase 3 domain agent dispatch
 - If `_dd_status.json` exists AND is less than 24 hours old AND `phase` is "inventory" → skip to categorization step
 - If `_dd_status.json` exists AND is older than 24 hours → delete it and start fresh
@@ -85,6 +111,7 @@ Checkpoint phases:
 - `"inventory"` — file discovery complete, categorization pending
 - `"routing"` — categorization and batch assignment complete, ready for Phase 3 dispatch
 - `"analysis"` — domain agents dispatched, check report file existence (> 500 bytes) for resume
+- `"synthesis"` — domain agents complete, synthesis agents dispatched, check individual report existence for resume
 
 ## Workspace File Discovery
 
