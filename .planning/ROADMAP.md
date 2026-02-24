@@ -16,7 +16,7 @@ Decimal phases appear between their surrounding integers in numeric order.
 - [x] **Phase 2: Document Ingestion and Routing** - Build orchestrator document inventory and per-agent file routing that keeps each agent within token budget (completed 2026-02-24)
 - [x] **Phase 3: Domain Analysis Agents** - Port all 9 domain agents with web research, disk writes, and safety protocol (completed 2026-02-24)
 - [x] **Phase 4: Synthesis and Document Output** - Add Risk Assessment, Executive Summary, Client Summary, and Word/PDF output (completed 2026-02-24)
-- [ ] **Phase 5: Hardening and Distribution** - Stress test with large data rooms, validate clean-machine install, write non-technical README
+- [x] **Phase 5: Hardening and Distribution** - Stress test with large data rooms, validate clean-machine install, write non-technical README (completed 2026-02-24)
 
 ## Phase Details
 
@@ -111,4 +111,4 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5
 | 2. Document Ingestion and Routing | 2/2 | Complete | 2026-02-24 |
 | 3. Domain Analysis Agents | 3/3 | Complete | 2026-02-24 |
 | 4. Synthesis and Document Output | 3/3 | Complete | 2026-02-24 |
-| 5. Hardening and Distribution | 1/2 | In Progress|  |
+| 5. Hardening and Distribution | 1/2 | Complete    | 2026-02-24 |

@@ -12,7 +12,7 @@ Requirements for initial release. Each maps to roadmap phases.
 - [x] **INFRA-01**: Plugin uses correct Cowork format (.claude-plugin/plugin.json, commands/, skills/) and activates when uploaded
 - [x] **INFRA-02**: Plugin distributable as ZIP file that installs via drag-and-drop in Cowork — no terminal required
 - [x] **INFRA-03**: User can type `/due-diligence` to trigger the full analysis workflow
-- [ ] **INFRA-04**: Plugin includes clear README with setup instructions a non-technical user can follow
+- [x] **INFRA-04**: Plugin includes clear README with setup instructions a non-technical user can follow
 
 ### Document Ingestion
 
@@ -99,7 +99,7 @@ Which phases cover which requirements. Updated during roadmap creation.
 | INFRA-01 | Phase 1 | Complete (Plan 01-01) |
 | INFRA-02 | Phase 1 | Complete |
 | INFRA-03 | Phase 1 | Complete |
-| INFRA-04 | Phase 5 | Pending |
+| INFRA-04 | Phase 5 | Complete |
 | INGEST-01 | Phase 2 | Complete (Plan 02-01) |
 | INGEST-02 | Phase 2 | Complete (Plan 02-01) |
 | INGEST-03 | Phase 2 | Complete (Plan 02-01) |
