@@ -1,7 +1,7 @@
 ---
 name: due-diligence
 description: "Run due diligence on a data center opportunity. Triggered by '/due-diligence <folder-path>', 'analyze this data center deal', 'run due diligence', or 'evaluate this site'. Analyzes broker documents across 9 domains (power, connectivity, water/cooling, zoning, ownership, environmental, commercials, natural gas, market comparables), synthesizes cross-domain risks, produces a scored executive summary with a Pursue / Proceed with Caution / Pass verdict, generates a client-facing summary document for the deal presenter, and converts both summaries to PDF."
-version: "0.2.1"
+version: "0.3.0"
 ---
 
 # Due Diligence Orchestrator
@@ -76,9 +76,13 @@ Execute the following phases in order. Each phase must complete successfully bef
 
    Use the `PLUGIN_DIR` resolved in Phase 1 to run the pipeline:
    ```bash
-   "$PLUGIN_DIR/.venv/bin/python3" -m converters.pipeline "<absolute-folder-path>"
+   cd "$PLUGIN_DIR" && "$PLUGIN_DIR/.venv/bin/python3" -c "from converters.pipeline import convert_folder; convert_folder('$ABSOLUTE_FOLDER_PATH')"
    ```
-   - The pipeline automatically prints a detailed status report
+   - The pipeline uses Docling for fully offline document conversion (no API keys needed)
+   - After conversion, PII is automatically redacted using a local GLiNER model
+   - Redacted entities (bank accounts, SSNs, EINs, credit cards, etc.) are replaced with `[REDACTED: type]` placeholders
+   - Email addresses, phone numbers, company names, and property addresses are preserved for due diligence
+   - The pipeline prints a detailed status report including redaction summary
    - Wait for the pipeline to complete (it will exit with code 0 on success, non-zero on failure)
 
 3. **Check pipeline result:**
@@ -699,7 +703,7 @@ Please manually verify findings from this domain before making decisions.
 User runs: `/due-diligence ./opportunity-example`
 
 1. Validate: folder exists
-2. Process: 15 documents -> 11 converted, 4 failed (vision API not configured)
+2. Process: 15 documents -> 13 converted, 2 failed (unsupported format), PII redacted
 3. Setup: research/ folder created
 4. Wave 1: 9 domain agents launched in parallel
 5. Wave 1 complete: 9/9 domain reports generated

@@ -155,7 +155,7 @@ The 12 research agents verify broker claims using web research. There are two la
 
 The folder should contain the broker-provided documents for the opportunity. The plugin handles conversion, analysis, and reporting end to end.
 
-**Status:** v0.2.1 -- tiered domain weighting, Key Questions section, client-facing summary with PDF output, scoring calibration.
+**Status:** v0.3.0 -- offline document conversion via Docling, automatic PII redaction via GLiNER, tiered domain weighting, Key Questions section, client-facing summary with PDF output, scoring calibration.
 
 ---
 

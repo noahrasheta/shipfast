@@ -1,20 +1,21 @@
 """
 Document converters for data center due diligence processing.
 
-Each converter takes a file path and returns an ExtractionResult containing
-the extracted text, metadata about the extraction, and a confidence score.
+All conversion is handled by Docling (fully offline) and PII redaction
+is handled by GLiNER (fully offline).  No API calls are made during
+the conversion or redaction pipeline.
 
 The ``scanner`` module provides folder scanning and automatic file type
-detection so the conversion pipeline knows which converter to use for
-each file in an opportunity folder.
+detection so the conversion pipeline knows which files to convert.
 
 The ``pipeline`` module ties everything together: it scans a folder,
-converts all supported files, writes the results to a ``_converted/``
-staging subfolder, and produces a JSON manifest for downstream agents.
+converts all supported files via Docling, redacts PII via GLiNER,
+writes the results to a ``_converted/`` staging subfolder, and produces
+a JSON manifest for downstream agents.
 """
 
 from converters.base import BaseConverter, ExtractionResult, ConfidenceLevel
-from converters.excel import ExcelConverter
+from converters.docling_converter import DoclingConverter
 from converters.generate_pdf import (
     PDFResult,
     generate_pdf,
@@ -22,7 +23,6 @@ from converters.generate_pdf import (
     generate_client_pdf,
     generate_all_pdfs,
 )
-from converters.pdf import PDFConverter
 from converters.pipeline import (
     ConvertedFile,
     PipelineResult,
@@ -31,10 +31,15 @@ from converters.pipeline import (
     CONVERTED_DIR_NAME,
     MANIFEST_FILENAME,
 )
-from converters.powerpoint import PowerPointConverter
+from converters.redactor import (
+    RedactedEntity,
+    RedactionReport,
+    RedactionResult,
+    redact_text,
+    redact_file,
+    redact_converted_folder,
+)
 from converters.scanner import FileEntry, FileType, ScanResult, scan_folder
-from converters.vision import VisionConverter
-from converters.word import WordConverter
 
 __all__ = [
     "BaseConverter",
@@ -42,7 +47,7 @@ __all__ = [
     "ConvertedFile",
     "CONVERTED_DIR_NAME",
     "convert_folder",
-    "ExcelConverter",
+    "DoclingConverter",
     "ExtractionResult",
     "FileEntry",
     "FileType",
@@ -51,13 +56,15 @@ __all__ = [
     "generate_executive_pdf",
     "generate_pdf",
     "MANIFEST_FILENAME",
-    "PDFConverter",
     "PDFResult",
     "PipelineResult",
-    "PowerPointConverter",
     "print_status_report",
+    "RedactedEntity",
+    "RedactionReport",
+    "RedactionResult",
+    "redact_converted_folder",
+    "redact_file",
+    "redact_text",
     "ScanResult",
-    "VisionConverter",
-    "WordConverter",
     "scan_folder",
 ]

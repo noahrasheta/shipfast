@@ -135,9 +135,9 @@ The `dc-due-diligence` plugin automates data center due diligence analysis:
 - **Agents**: 12 specialized agents -- 9 domain research (Power, Connectivity, Water/Cooling, Land/Zoning, Ownership, Environmental, Commercials, Natural Gas, Market Comparables), 1 Risk Assessment, 1 Executive Summary Generator, 1 Test Agent
 - **Pipeline**: Three-wave execution -- Wave 1: 9 domain agents in parallel analyzing broker documents, Wave 2: Risk Assessment synthesizing cross-domain findings, Wave 3: Executive Summary scoring all categories
 - **Output**: Scored executive summary with Pursue / Proceed with Caution / Pass verdict, plus 10 detailed research reports
-- **Infrastructure**: Python document converters (PDF, Excel, Word, PowerPoint, images via Anthropic vision API)
+- **Infrastructure**: Docling-based document converters (PDF, Excel, Word, PowerPoint, images, CSV, HTML) -- fully offline, no API calls. Automatic PII redaction via GLiNER (bank accounts, SSNs, EINs, credit cards redacted; emails, phone numbers, company names preserved for research).
 - **Web research**: Agents use Claude Code's built-in WebSearch/WebFetch (no config needed). Tavily, Exa, or Firecrawl MCP servers are used automatically if configured in Claude Code.
-- **Setup**: Python venv is created automatically on first run. Set `ANTHROPIC_API_KEY` in shell environment and restart Claude Code only if the opportunity folder contains images or scanned PDFs.
+- **Setup**: Python venv is created automatically on first run. No API keys needed for document conversion or redaction -- everything runs locally. First setup downloads ~3-5 GB of models (Docling layout/table models + GLiNER PII model).
 
 ## Local Development
 

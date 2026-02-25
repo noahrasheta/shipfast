@@ -29,7 +29,7 @@ class ExtractionResult:
         source_path: Absolute path to the original file.
         text: The extracted text content (markdown-formatted where possible).
         method: Short label for how the text was extracted
-                (e.g. "pdfplumber", "claude_vision", "openpyxl").
+                (e.g. "docling").
         success: Whether the extraction completed without critical errors.
         confidence: Overall confidence in the extracted text quality.
         confidence_reason: Human-readable explanation of why the confidence
@@ -75,9 +75,9 @@ class ExtractionResult:
         """One-line summary suitable for inclusion in agent reports.
 
         Examples:
-            "high confidence (pdfplumber: strong text density, 450 avg chars/page)"
-            "low confidence (claude_vision: 2 of 5 pages failed extraction)"
-            "extraction failed (pdfplumber: File not found: /tmp/missing.pdf)"
+            "high confidence (docling: successful extraction (5000 chars, 3 pages))"
+            "low confidence (docling: very little text extracted (50 chars from 3 pages))"
+            "extraction failed (docling: File not found: /tmp/missing.pdf)"
         """
         if not self.success:
             detail = self.error or "unknown error"

@@ -3,29 +3,14 @@
 from pathlib import Path
 
 
-def test_pdfplumber_import():
-    import pdfplumber
-    assert hasattr(pdfplumber, "open")
+def test_docling_import():
+    from docling.document_converter import DocumentConverter
+    assert DocumentConverter is not None
 
 
-def test_openpyxl_import():
-    import openpyxl
-    assert hasattr(openpyxl, "load_workbook")
-
-
-def test_pyxlsb_import():
-    import pyxlsb
-    assert hasattr(pyxlsb, "open_workbook")
-
-
-def test_python_docx_import():
-    import docx
-    assert hasattr(docx, "Document")
-
-
-def test_python_pptx_import():
-    import pptx
-    assert hasattr(pptx, "Presentation")
+def test_gliner_import():
+    from gliner import GLiNER
+    assert GLiNER is not None
 
 
 def test_pillow_import():
@@ -33,16 +18,28 @@ def test_pillow_import():
     assert hasattr(Image, "open")
 
 
-def test_anthropic_import():
-    import anthropic
-    assert hasattr(anthropic, "Anthropic")
-
-
 def test_converters_package_import():
     from converters import BaseConverter, ExtractionResult, ConfidenceLevel
     assert ConfidenceLevel.HIGH.value == "high"
     assert ConfidenceLevel.MEDIUM.value == "medium"
     assert ConfidenceLevel.LOW.value == "low"
+
+
+def test_docling_converter_import():
+    from converters import DoclingConverter
+    converter = DoclingConverter()
+    assert ".pdf" in converter.supported_extensions
+    assert ".docx" in converter.supported_extensions
+    assert ".xlsx" in converter.supported_extensions
+    assert ".pptx" in converter.supported_extensions
+    assert ".png" in converter.supported_extensions
+
+
+def test_redactor_import():
+    from converters.redactor import redact_text, redact_file, redact_converted_folder
+    assert callable(redact_text)
+    assert callable(redact_file)
+    assert callable(redact_converted_folder)
 
 
 def test_extraction_result_defaults():
@@ -68,10 +65,10 @@ def test_extraction_result_is_reliable_high():
     result = ExtractionResult(
         source_path=Path("/tmp/test.pdf"),
         text="good text",
-        method="pdfplumber",
+        method="docling",
         success=True,
         confidence=ConfidenceLevel.HIGH,
-        confidence_reason="strong text density, 450 avg chars/page",
+        confidence_reason="successful extraction (5000 chars, 3 pages)",
     )
     assert result.is_reliable is True
     assert result.is_low_confidence is False
@@ -83,10 +80,10 @@ def test_extraction_result_is_reliable_medium():
     result = ExtractionResult(
         source_path=Path("/tmp/test.pdf"),
         text="some text",
-        method="pdfplumber",
+        method="docling",
         success=True,
         confidence=ConfidenceLevel.MEDIUM,
-        confidence_reason="low text density, 120 avg chars/page",
+        confidence_reason="partial conversion",
     )
     assert result.is_reliable is True
     assert result.is_low_confidence is False
@@ -98,10 +95,10 @@ def test_extraction_result_is_not_reliable_low():
     result = ExtractionResult(
         source_path=Path("/tmp/test.pdf"),
         text="x",
-        method="claude_vision",
+        method="docling",
         success=True,
         confidence=ConfidenceLevel.LOW,
-        confidence_reason="very little text found (5 characters)",
+        confidence_reason="very little text extracted (5 chars from 3 pages)",
     )
     assert result.is_reliable is False
     assert result.is_low_confidence is True
@@ -113,7 +110,7 @@ def test_extraction_result_is_not_reliable_failed():
     result = ExtractionResult(
         source_path=Path("/tmp/test.pdf"),
         text="",
-        method="pdfplumber",
+        method="docling",
         success=False,
         confidence=ConfidenceLevel.LOW,
         confidence_reason="file not found",
@@ -129,15 +126,15 @@ def test_confidence_summary_success():
     result = ExtractionResult(
         source_path=Path("/tmp/test.pdf"),
         text="good text",
-        method="pdfplumber",
+        method="docling",
         success=True,
         confidence=ConfidenceLevel.HIGH,
-        confidence_reason="strong text density, 450 avg chars/page",
+        confidence_reason="successful extraction (5000 chars)",
     )
     summary = result.confidence_summary
     assert summary == (
-        "high confidence (pdfplumber: "
-        "strong text density, 450 avg chars/page)"
+        "high confidence (docling: "
+        "successful extraction (5000 chars))"
     )
 
 
@@ -147,7 +144,7 @@ def test_confidence_summary_failure():
     result = ExtractionResult(
         source_path=Path("/tmp/test.pdf"),
         text="",
-        method="pdfplumber",
+        method="docling",
         success=False,
         confidence=ConfidenceLevel.LOW,
         confidence_reason="file not found",
@@ -155,7 +152,7 @@ def test_confidence_summary_failure():
     )
     summary = result.confidence_summary
     assert summary == (
-        "extraction failed (pdfplumber: File not found: /tmp/test.pdf)"
+        "extraction failed (docling: File not found: /tmp/test.pdf)"
     )
 
 
@@ -193,10 +190,10 @@ def test_base_converter_requires_override():
         converter.convert(Path("/tmp/test.pdf"))
 
 
-def test_pdf_converter_missing_file_marked_as_failure():
-    from converters import PDFConverter, ConfidenceLevel
+def test_docling_converter_missing_file_marked_as_failure():
+    from converters import DoclingConverter, ConfidenceLevel
 
-    converter = PDFConverter(vision_fallback=False)
+    converter = DoclingConverter()
     result = converter.convert(Path("/tmp/nonexistent_abc123.pdf"))
     assert result.success is False
     assert result.confidence == ConfidenceLevel.LOW
@@ -206,42 +203,14 @@ def test_pdf_converter_missing_file_marked_as_failure():
     assert "extraction failed" in result.confidence_summary
 
 
-def test_pdf_converter_wrong_extension_marked_as_failure(tmp_path):
-    from converters import PDFConverter, ConfidenceLevel
-
-    # Create a real file with the wrong extension so the file-not-found
-    # check passes and the extension check fires.
-    txt_file = tmp_path / "test.txt"
-    txt_file.write_text("not a pdf")
-
-    converter = PDFConverter(vision_fallback=False)
-    result = converter.convert(txt_file)
-    assert result.success is False
-    assert result.confidence == ConfidenceLevel.LOW
-    assert result.confidence_reason == "unsupported file type"
-    assert result.is_reliable is False
-
-
-def test_vision_converter_missing_file_marked_as_failure():
-    from converters import VisionConverter, ConfidenceLevel
-
-    converter = VisionConverter()
-    result = converter.convert(Path("/tmp/nonexistent_abc123.png"))
-    assert result.success is False
-    assert result.confidence == ConfidenceLevel.LOW
-    assert result.confidence_reason == "file not found"
-    assert result.error is not None
-    assert result.is_reliable is False
-
-
-def test_vision_converter_unsupported_type_marked_as_failure(tmp_path):
-    from converters import VisionConverter, ConfidenceLevel
+def test_docling_converter_unsupported_type_marked_as_failure(tmp_path):
+    from converters import DoclingConverter, ConfidenceLevel
 
     # Create a real file with an unsupported extension.
     xyz_file = tmp_path / "test.xyz"
     xyz_file.write_text("unknown format")
 
-    converter = VisionConverter()
+    converter = DoclingConverter()
     result = converter.convert(xyz_file)
     assert result.success is False
     assert result.confidence == ConfidenceLevel.LOW

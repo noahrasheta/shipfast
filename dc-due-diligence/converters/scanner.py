@@ -26,6 +26,8 @@ class FileType(Enum):
     XLSB = "xlsb"
     DOCX = "docx"
     PPTX = "pptx"
+    CSV = "csv"
+    HTML = "html"
     IMAGE_PNG = "png"
     IMAGE_JPG = "jpg"
     IMAGE_TIFF = "tiff"
@@ -38,9 +40,16 @@ class FileType(Enum):
 _EXTENSION_TO_TYPE: dict[str, FileType] = {
     ".pdf": FileType.PDF,
     ".xlsx": FileType.XLSX,
+    ".xlsm": FileType.XLSX,
     ".xlsb": FileType.XLSB,
     ".docx": FileType.DOCX,
+    ".dotx": FileType.DOCX,
     ".pptx": FileType.PPTX,
+    ".potx": FileType.PPTX,
+    ".ppsx": FileType.PPTX,
+    ".csv": FileType.CSV,
+    ".html": FileType.HTML,
+    ".htm": FileType.HTML,
     ".png": FileType.IMAGE_PNG,
     ".jpg": FileType.IMAGE_JPG,
     ".jpeg": FileType.IMAGE_JPG,
@@ -57,6 +66,8 @@ _MIME_TO_TYPE: dict[str, FileType] = {
     "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet": FileType.XLSX,
     "application/vnd.openxmlformats-officedocument.wordprocessingml.document": FileType.DOCX,
     "application/vnd.openxmlformats-officedocument.presentationml.presentation": FileType.PPTX,
+    "text/csv": FileType.CSV,
+    "text/html": FileType.HTML,
     "image/png": FileType.IMAGE_PNG,
     "image/jpeg": FileType.IMAGE_JPG,
     "image/tiff": FileType.IMAGE_TIFF,
@@ -65,18 +76,20 @@ _MIME_TO_TYPE: dict[str, FileType] = {
 }
 
 # Maps FileType values to the converter class name that handles them.
-# Image types all route to VisionConverter.
+# All supported types route to DoclingConverter (fully offline).
 _TYPE_TO_CONVERTER: dict[FileType, str] = {
-    FileType.PDF: "PDFConverter",
-    FileType.XLSX: "ExcelConverter",
-    FileType.XLSB: "ExcelConverter",
-    FileType.DOCX: "WordConverter",
-    FileType.PPTX: "PowerPointConverter",
-    FileType.IMAGE_PNG: "VisionConverter",
-    FileType.IMAGE_JPG: "VisionConverter",
-    FileType.IMAGE_TIFF: "VisionConverter",
-    FileType.IMAGE_BMP: "VisionConverter",
-    FileType.IMAGE_WEBP: "VisionConverter",
+    FileType.PDF: "DoclingConverter",
+    FileType.XLSX: "DoclingConverter",
+    FileType.XLSB: "DoclingConverter",
+    FileType.DOCX: "DoclingConverter",
+    FileType.PPTX: "DoclingConverter",
+    FileType.CSV: "DoclingConverter",
+    FileType.HTML: "DoclingConverter",
+    FileType.IMAGE_PNG: "DoclingConverter",
+    FileType.IMAGE_JPG: "DoclingConverter",
+    FileType.IMAGE_TIFF: "DoclingConverter",
+    FileType.IMAGE_BMP: "DoclingConverter",
+    FileType.IMAGE_WEBP: "DoclingConverter",
 }
 
 # Files and directories that should be skipped during scanning.

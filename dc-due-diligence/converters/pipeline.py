@@ -2,9 +2,12 @@
 Conversion pipeline that processes a full opportunity folder.
 
 Takes the folder scanner's processing plan (``ScanResult``), runs each
-supported file through its appropriate converter, writes converted
-markdown files to a ``_converted/`` staging subfolder, and produces a
-JSON manifest listing every document with its conversion status.
+supported file through the Docling converter (fully offline), applies
+PII redaction via a local GLiNER model, writes converted markdown files
+to a ``_converted/`` staging subfolder, and produces a JSON manifest
+listing every document with its conversion status and redaction summary.
+
+All processing is local -- no API calls for conversion or redaction.
 """
 
 from __future__ import annotations
@@ -17,13 +20,10 @@ from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Any
 
-from converters.base import BaseConverter, ConfidenceLevel, ExtractionResult
-from converters.excel import ExcelConverter
-from converters.pdf import PDFConverter
-from converters.powerpoint import PowerPointConverter
+from converters.base import ConfidenceLevel, ExtractionResult
+from converters.docling_converter import DoclingConverter
+from converters.redactor import redact_converted_folder
 from converters.scanner import FileEntry, FileType, ScanResult, scan_folder
-from converters.vision import VisionConverter
-from converters.word import WordConverter
 
 logger = logging.getLogger(__name__)
 
@@ -58,6 +58,7 @@ def print_status_report(result: PipelineResult, verbose: bool = True) -> None:
     # Overall statistics
     print(f"Folder: {result.root}")
     print(f"Processing time: {result.elapsed_seconds:.1f} seconds")
+    print(f"Conversion engine: Docling (fully offline)")
     print()
 
     total = result.total_files
@@ -75,6 +76,25 @@ def print_status_report(result: PipelineResult, verbose: bool = True) -> None:
     if skipped > 0:
         print(f"  - Skipped (unsupported type): {skipped}")
     print()
+
+    # Redaction summary
+    if result.redaction_summary:
+        rs = result.redaction_summary
+        if rs.get("total_entities_redacted", 0) > 0:
+            print("PII REDACTION")
+            print("-" * 70)
+            print(f"  Files scanned: {rs.get('files_scanned', 0)}")
+            print(f"  Files with PII redacted: {rs.get('files_redacted', 0)}")
+            print(f"  Total entities redacted: {rs.get('total_entities_redacted', 0)}")
+            by_type = rs.get("entities_by_type", {})
+            if by_type:
+                print("  By type:")
+                for label, count in sorted(by_type.items()):
+                    print(f"    {label}: {count}")
+            print()
+        else:
+            print("PII redaction: No sensitive data detected.")
+            print()
 
     # Detailed breakdown if verbose
     if not verbose:
@@ -138,30 +158,6 @@ def print_status_report(result: PipelineResult, verbose: bool = True) -> None:
     print()
 
 
-def _get_converter(converter_name: str, api_key: str | None = None) -> BaseConverter:
-    """Instantiate a converter by its class name.
-
-    Parameters
-    ----------
-    converter_name:
-        The converter class name as stored in ``FileEntry.converter``
-        (e.g. ``"PDFConverter"``).
-    api_key:
-        Optional API key forwarded to converters that need external API
-        access (PDFConverter's vision fallback, VisionConverter).
-    """
-    converters: dict[str, BaseConverter] = {
-        "PDFConverter": PDFConverter(vision_fallback=True, api_key=api_key),
-        "ExcelConverter": ExcelConverter(),
-        "WordConverter": WordConverter(),
-        "PowerPointConverter": PowerPointConverter(),
-        "VisionConverter": VisionConverter(api_key=api_key),
-    }
-    if converter_name not in converters:
-        raise ValueError(f"Unknown converter: {converter_name}")
-    return converters[converter_name]
-
-
 def _safe_filename(relative_path: Path) -> str:
     """Build a safe, unique markdown filename from the source file's relative path.
 
@@ -208,7 +204,7 @@ class ConvertedFile:
         file_type: Detected file type label (e.g. "pdf", "xlsx").
         converter: Name of the converter class used, or None.
         method: Extraction method label from the converter result
-            (e.g. "pdfplumber", "openpyxl").
+            (e.g. "docling").
         success: Whether conversion succeeded.
         confidence: Confidence level as a string ("high", "medium", "low").
         confidence_reason: Human-readable explanation of confidence.
@@ -248,6 +244,7 @@ class PipelineResult:
         failed_count: Number of files where conversion was attempted but failed.
         skipped_count: Number of unsupported files that were skipped.
         elapsed_seconds: Total wall-clock time for the entire pipeline.
+        redaction_summary: Summary of PII redaction results.
     """
 
     root: Path
@@ -255,6 +252,7 @@ class PipelineResult:
     manifest_path: Path
     files: list[ConvertedFile] = field(default_factory=list)
     elapsed_seconds: float = 0.0
+    redaction_summary: dict[str, Any] = field(default_factory=dict)
 
     @property
     def total_files(self) -> int:
@@ -298,27 +296,33 @@ class PipelineResult:
         return "\n".join(lines)
 
 
+# Module-level Docling converter instance (reused across calls).
+_docling_converter = DoclingConverter()
+
+
 def convert_folder(
     folder_path: str | Path,
     api_key: str | None = None,
 ) -> PipelineResult:
-    """Scan an opportunity folder and convert all supported files.
+    """Scan an opportunity folder, convert all supported files, and redact PII.
 
     This is the main entry point for the conversion pipeline.  It:
 
     1. Scans the folder using :func:`~converters.scanner.scan_folder`.
     2. Creates a ``_converted/`` subfolder for staging output.
-    3. Runs each supported file through its appropriate converter.
+    3. Runs each supported file through Docling (fully offline).
     4. Writes converted text as individual markdown files.
-    5. Records unsupported files in the manifest without converting.
-    6. Writes a JSON manifest listing every file's status.
+    5. Runs PII redaction on all converted files (fully offline).
+    6. Records unsupported files in the manifest without converting.
+    7. Writes a JSON manifest listing every file's status.
 
     Parameters
     ----------
     folder_path:
         Path to the opportunity folder to process.
     api_key:
-        Optional Anthropic API key for vision-based extraction.
+        Ignored. Kept for backward compatibility with existing callers.
+        Conversion is now fully offline via Docling.
 
     Returns
     -------
@@ -343,9 +347,22 @@ def convert_folder(
     # Track filenames to handle duplicates within the staging folder.
     used_filenames: dict[str, int] = {}
 
+    # --- Phase 1: Convert all files via Docling ---
     for entry in scan.files:
-        file_record = _process_file(entry, converted_dir, used_filenames, api_key)
+        file_record = _process_file(entry, converted_dir, used_filenames)
         result.files.append(file_record)
+
+    # --- Phase 2: Redact PII from converted markdown files ---
+    if result.converted_count > 0:
+        logger.info("Starting PII redaction on %d converted files...", result.converted_count)
+        print("\nRunning PII redaction (offline, local model)...")
+        redaction_report = redact_converted_folder(converted_dir)
+        result.redaction_summary = {
+            "files_scanned": redaction_report.files_scanned,
+            "files_redacted": redaction_report.files_redacted,
+            "total_entities_redacted": redaction_report.total_entities,
+            "entities_by_type": redaction_report.entities_by_type,
+        }
 
     result.elapsed_seconds = time.monotonic() - pipeline_start
 
@@ -370,7 +387,6 @@ def _process_file(
     entry: FileEntry,
     converted_dir: Path,
     used_filenames: dict[str, int],
-    api_key: str | None,
 ) -> ConvertedFile:
     """Convert a single file and write the result to the staging folder.
 
@@ -403,11 +419,10 @@ def _process_file(
     unique_name = _unique_filename(base_name, used_filenames)
     output_path = converted_dir / unique_name
 
-    # Run the converter.
+    # Run the Docling converter.
     start = time.monotonic()
     try:
-        converter = _get_converter(entry.converter, api_key=api_key)
-        extraction: ExtractionResult = converter.convert(entry.path)
+        extraction: ExtractionResult = _docling_converter.convert(entry.path)
     except Exception as exc:
         elapsed = time.monotonic() - start
         logger.error(
@@ -504,7 +519,7 @@ def _build_markdown(entry: FileEntry, extraction: ExtractionResult) -> str:
         label = "pages" if entry.file_type == FileType.PDF else "sheets/slides"
         header_lines.append(f"- **Pages:** {extraction.page_count} {label}")
     if extraction.is_scanned:
-        header_lines.append("- **Note:** Scanned/image-based document (OCR extracted)")
+        header_lines.append("- **Note:** Scanned/image-based document (OCR extracted locally)")
 
     header_lines.append("")
     header_lines.append("---")
@@ -547,6 +562,7 @@ def _write_manifest(result: PipelineResult) -> None:
             "skipped_unsupported": result.skipped_count,
             "elapsed_seconds": round(result.elapsed_seconds, 3),
         },
+        "redaction_summary": result.redaction_summary,
         "files": [],
     }
 

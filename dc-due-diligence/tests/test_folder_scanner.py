@@ -234,16 +234,16 @@ class TestScanFolder:
 
         converter_map = {e.path.name: e.converter for e in result.files}
 
-        assert converter_map["a.pdf"] == "PDFConverter"
-        assert converter_map["b.xlsx"] == "ExcelConverter"
-        assert converter_map["c.xlsb"] == "ExcelConverter"
-        assert converter_map["d.docx"] == "WordConverter"
-        assert converter_map["e.pptx"] == "PowerPointConverter"
-        assert converter_map["f.png"] == "VisionConverter"
-        assert converter_map["g.jpg"] == "VisionConverter"
-        assert converter_map["h.tiff"] == "VisionConverter"
-        assert converter_map["i.bmp"] == "VisionConverter"
-        assert converter_map["j.webp"] == "VisionConverter"
+        assert converter_map["a.pdf"] == "DoclingConverter"
+        assert converter_map["b.xlsx"] == "DoclingConverter"
+        assert converter_map["c.xlsb"] == "DoclingConverter"
+        assert converter_map["d.docx"] == "DoclingConverter"
+        assert converter_map["e.pptx"] == "DoclingConverter"
+        assert converter_map["f.png"] == "DoclingConverter"
+        assert converter_map["g.jpg"] == "DoclingConverter"
+        assert converter_map["h.tiff"] == "DoclingConverter"
+        assert converter_map["i.bmp"] == "DoclingConverter"
+        assert converter_map["j.webp"] == "DoclingConverter"
 
     def test_file_sizes_captured(self, tmp_path: Path):
         """File sizes are recorded in the entries."""
