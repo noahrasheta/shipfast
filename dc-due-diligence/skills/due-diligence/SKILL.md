@@ -42,14 +42,17 @@ Execute the following phases in order. Each phase must complete successfully bef
 
 3. **Ensure the Python virtual environment is set up:**
 
-   Check if the `.venv` exists in the plugin directory. If not, run the setup script automatically:
+   First, check if the `.venv` already exists:
    ```bash
-   if [ ! -f "$PLUGIN_DIR/.venv/bin/python3" ]; then
-     echo "Setting up Python environment..."
-     bash "$PLUGIN_DIR/setup.sh"
-   fi
+   test -f "$PLUGIN_DIR/.venv/bin/python3" && echo "venv ready" || echo "venv missing"
    ```
-   - If setup fails, stop the workflow and tell the user: "Python environment setup failed. Make sure Python 3.11+ is installed, then try running: `bash $PLUGIN_DIR/setup.sh`"
+
+   If the output says "venv missing", run the setup script:
+   ```bash
+   bash "$PLUGIN_DIR/setup.sh"
+   ```
+
+   If setup fails, stop the workflow and tell the user: "Python environment setup failed. Make sure Python 3.11+ is installed, then try running: `bash $PLUGIN_DIR/setup.sh`"
 
 4. **Report to user:**
    ```
