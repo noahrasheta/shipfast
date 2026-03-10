@@ -1,7 +1,7 @@
 ---
 name: due-diligence
 description: "Run due diligence on a data center opportunity. Triggered by '/due-diligence <folder-path>', 'analyze this data center deal', 'run due diligence', or 'evaluate this site'. Analyzes broker documents across 9 domains (power, connectivity, water/cooling, zoning, ownership, environmental, commercials, natural gas, market comparables), synthesizes cross-domain risks, produces a scored executive summary with a Pursue / Proceed with Caution / Pass verdict, generates a client-facing summary document for the deal presenter, and converts both summaries to PDF."
-version: "0.3.0"
+version: "0.3.1"
 ---
 
 # Due Diligence Orchestrator
@@ -631,7 +631,7 @@ Handle failures at each phase appropriately:
 - Report which PDFs could not be generated
 - The markdown versions are always preserved and remain the primary deliverables
 - PDF generation failure should never stop the workflow or affect reporting
-- Suggest checking that the Python environment has the markdown-pdf package installed
+- Suggest checking that the Python environment has the weasyprint package installed and that system dependencies (pango, cairo) are available (macOS: `brew install pango`)
 
 **Output validation finds issues:**
 - Note which reports seem incomplete

@@ -4,7 +4,21 @@
  * Internal document styling for the scored executive summary.
  * Emphasizes data tables, scoring sections, and traffic light
  * indicators. Designed for the Data Canopy leadership team.
+ *
+ * Uses CSS Paged Media features (rendered by WeasyPrint).
  */
+
+/* Page setup -- Letter size with page numbers */
+@page {
+    size: Letter;
+    margin: 0.75in 0.75in 0.85in 0.75in;
+    @bottom-center {
+        content: counter(page);
+        font-family: Helvetica, Arial, sans-serif;
+        font-size: 8pt;
+        color: #999999;
+    }
+}
 
 /* Base typography */
 body {
@@ -34,6 +48,7 @@ h2 {
     padding-bottom: 4px;
     margin-top: 20px;
     margin-bottom: 12px;
+    page-break-after: avoid;
 }
 
 h3 {
@@ -42,6 +57,7 @@ h3 {
     color: #1b4965;
     margin-top: 16px;
     margin-bottom: 8px;
+    page-break-after: avoid;
 }
 
 h4 {
@@ -65,6 +81,8 @@ p {
     margin-top: 4px;
     margin-bottom: 8px;
     text-align: left;
+    orphans: 3;
+    widows: 3;
 }
 
 /* Emphasis */
@@ -102,6 +120,10 @@ td {
     vertical-align: top;
 }
 
+tr {
+    page-break-inside: avoid;
+}
+
 tr:nth-child(even) {
     background-color: #f5f9fc;
 }
@@ -119,6 +141,7 @@ ul, ol {
 
 li {
     margin-bottom: 4px;
+    page-break-inside: avoid;
 }
 
 /* Blockquotes -- used for callouts and important notes */
@@ -129,6 +152,7 @@ blockquote {
     margin: 12px 0;
     font-style: italic;
     color: #333;
+    page-break-inside: avoid;
 }
 
 /* Horizontal rules -- section dividers */

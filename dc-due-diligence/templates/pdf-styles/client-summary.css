@@ -5,7 +5,21 @@
  * Clean, professional appearance suitable for forwarding to
  * deal presenters and external stakeholders. Less data-dense
  * than the executive summary, with emphasis on readability.
+ *
+ * Uses CSS Paged Media features (rendered by WeasyPrint).
  */
+
+/* Page setup -- Letter size with page numbers */
+@page {
+    size: Letter;
+    margin: 0.75in 0.75in 0.85in 0.75in;
+    @bottom-center {
+        content: counter(page);
+        font-family: Helvetica, Arial, sans-serif;
+        font-size: 8pt;
+        color: #999999;
+    }
+}
 
 /* Base typography */
 body {
@@ -35,6 +49,7 @@ h2 {
     padding-bottom: 6px;
     margin-top: 24px;
     margin-bottom: 14px;
+    page-break-after: avoid;
 }
 
 h3 {
@@ -43,6 +58,7 @@ h3 {
     color: #1b4965;
     margin-top: 18px;
     margin-bottom: 10px;
+    page-break-after: avoid;
 }
 
 h4 {
@@ -66,6 +82,8 @@ p {
     margin-top: 6px;
     margin-bottom: 10px;
     text-align: left;
+    orphans: 3;
+    widows: 3;
 }
 
 /* Emphasis */
@@ -103,6 +121,10 @@ td {
     vertical-align: top;
 }
 
+tr {
+    page-break-inside: avoid;
+}
+
 tr:nth-child(even) {
     background-color: #f7fafb;
 }
@@ -121,6 +143,7 @@ ul, ol {
 li {
     margin-bottom: 6px;
     line-height: 1.5;
+    page-break-inside: avoid;
 }
 
 /* Nested lists */
@@ -137,6 +160,7 @@ blockquote {
     margin: 16px 0;
     font-style: italic;
     color: #333;
+    page-break-inside: avoid;
 }
 
 /* Horizontal rules -- clean section dividers */

@@ -2,24 +2,42 @@
 Markdown-to-PDF conversion for due diligence deliverables.
 
 Converts markdown files (executive summary, client summary) into styled
-PDF documents using the markdown-pdf library.  Each document type has its
-own CSS stylesheet controlling visual presentation.  The markdown source
-files are preserved alongside the generated PDFs.
+PDF documents using WeasyPrint.  Each document type has its own CSS
+stylesheet controlling visual presentation, including CSS Paged Media
+support for proper page breaks, page numbers, and margin control.
 
-Uses markdown-pdf (backed by PyMuPDF) which provides pre-built wheels
-for all major platforms -- no system-level dependencies like Pango or
-wkhtmltopdf are required.
+WeasyPrint requires system-level libraries (pango, cairo, gobject).
+On macOS: brew install pango
+On Ubuntu/Debian: apt install libpango-1.0-0 libpangocairo-1.0-0 libgdk-pixbuf2.0-0
 """
 
 from __future__ import annotations
 
 import logging
+import os
+import platform
 from dataclasses import dataclass
 from pathlib import Path
 
-from markdown_pdf import MarkdownPdf, Section
+# On macOS with Homebrew, pango/cairo/gobject libraries live in
+# /opt/homebrew/lib which isn't in the default DYLD_FALLBACK_LIBRARY_PATH.
+# Set it before importing WeasyPrint so cffi can find them.
+if platform.system() == "Darwin":
+    _brew_lib = "/opt/homebrew/lib"
+    if os.path.isdir(_brew_lib):
+        _current = os.environ.get("DYLD_FALLBACK_LIBRARY_PATH", "")
+        if _brew_lib not in _current:
+            os.environ["DYLD_FALLBACK_LIBRARY_PATH"] = (
+                f"{_brew_lib}:{_current}" if _current else _brew_lib
+            )
+
+from markdown_it import MarkdownIt
+from weasyprint import HTML
 
 logger = logging.getLogger(__name__)
+
+# Markdown-it parser with table support.
+_md = MarkdownIt("commonmark").enable("table")
 
 # Path to the CSS stylesheets relative to the plugin root.
 _STYLES_DIR = Path(__file__).resolve().parent.parent / "templates" / "pdf-styles"
@@ -147,15 +165,27 @@ def generate_pdf(
     css = _load_stylesheet(doc_type)
 
     try:
-        pdf = MarkdownPdf(toc_level=0)
-        section = Section(markdown_text, toc=False, paper_size="Letter")
-        pdf.add_section(section, user_css=css if css else None)
-        pdf.meta["creator"] = "Data Canopy Due Diligence"
+        # Convert markdown to HTML via markdown-it.
+        html_body = _md.render(markdown_text)
+
+        # Wrap in a full HTML document with the stylesheet.
+        html_doc = f"""<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<style>{css}</style>
+</head>
+<body>
+{html_body}
+</body>
+</html>"""
 
         # Ensure the output directory exists.
         output_path.parent.mkdir(parents=True, exist_ok=True)
 
-        pdf.save(str(output_path))
+        # Render to PDF via WeasyPrint.
+        html_obj = HTML(string=html_doc)
+        html_obj.write_pdf(str(output_path))
     except Exception as exc:
         logger.error("PDF generation failed for %s: %s", markdown_path.name, exc)
         return PDFResult(

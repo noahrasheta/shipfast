@@ -8,6 +8,11 @@
 # stall.
 #
 # NOTE: The full install is ~3-5 GB (PyTorch, Docling models, GLiNER model).
+#
+# SYSTEM DEPENDENCIES: WeasyPrint (PDF generation) requires pango, cairo,
+# and gobject libraries at the system level:
+#   macOS:         brew install pango
+#   Ubuntu/Debian: apt install libpango-1.0-0 libpangocairo-1.0-0 libgdk-pixbuf2.0-0
 
 set -e
 
